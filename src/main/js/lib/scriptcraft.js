@@ -706,9 +706,12 @@ function __onEnable ( __engine, __plugin, __script )
         }
       }
     }
-    if ( cmdName == 'jsp' ) {
+    else if ( cmdName == 'jsp' ) {
       cmdModule.exec( jsArgs, sender );
       result = true;
+    }
+    else {
+      logger.info('Got hit by unknown command '+cmdName);
     }
     return result;
   };

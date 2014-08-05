@@ -4,10 +4,17 @@ import java.io.InputStreamReader;
 import javax.script.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Field;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.command.*;
 import org.bukkit.event.Listener;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.SimplePluginManager;
+import org.bukkit.plugin.Plugin;
 
 public class ScriptCraftPlugin extends JavaPlugin implements Listener
 {
@@ -34,6 +41,77 @@ public class ScriptCraftPlugin extends JavaPlugin implements Listener
             this.getLogger().severe(e.getMessage());
         }
     }
+
+    public void registerCommand(String... aliases)
+    {
+        PluginCommand command = getCommand(aliases[0], this);
+
+	command.setAliases(Arrays.asList(aliases));
+	getCommandMap().register(this.getDescription().getName(), command);
+    }
+
+    private static PluginCommand getCommand(String name, Plugin plugin)
+    {
+        PluginCommand command = null;
+
+	try {
+		Constructor<PluginCommand> c = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
+		c.setAccessible(true);
+
+		command = c.newInstance(name, plugin);
+	}
+	catch (SecurityException e) {
+		e.printStackTrace();
+	}
+	catch (IllegalArgumentException e) {
+		e.printStackTrace();
+	}
+	catch (IllegalAccessException e) {
+		e.printStackTrace();
+	}
+	catch (InstantiationException e) {
+		e.printStackTrace();
+	}
+	catch (InvocationTargetException e) {
+		e.printStackTrace();
+	}
+	catch (NoSuchMethodException e) {
+		e.printStackTrace();
+	}
+
+	return command;
+    }
+
+
+    private static CommandMap getCommandMap()
+    {
+        CommandMap commandMap = null;
+
+	try {
+	    if (Bukkit.getPluginManager() instanceof SimplePluginManager) {
+	        Field f = SimplePluginManager.class.getDeclaredField("commandMap");
+		f.setAccessible(true);
+		commandMap = (CommandMap) f.get(Bukkit.getPluginManager());
+	    }
+	}
+	catch (NoSuchFieldException e) {
+	    e.printStackTrace();
+	}
+	catch (SecurityException e) {
+	    e.printStackTrace();
+	}
+	catch (IllegalArgumentException e) {
+	    e.printStackTrace();
+	}
+	catch (IllegalAccessException e) {
+	    e.printStackTrace();
+	}
+
+	return commandMap;
+    }
+ 
+
+
     public List<String> onTabComplete(CommandSender sender, Command cmd,
                                       String alias,
                                       String[] args)
