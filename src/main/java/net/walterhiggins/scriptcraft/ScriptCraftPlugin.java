@@ -46,8 +46,8 @@ public class ScriptCraftPlugin extends JavaPlugin implements Listener
     {
         PluginCommand command = getCommand(aliases[0], this);
 
-	command.setAliases(Arrays.asList(aliases));
-	getCommandMap().register(this.getDescription().getName(), command);
+        command.setAliases(Arrays.asList(aliases));
+        getCommandMap().register(this.getDescription().getName(), command);
     }
 
     private static PluginCommand getCommand(String name, Plugin plugin)
@@ -61,22 +61,22 @@ public class ScriptCraftPlugin extends JavaPlugin implements Listener
 		command = c.newInstance(name, plugin);
 	}
 	catch (SecurityException e) {
-		e.printStackTrace();
+            e.printStackTrace();
 	}
 	catch (IllegalArgumentException e) {
-		e.printStackTrace();
+            e.printStackTrace();
 	}
 	catch (IllegalAccessException e) {
-		e.printStackTrace();
+            e.printStackTrace();
 	}
 	catch (InstantiationException e) {
-		e.printStackTrace();
+            e.printStackTrace();
 	}
 	catch (InvocationTargetException e) {
-		e.printStackTrace();
+            e.printStackTrace();
 	}
 	catch (NoSuchMethodException e) {
-		e.printStackTrace();
+            e.printStackTrace();
 	}
 
 	return command;
