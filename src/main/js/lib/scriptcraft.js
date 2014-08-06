@@ -626,6 +626,7 @@ function __onEnable ( __engine, __plugin, __script )
 
   var cmdModule = require('command');
   global.command = cmdModule.command;
+  global.command2 = cmdModule.command2;
   var plugins = require('plugin');
   global.__onTabComplete = require('tabcomplete');
   global.plugin = plugins.plugin;
@@ -708,6 +709,10 @@ function __onEnable ( __engine, __plugin, __script )
     }
     else if ( cmdName == 'jsp' ) {
       cmdModule.exec( jsArgs, sender );
+      result = true;
+    }
+    else if (cmdModule.isCommand2Known(cmdName)) {
+      cmdModule.exec2( cmdName, jsArgs, sender);
       result = true;
     }
     else {

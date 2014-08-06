@@ -1,6 +1,7 @@
 'use strict';
 var tabCompleteJSP = require('tabcomplete-jsp'),
-  isJavaObject = require('java-utils').isJavaObject;
+  isJavaObject = require('java-utils').isJavaObject,
+  commandModule = require('command');
 
 /*
   Tab Completion of the /js and /jsp commands
@@ -117,6 +118,45 @@ var onTabCompleteJS = function( result, cmdSender, pluginCmd, cmdAlias, cmdArgs 
 
   if ( pluginCmd.name == 'jsp' ) {
     return tabCompleteJSP( result, cmdSender, pluginCmd, cmdAlias, cmdArgs );
+  }
+
+  // Argument hints for command2
+  if ( commandModule.isCommand2Known(pluginCmd.name) )
+  {
+    var cmd = commandModule.commands2[pluginCmd.name];
+
+    var opts;
+
+    if (typeof cmd.options === 'function'){
+      opts = cmd.options();
+    } else {
+      opts = cmd.options;
+    }
+    var len = opts.length;
+    if ( cmdArgs.length > 0 ) {
+      // partial e.g. /mycmd dar<TAB>
+      for ( i = 0; i < len; i++ ) {
+        if ( opts[i].indexOf( cmdArgs[0] ) == 0 ) {
+          result.add( opts[i] );
+        }
+      }
+    }
+    return result;
+  }
+
+  if ( cmdArgs.length == 0 ) {
+    for ( i in commandModule.commands2 ) { 
+      result.add( i );
+    }
+  } else {
+    // partial e.g. /ho
+    // should tabcomplete to home if home is known
+    //
+    for ( i in commandModule.commands2 ) {
+      if ( i.indexOf( cmdInput ) == 0 ) {
+        result.add( i );
+      }
+    }
   }
 
   global.self = cmdSender; // bring in self just for autocomplete
