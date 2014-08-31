@@ -153,7 +153,7 @@ var onTabCompleteJS = function( result, cmdSender, pluginCmd, cmdAlias, cmdArgs 
     // should tabcomplete to home if home is known
     //
     for ( i in commandModule.commands2 ) {
-      if ( i.indexOf( cmdInput ) == 0 ) {
+      if ( i.indexOf( cmdArgs[0] ) == 0 ) {
         result.add( i );
       }
     }
