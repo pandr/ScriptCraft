@@ -13,7 +13,10 @@ import net.canarymod.tasks.ServerTask;
 import net.canarymod.tasks.TaskOwner;
 import net.canarymod.commandsys.CommandListener;
 import net.canarymod.commandsys.Command;
+import net.canarymod.commandsys.CanaryCommand;
+import net.canarymod.commandsys.CommandMeta;
 import net.canarymod.commandsys.TabComplete;
+import net.canarymod.commandsys.CommandDependencyException;
 import net.canarymod.chat.MessageReceiver;
 import net.canarymod.Canary;
 import net.canarymod.api.inventory.recipes.CraftingRecipe;
@@ -23,6 +26,8 @@ import net.canarymod.api.inventory.Item;
 import net.canarymod.hook.Dispatcher;
 import net.canarymod.plugin.PluginListener;
 import net.canarymod.hook.Hook;
+
+import static net.canarymod.Canary.log;
 
 public class ScriptCraftPlugin extends Plugin implements PluginListener, CommandListener
 {
@@ -155,5 +160,40 @@ public class ScriptCraftPlugin extends Plugin implements PluginListener, Command
     @TabComplete (commands = { "jsp" })
     public List<String> jspComplete(MessageReceiver sender, String[] args){
         return complete(sender, args, "jsp");
+    }
+
+    public void registerCommand(String[] aliases)
+    {
+        CommandMeta meta = new CommandMeta();
+
+        meta.Aliases = aliases;
+        meta.Description = "Description goes here";
+        meta.Permissions = new String[] { "" };
+        meta.ToolTip = "Tip goes here";
+
+        CanaryCommand ccmd = new CanaryCommand(meta, this, null, null) {
+            @Override
+            protected void execute(MessageReceiver caller, String[] parameters) {
+                try {
+                    log.info("Executing cmd " + parameters[0]);
+                    executeCommand(caller, parameters);
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                    log.warn("Could not execute command...", ex.getCause());
+                }
+            }
+        };
+
+        try {
+            Canary.commands().registerCommand(ccmd, this, false);
+        }
+        catch (CommandDependencyException ex)
+        {
+            ex.printStackTrace();
+            log.warn("Could not register command...", ex.getCause());
+        }
+
     }
 }

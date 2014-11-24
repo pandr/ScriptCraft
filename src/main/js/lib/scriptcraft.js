@@ -563,6 +563,7 @@ function __onEnable ( __engine, __plugin, __script ) {
       fnBody;
 
     if ( __plugin.canary ) {
+      logger.info("Got cmd: "+arguments[1][0]);
       sender = arguments[0];
       args = arguments[1];
       cmdName = (''+args[0]).toLowerCase().replace(/^\//,'');
@@ -630,9 +631,15 @@ function __onEnable ( __engine, __plugin, __script ) {
         }
       }
     }
-    if ( cmdName == 'jsp' ) {
+    else if ( cmdName == 'jsp' ) {
       cmdModule.exec( jsArgs, sender );
       result = true;
+    }
+    else
+    {
+      // Non-jsp commands
+      var args = [cmdName].concat(jsArgs);
+      result = cmdModule.executeCommand(args, sender);
     }
     return result;
   } // end __onCommand() function
@@ -744,6 +751,7 @@ function __onEnable ( __engine, __plugin, __script ) {
 
   var cmdModule = require('command');
   global.command = cmdModule.command;
+  global.registerCommand = cmdModule.registerCommand;
   var plugins = require('plugin');
   global.__onTabComplete = require('tabcomplete');
   global.plugin = plugins.plugin;
