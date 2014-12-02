@@ -768,5 +768,6 @@ function __onEnable ( __engine, __plugin, __script ) {
   __onDisableImpl = _onDisable;
   global.__onCommand = __onCommand;  
   plugins.autoload( global, new File(jsPluginsRootDir,'plugins'), logger );
+  plugins.autoload( global, new File(jsPluginsRootDir,'mods'), logger );
   require('legacy-check')(jsPluginsRootDir);
 }
