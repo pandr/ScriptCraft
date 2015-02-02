@@ -168,6 +168,20 @@ var blocks = {
   dragon_egg: 122,
   redstone_lamp: 123,
   redstone_lamp_active: 124,
+  //http://minecraft.gamepedia.com/Data_values#Double_Stone_Slabs
+  double_slab: {
+    stone: 43,
+    sandstone: '43:1',
+    wooden: '43:2',
+    cobblestone: '43:3',
+    brick: '43:4',
+    stonebrick: '43:5',
+    netherbrick:'43:6',
+    quartz: '43:7',
+    smooth_stone: '43:8',
+    smooth_sandstone: '43:9',
+    tile_quartz: '43:15'
+  },
   slab: {
     snow: 78,
     stone: 44,
@@ -234,7 +248,8 @@ var blocks = {
   hardened_clay: 172,
   coal_block: 173,
   packed_ice: 174,
-  double_plant: 175
+  double_plant: 175,
+  bonemeal: '351:15'
 };
 
 // Add all available colors to colorized block collections

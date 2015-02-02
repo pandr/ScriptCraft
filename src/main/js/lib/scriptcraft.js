@@ -1,4 +1,5 @@
 'use strict';
+/*global require*/
 /************************************************************************
 
 ## Modules in Scriptcraft
@@ -46,14 +47,13 @@ module.exports instead of exports.
 ## Module Loading
 
 When the ScriptCraft Java plugin is first installed, a new
-subdirectory is created in the craftbukkit/plugins directory. If your
-craftbukkit directory is called 'craftbukkit' then the new
-subdirectories will be ...
+`scriptcraft` subdirectory is created. If your minecraft server
+directory is called 'mcserver' then the new subdirectories will be ...
 
- * craftbukkit/plugins/scriptcraft/
- * craftbukkit/plugins/scriptcraft/plugins
- * craftbukkit/plugins/scriptcraft/modules
- * craftbukkit/plugins/scriptcraft/lib
+ * mcserver/scriptcraft/
+ * mcserver/scriptcraft/plugins
+ * mcserver/scriptcraft/modules
+ * mcserver/scriptcraft/lib
 
 ... The `plugins`, `modules` and `lib` directories each serve a different purpose.
 
@@ -312,14 +312,14 @@ The `command()` function is used to expose javascript functions for use by non-o
 
 To use a callback for options (TAB-Completion) ...
 
-    
+    var utils = require('utils');
     function boo( params, sender ) {
        var receiver = server.getPlayer( params[0] );
        if ( receiver ){
           echo( receiver, sender.name + ' says boo!');
        }
     }
-    command( boo, bukkit.playerNames );
+    command( boo, utils.playerNames );
 
 See chat/colors.js or alias/alias.js or homes/homes.js for more examples of how to use the `command()` function.
 
@@ -383,6 +383,7 @@ This function takes a single parameter and returns true if it's an operator or h
 */
 var global = this;
 var server;
+global.nashorn = typeof Java !== 'undefined';
 /*
   private implementation
 */
@@ -454,7 +455,7 @@ function __onEnable ( __engine, __plugin, __script ) {
         }
         result = JSON.parse(contents);
       } catch ( e ) {
-        logger.error( 'Error evaluating ' + canonizedFilename + ', ' + e );
+	logError('Error evaluating ' + canonizedFilename + ', ' + e );
       }
       finally {
         try {
@@ -497,7 +498,7 @@ function __onEnable ( __engine, __plugin, __script ) {
         result = __engine.eval( wrappedCode );
         // issue #103 avoid side-effects of || operator on Mac Rhino
       } catch ( e ) {
-        logger.error( 'Error evaluating ' + canonizedFilename + ', ' + e );
+	logError('Error evaluating ' + canonizedFilename + ', ' + e );
       }
       finally {
         try {
@@ -508,7 +509,7 @@ function __onEnable ( __engine, __plugin, __script ) {
       }
     } else {
       if ( warnOnFileNotFound ) {
-        logger.warning( canonizedFilename + ' not found' );
+	logWarn(canonizedFilename + ' not found' );
       }
     }
     return result;
@@ -613,19 +614,19 @@ function __onEnable ( __engine, __plugin, __script ) {
                 echo(sender, JSON.stringify( jsResult, replacer, 2) );
               }
             } catch ( displayError ) { 
-              logger.error( 'Error while trying to display result: ' + jsResult + ', Error: '+ displayError );
+	      logError('Error while trying to display result: ' + jsResult + ', Error: '+ displayError) ;
             }
           }
         } 
       } catch ( e ) {
-        logger.error( 'Error while trying to evaluate javascript: ' + fnBody + ', Error: '+ e );
+        logError( 'Error while trying to evaluate javascript: ' + fnBody + ', Error: '+ e );
         echo( sender, 'Error while trying to evaluate javascript: ' + fnBody + ', Error: '+ e );
         throw e;
       } finally {
         /*
          wph 20140312 don't delete self on nashorn until https://bugs.openjdk.java.net/browse/JDK-8034055 is fixed
          */
-        if ( typeof Java === 'undefined' ) { // Java is an object in Nashorn
+        if ( !nashorn ) { 
           delete global.self;
           delete global.__engine;
         }
@@ -657,7 +658,12 @@ function __onEnable ( __engine, __plugin, __script ) {
     server = Bukkit.server;
     logger = __plugin.logger;
   }
-
+  function logError(msg){
+    __plugin.canary ? logger.error( msg ) : logger.severe( msg );
+  }
+  function logWarn(msg){
+    __plugin.canary ? logger.warn( msg ) : logger.warning( msg );
+  }
   var File = java.io.File,
     FileReader = java.io.FileReader,
     BufferedReader = java.io.BufferedReader,
@@ -767,7 +773,7 @@ function __onEnable ( __engine, __plugin, __script ) {
   }
   __onDisableImpl = _onDisable;
   global.__onCommand = __onCommand;  
-  plugins.autoload( global, new File(jsPluginsRootDir,'plugins'), logger );
-  plugins.autoload( global, new File(jsPluginsRootDir,'mods'), logger );
+  plugins.autoload( global, new File(jsPluginsRootDir,'plugins') );
+  plugins.autoload( global, new File(jsPluginsRootDir,'mods') );
   require('legacy-check')(jsPluginsRootDir);
 }

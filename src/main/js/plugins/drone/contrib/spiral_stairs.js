@@ -1,5 +1,7 @@
-var Drone = require('../drone').Drone;
-var blocks = require('blocks');
+'use strict';
+/*global require*/
+var Drone = require('drone'),
+    blocks = require('blocks');
 
 /************************************************************************
 ### Drone.spiral_stairs() method
@@ -35,13 +37,16 @@ function spiral_stairs(stairBlock, flights){
     
   for (var i = 0; i < flights; i++){
     this
-      .box(blocks.stairs[stairBlock] + ':' + Drone.PLAYER_STAIRS_FACING[this.dir])
-      .up().fwd()
-      .box(blocks.stairs[stairBlock] + ':' + Drone.PLAYER_STAIRS_FACING[this.dir])
-      .up().fwd()
+      .box(blocks.stairs[stairBlock] )
+      .up()
+      .fwd()
+      .box(blocks.stairs[stairBlock] )
+      .up()
+      .fwd()
       .box(blocks.slab[stairBlock])
-      .turn().fwd();
+      .turn()
+      .fwd();
   }
-  return this.move('spiral_stairs');
+  this.move('spiral_stairs');
 }
 Drone.extend(spiral_stairs);

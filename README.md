@@ -1,4 +1,5 @@
 # Let's begin...
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/walterhiggins/ScriptCraft?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 I created ScriptCraft to make it easier for younger programmers to
 create their own Minecraft Mods. Mods are written using the
@@ -6,7 +7,7 @@ Javascript programming language. Once the ScriptCraft mod is
 installed, you can add your own new Mods by adding Javascript (.js)
 files in a directory.
 
- * If you're new to programming and want to start modding Minecraft, then [Start Here][ypgpm].
+ * If you're new to programming and want to start modding Minecraft, then [Start Here][yp].
  * If you've already used [Scratch][scr], have attended a few
    [CoderDojo][cd] sessions, or have already dabbled with Javascript,
    then [Start Here][cda].
@@ -15,16 +16,20 @@ files in a directory.
 This is a simple mod in a file called greet.js in the scriptcraft/plugins directory...
 
 ```javascript
-exports.greet = function( player ) {
-   echo( player, 'Hello ' + player.name );
-};
+function greet( player ) {
+  echo( player, 'Hello ' + player.name );
+}
+exports.greet = greet;
 ```
 
-At the in-game prompt, type...
+At the in-game prompt, type:
 
-    /js greet(self)
+```javascript
+/js greet(self)
+```
 
-... to see the greeting. Anything you can do using CanaryMod or CraftBukkit's API in Java, you can do using ScriptCraft in Javascript.
+Anything you can do using the CanaryMod or CraftBukkit APIs in Java,
+you can do using ScriptCraft in Javascript.
 
 # Description
 
@@ -32,50 +37,58 @@ ScriptCraft is a plugin for Minecraft Servers which lets operators,
 administrators and plug-in authors customize the game using
 Javascript.  ScriptCraft makes it easier to create your own mods. Mods
 can be written in Javscript and can use the full [CanaryMod API][cm]
-or [Bukkit API][bukkit]. I recommend using CanaryMod because
-CraftBukkit is no longer being actively developed due to a legal
-dispute. The ScriptCraft mod also lets you enter javascript commands
-at the in-game prompt.  To bring up the in-game prompt press the `/`
-key then type `js ` followed by any javascript statement. 
-For example:  `/js 1 + 1` will print 2.
+or [Bukkit API][bukkit]. ScriptCraft works with all of the following Minecraft Server software:
+
+* [CanaryMod][cm] (Recommended)
+* [SpigotMC][spigot] (Bukkit-compatible)
+* [GlowStone][gs] (Bukkit-compatible)
+
+[spigot]: http://www.spigotmc.org/
+[gs]: http://www.glowstone.net/
+
+I recommend using CanaryMod because CraftBukkit is no longer being
+actively developed due to a legal dispute. The ScriptCraft mod also
+lets you enter javascript commands at the in-game prompt.  To bring up
+the in-game prompt press the `/` key then type `js ` followed by any
+javascript statement.  For example: `/js 1 + 1` will print 2.
 
 ScriptCraft also includes many objects and functions to make building
 and modding easier using Javascript. The Javascript `Drone` object
 bundled with ScriptCraft provides an easy way to build at-scale in
-Minecraft. See the attached [cottage.js][cottage] file for an example
+Minecraft. See the attached [temple.js][temple] file for an example
 of how you can use the sample Drone plugin to create new buildings in
 Minecraft.
 
 [drone]: https://github.com/walterhiggins/ScriptCraft/tree/master/src/main/javascript/drone/drone.js
-[cottage]: https://github.com/walterhiggins/ScriptCraft/tree/master/src/main/javascript//drone/cottage.js
+[cottage]: https://github.com/walterhiggins/ScriptCraft/tree/master/src/main/js/plugins/drone/contrib/cottage.js
+[temple]: https://github.com/walterhiggins/ScriptCraft/blob/master/src/main/js/plugins/drone/contrib/temple.js
 [bukkit]: http://dl.bukkit.org/
 [cm]: http://canarymod.net/
 
 # Prerequisites
 
-You will need to have Java version 6 or later installed on your
-machine. Check the version by typing `java -version` at a command
-prompt.  You will need to [install CanaryMod][ic] or [install Bukkit][ib] 
-on your machine (I recommend using CanaryMod as Bukkit is
-no longer being actively developed). CanaryMod and Bukkit are both
-versions of Minecraft (server) that make it easy to install plugins
-and customize Minecraft.  You can [download the CanaryMod server
-here.][ic]
+* You will need to have Java version 6 or later installed on your
+  machine. Check the version by typing `java -version` at a command
+  prompt.
+
+* You will need to [install CanaryMod][ic] on your
+  machine. CanaryMod is a customized version of Minecraft Server that
+  makes it easy to install plugins and customize Minecraft.  You can
+  [download the CanaryMod server here.][ic]
 
 # Installation
 
 If you don't want to compile from source, you can [download the
-compiled plugin here][dl] and copy it the craftbukkit's plugins
-directory.
+compiled plugin here][dl] and copy it to the CanaryMod plugins directory.
 
 # Post Install
 
-Once installed, a new scriptcraft/plugins directory is automatically created.  All files in the scriptcraft/plugins
-directory will be automatically loaded when the server starts.  *Only
-players who are ops can use this plugin.* You can grant a player `op`
-privileges by typing 'op <username>' at the server console prompt or
-by adding the player's username to the ops.txt file in your
-server directory.
+Once installed, a new scriptcraft/plugins directory is automatically
+created.  All files in the scriptcraft/plugins directory will be
+automatically loaded when the server starts.  *Only players who are
+ops can use this plugin.* You can grant a player `op` privileges by
+typing 'op <username>' at the server console prompt or by adding the
+player's username to the ops.txt file in your server directory.
 
 Launch the server, then launch the Minecraft client and create a new
 server connection. The IP address will be `localhost` . Once you've
@@ -88,19 +101,16 @@ ground-level block and type ...
 blocks high by 1 block long.  Take a look at the
 src/main/javascript/drone/drone.js file to see what ScriptCraft's
 drone can do.  If you're interested in customizing minecraft beyond
-just creating new buildings, take a look at [./homes/homes.js][homes] for examples of how to create a
-javascript plugin for Minecraft.
-
-[ho]: blob/master/src/main/javascript/plugins/homes/homes.js
-[ar]: blob/master/src/main/javascript/plugins/arrows/arrows.js
-[si]: blob/master/src/main/javascript/modules/signs/menu.js
+just creating new buildings, take a look at [the homes mod][homes] for an example of how to create a more fully-featured javascript plugin for Minecraft.
 
 A Javascript mod for minecraft is just a javascript source file (.js)
-located in the craftbukkit/plugins/scriptcraft/plugins directory. All .js files in this
-directory will be automatically loaded when the craftbukkit server
-starts. To get started writing your own mod, first take a look at some
-of the existing mods in the [homes][ho], [arrows][ar] and
-[signs][si] directories. 
+located in the scriptcraft/plugins directory. All .js files in this
+directory will be automatically loaded when the server starts. To get
+started writing your own mod, take a look at some of the
+[examples][examples].
+
+[ho]: src/main/js/plugins/homes/homes.js
+[examples]: src/main/js/plugins/examples/
 
 # Additional information
 
@@ -123,11 +133,9 @@ ScriptCraft plugin...
    invoked the `/js` command. Again, this is a good jumping off point for
    diving into the CanaryMod API.
 
-[dl]: http://scriptcraftjs.org/download
+[dl]: http://scriptcraftjs.org/download/latest
 [api]: https://ci.visualillusionsent.net/job/CanaryLib/javadoc/
-[ib]: http://wiki.bukkit.org/Setting_up_a_server
 [ic]: http://canarymod.net/releases
-[cbdl]: http://dl.bukkit.org/downloads/craftbukkit/
 [cmapi]: https://ci.visualillusionsent.net/job/CanaryLib/javadoc/
 
 # Contributing
@@ -138,7 +146,8 @@ If you would like to contribute source code and/or documentation changes please 
 
 [![Travis Build Status](https://api.travis-ci.org/walterhiggins/ScriptCraft.png)](http://travis-ci.org/walterhiggins/ScriptCraft)
 
-# Bukkit Configuration (You can ignore this if usng CanaryMod)
+# Bukkit Configuration 
+## (You can ignore this if usng CanaryMod)
 
 ScriptCraft also works with Bukkit Plugin and uses the Bukkit Configuration
 API. On first loading, ScriptCraft will create a config.yml file in
@@ -166,16 +175,33 @@ ScriptCraft has [its own website][website] with further information.
 
 You can find more information about [ScriptCraft on my blog][blog].
 
+# Additional Resources
+
+CoderDojo Athenry have some [excellent tutorials][cda] for younger
+programmers who have used [Scratch][scr] and are interested in Modding
+Minecraft using Javascript.  In particular, they have an excellent
+[Scratch - to - Javascript][sj] tutorial which explains Scratch
+programs and how to do the same thing in Javascript.
+
+I highly recommend the series of [tutorials provided by CoderDojo Athenry][cda].
+
+Developer Chris Cacciatore has created some interesting tools using Scriptcraft...
+
+ * [A wolf-bot][wb]
+ * [L-Systems (Large-scale fractal structures in Minecraft)][ls] 
+ 
+[wb]: https://github.com/cacciatc/wolfbot
+[ls]: https://github.com/cacciatc/scriptcraft-lsystems
+
 [blog]: http://walterhiggins.net/blog/cat-index-scriptcraft.html
-[buk]: https://github.com/walterhiggins/ScriptCraft/blob/master/bukkit.md
 [yp]: docs/YoungPersonsGuideToProgrammingMinecraft.md
 [mm]: docs/Anatomy-of-a-Plugin.md
-[api]: https://github.com/walterhiggins/ScriptCraft/blob/master/docs/API-Reference.md
+[api]: docs/API-Reference.md
 [website]: http://scriptcraftjs.org/
-[ypgpm]: docs/YoungPersonsGuideToProgrammingMinecraft.md
 [cd]: http://coderdojo.com/
 [scr]: http://scratch.mit.edu/
 [cda]: http://cdathenry.wordpress.com/category/modderdojo/
 [ytpl]: http://www.youtube.com/watch?v=DDp20SKm43Y&list=PL4Tw0AgXQZH5BiFHqD2hXyXQi0-qFbGp_
-[ex]: ../../tree/master/src/main/javascript/plugins/examples
+[ex]: src/main/js/plugins/examples
 [contrib]: contributing.md
+[sj]: http://cdathenry.wordpress.com/2013/10/12/modderdojo-week-2-moving-from-scratch-to-javascript/

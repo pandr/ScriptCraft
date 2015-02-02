@@ -1,14 +1,38 @@
-var Drone = require('../drone').Drone;
-var blocks = require('blocks');
-//
-// constructs a medieval fort
-// 
+'use strict';
+/*global require */
+var Drone = require('drone'),
+    blocks = require('blocks');
+/************************************************************************
+### Drone.fort() method
+
+Constructs a medieval fort.
+
+#### Parameters
+ 
+ * side - How many blocks whide and long the fort will be (default: 18 . Must be greater than 9)
+ * height - How tall the fort will be (default: 6 . Must be greater than 3)
+
+#### Example
+
+At the in-game prompt you can create a fort by looking at a block and typing:
+
+```javascript
+/js fort()
+```
+
+Alternatively you can create a new Drone object from a Player or Location object and call the fort() method.
+
+```javascript
+var d = new Drone(player);
+d.fort();
+```
+![fort example](img/fortex1.png)
+
+***/ 
 function fort( side, height ) {
-  var brick = 98,
-    turret,
+  var turret,
     i,
-    torch,
-    ladder;
+    torch;
 
   if ( typeof side == 'undefined' ) {
     side = 18;
@@ -30,9 +54,12 @@ function fort( side, height ) {
   //
   // build walls.
   //
-  this.chkpt('fort')
-    .down().chessboard(blocks.wool.black, blocks.wool.white, side).up()
-    .box0(brick,side,height-1,side)
+  this
+    .chkpt('fort')
+    .down()
+    .chessboard( blocks.wool.black, blocks.wool.white, side)
+    .up()
+    .box0( blocks.brick.stone, side, height - 1, side)
     .up(height-1);
   //
   // build battlements
@@ -40,54 +67,60 @@ function fort( side, height ) {
   for ( i = 0; i <= 3; i++ ) {
 
     turret = [
-      '109:'+ Drone.PLAYER_STAIRS_FACING[this.dir],
-      '109:'+ Drone.PLAYER_STAIRS_FACING[(this.dir+2)%4]
+      blocks.stairs.stone ,
+      blocks.stairs.stone + ':'+ Drone.PLAYER_STAIRS_FACING[ (this.dir + 2) % 4 ]
     ];
-    this.box(brick) // solid brick corners
+    this
+      .box( blocks.brick.stone ) // solid brick corners
       .up()
-      .box('50:5')
+      .box(blocks.torch)
       .down() // light a torch on each corner
       .fwd()
-      .boxa(turret,1,1,side-2)
-      .fwd(side-2)
+      .boxa( turret, 1, 1, side-2)
+      .fwd( side-2 )
       .turn();
   }
   //
   // build battlement's floor
   //
-  this.move('fort')
+  this
+    .move('fort')
     .up(height-2)
     .fwd()
     .right();
 
   for ( i = 0; i < battlementWidth; i++ ) { 
-
-    this.box0('126:0', side - ( 2 + (i * 2) ), 1, side - ( 2 + ( i * 2) ))
+    var bside = side - ( 2 + (i * 2) );
+    this
+      .box0( blocks.slab.oak, bside, 1, bside)
       .fwd()
       .right();
   }
   //
   // add door
   //
-  torch = '50:' + Drone.PLAYER_TORCH_FACING[this.dir];
-  this.move('fort')
-    .right((side/2)-1)
+  torch = blocks.torch + ':' + Drone.PLAYER_TORCH_FACING[this.dir];
+  this
+    .move('fort')
+    .right( ( side / 2 ) - 1 )
     .door2() // double doors
     .back()
     .left()
     .up()
-    .box(torch) // left torch
-    .right(3)
-    .box(torch); // right torch
+    .box( torch ) // left torch
+    .right( 3 )
+    .box( torch ); // right torch
   //
   // add ladder up to battlements
   //
-  ladder = '65:' + Drone.PLAYER_SIGN_FACING[(this.dir+2)%4];
-  this.move('fort')
-    .right((side/2)-3)
-    .fwd(1) // move inside fort
-    .box(ladder, 1,height-1,1)
-    .move('fort');
+  this
+    .move('fort')
+    .right( ( side / 2 ) - 3 )
+    .fwd() // move inside fort
+    .turn( 2 )
+    .box( blocks.air, 1, height - 1, 1)
+    .ladder( height - 1 )
+    .move( 'fort' );
 }
 Drone.extend(fort);
 

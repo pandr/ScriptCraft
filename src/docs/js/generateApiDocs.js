@@ -1,3 +1,4 @@
+/*global load, args, Packages*/
 /*
  This script is run at build time to generate api.md - a single Markdown document containing documentation for ScriptCraft's API
  */
@@ -75,29 +76,7 @@ function sorter( precedence ){
     }
   };
 }
-function sortByModule(a,b)
-{
-  var aparts = (''+a).split(/\//);
-  var bparts = (''+b).split(/\//);
-  var adir = aparts[aparts.length-2];
-  var afile = aparts[aparts.length-1];
-  var bdir = bparts[bparts.length-2];
-  var bfile = bparts[bparts.length-1];
-  if (afile == '_scriptcraft.js')
-    return -1;
-  if (bfile == '_scriptcraft.js')
-    return 1;
-  if(adir<bdir) return -1;
-  if(adir>bdir) return 1;
-  if (afile.indexOf(adir) == 0)
-    return -1;
-  else
-    return 1;
-}
-
-
 var err = java.lang.System.err;
-
 args = Array.prototype.slice.call(args,1);
 
 if (typeof importPackage == 'undefined'){
@@ -116,13 +95,15 @@ store.sort(sorter([
     /lib\/require\.js$/,
     /lib\/plugin\.js$/,
     /lib\/events\.js$/,
+    /lib\/events\-helper\-canary/,
+    /lib\/events\-helper\-bukkit/,
     /lib\//, 
+    /modules\/drone\/index\.js/, 
+    /modules\/drone\//,
+    /plugins\/drone\//,
     /modules\//,
-    /drone\.js/, 
-    /drone\//,
     /examples\//
 ]));
-//err.println("store=" + JSON.stringify(store));
 
 var contents = [];
 foreach(store, function(filename){

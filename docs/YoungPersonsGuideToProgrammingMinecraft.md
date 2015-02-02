@@ -1,7 +1,14 @@
+<!-- 
+IMPORTANT NOTE FOR CONTRIBUTORS
+-------------------------------
+Contributors: This file is generated from source file src/docs/templates/ypgpm.md
+If you would like to make changes, change file src/docs/templates/ypgpm.md instead
+-->
 # The Young Person's Guide to Programming in Minecraft
 ## Table of Contents
  * [Introduction](#introduction)
  * [Installation](#installation)
+ * [CanaryMod and Permissions](#canarymod-and-permissions)
  * [Configuring your Server (optional)](#configuring-your-server-optional)
  * [Learning Javascript](#learning-javascript)
  * [First Steps](#first-steps)
@@ -62,7 +69,7 @@ easy addition of 'Mods' and extensions to Minecraft. ScriptCraft is a
 difficult but CanaryMod makes it easy.  Follow these steps to
 Install ScriptCraft on your computer...
 
-1. [Download and install CanaryMod][dlcm] (choose either Recommended, Beta or Development) . Then follow the [CanaryMod
+1. [Download and install CanaryMod][dlcm] then follow the [CanaryMod
    Installation Instructions][cmadmin]. 
 
 2. Start the CanaryMod server, then once it has started up, stop it
@@ -94,6 +101,31 @@ installed, you don't have to learn Java, you can extend and customize
 Minecraft your way using Javascript. Javascript is easier to learn than 
 Java but it's also more flexible and powerful and is used for creating 
 interactive web sites and many other applications.
+
+## CanaryMod and Permissions
+CanaryMod works slightly differently to CraftBukkit in how it handles
+permissions and groups.  By default, there are 4 groups: visitors,
+players, mods and admins. Each player who joins the game is added to the
+'visitors' group.  This group has no permissions by default so
+visitors can't break or place blocks. If you would like to change this
+behaviour then issue the following command at the console window:
+
+    groupmod permission add visitors canary.world.build
+
+If you would like all admins to have scripting ability then issue the
+following command:
+
+    groupmod permission add admins scriptcraft.evaluate
+
+This will enable all admins on your server to issue javascript statements.
+All operators can issue any command (including the `/js` command to evaluate javascript). 
+For more information on CanaryMod's Permissions and Groups see the following:
+
+ * [Permissions and Groups][cmPerms]
+ * [List of Permissions][cmPermsList]
+
+[cmPerms]: http://canarymod.net/books/canarymod-admin-guide/permissions-and-groups
+[cmPermsList]: http://canarymod.net/books/canarymod-admin-guide/list-permissions
 
 ## Configuring your Server (optional)
 
@@ -132,7 +164,7 @@ If you don't already know Javascript, don't worry, you'll learn a little
 about Programming and Javascript along the way. You've set up a 
 Minecraft server and are ready to connect ...
 
-1. Launch Minecraft (keep the Bukkit Command window open). 
+1. Launch Minecraft. 
 2. Click 'Multi-Player'
 3. Click 'Add Server'
 4. Type any name you like in the name field then type `localhost` in the 
@@ -777,7 +809,7 @@ exports.hiAll = function () {
 }
 ```
 
-... save the file, at the in-game command prompt type `js refresh()` and
+... save the file, at the in-game command prompt type `/js refresh()` and
 then type `/js hiAll()`. This will send the message `Hi!` to all of
 the players connected to your server. You've done this using a `for`
 loop and arrays. Arrays and `for` loops are used heavily in all types
@@ -818,7 +850,8 @@ through arrays. The following loop prints out all of the players on
 the server...
 
 ```javascript
-var players = server.onlinePlayers;
+var utils = require('utils');
+var players = utils.players();
 var i = 0;
 while ( i < players.length ) {
     console.log( players[i] );
@@ -847,7 +880,9 @@ loops. utils.foreach() takes two parameters...
 Let's see it in action, the following code will `console.log()` (print) the
 name of each online player in the server console window...
 
-    utils.foreach( server.onlinePlayers, console.log );
+    var utils = require('utils');
+    var players = utils.players;
+    utils.foreach( players, console.log );
 
 ... in the above example, the list of online players is processed one
 at a time and each item (player) is passed to the `console.log`
@@ -863,8 +898,9 @@ utils.foreach() function...
   give every player the ability to fly.
 */
 var utils = require('utils');
-utils.foreach( server.onlinePlayers, function( player ) { 
-    player.setAllowFlight(true); 
+var players = utils.players();
+utils.foreach( players, function( player ) { 
+  player.capabilities.setMayFly(true);
 } );
 ```
 
@@ -875,19 +911,21 @@ utils.foreach( server.onlinePlayers, function( player ) {
   Play a Cat's Meow sound for each player.
 */
 var utils = require('utils');
-utils.foreach( server.onlinePlayers, function( player ) { 
-    player.playSound(player.location, 
-                     org.bukkit.Sound.CAT_MEOW,
-                     1,
-                     1);
+var players = utils.players();
+var sounds = require('sounds');
+utils.foreach( players, function( player ) { 
+  sounds.catMeow( player );	       			  	     
 } );
 ```
 
 ### Exercise
 Try changing the above function so that different sounds are played
-instead of a Cat's Meow.  You'll need to lookup the [CanaryMod API's
-Sound class][soundapi] to see all of the possible sounds that can be
-played.
+instead of a Cat's Meow. To see all of the possible sounds that can be
+played, load the sounds module at the in-game prompt using the following statement:
+
+    /js var sounds = require('sounds');
+
+... then type `/js sounds.` and press the TAB key to see a list of all possible sounds.
 
 Loops are a key part of programming in any language. Javascript
 provides `for` and `while` statements for looping and many javascript
@@ -914,28 +952,31 @@ pointing at the block, type the following into the in-game prompt...
 so the next step is to repeat this over and over. This is where `for`
 loops come in. Open your favorite text editor and create a new file in
 your scriptcraft/plugins/{your-name} directory, name the file `myskyscraper.js`, then
-type the following...
+type the following code and save:
 
 ```javascript
-var myskyscraper = function(floors) {
-    var i ;
-    if ( typeof floors == 'undefined' ) {
-        floors = 10;
-    }
-    this.chkpt('myskyscraper'); // saves the drone position so it can return there later
-    for ( i = 0; i < floors; i++ ) {
-        this.box(blocks.iron,20,1,20)
-            .up()
-            .box0(blocks.glass_pane,20,3,20)
-            .up(3);
-    }
-    return this.move('myskyscraper'); // return to where we started
+function myskyscraper( floors ) {
+  var i ;
+  if ( typeof floors == 'undefined' ) {
+    floors = 10;
+  }
+  // bookmark the drone's position so it can return there later
+  this.chkpt('myskyscraper'); 
+  for ( i = 0; i < floors; i++ ) {
+    this
+      .box(blocks.iron,20,1,20)
+      .up()
+      .box0(blocks.glass_pane,20,3,20)
+      .up(3);
+  }
+  // return the drone to where it started
+  this.move('myskyscraper'); 
 };
-var Drone = require('../drone/drone').Drone; 
-Drone.extend('myskyscraper',myskyscraper);
+var Drone = require('drone'); 
+Drone.extend( myskyscraper );
 ```
 
-... so this takes a little explaining. First I create a new function
+So this takes a little explaining. First I create a new function
 called myskyscraper that will take a single parameter `floors` so that
 when you eventually call the `myskyscraper()` function you can tell it
 how many floors you want built. The first statement in the function
@@ -949,12 +990,12 @@ floor. When the loop is done I return the drone to where it started.
 The last 2 lines load the drone module (it must be loaded before I can
 add new features to it) and the last line extends the 'Drone' object
 so that now it can build skyscrapers among other things.  Once you've
-typed in the above code and saved the file, type `reload` in your
-in-game prompt, then type ...
+typed in the above code and saved the file, type `/js refresh()` in your
+in-game prompt, then type:
 
      /js myskyscraper(2);
 
-... A two-story skyscraper should appear. If you're feeling
+A two-story skyscraper should appear. If you're feeling
 adventurous, try a 10 story skyscraper! Or a 20 story skyscraper!
 Minecraft has a height limit (256 blocks from bedrock) beyond which
 you can't build. If you try to build higher than this then building
@@ -974,38 +1015,37 @@ All the programs we have seen so far have been fairly predictable - they went
 straight through the statements, and then went back to the beginning again. This is 
 not very useful. In practice the computer would be expected to make decisions and 
 act accordingly. The javascript statement used for making decisions is `if`. 
-While standing on the ground in-game, type the following at the command prompt...
+While standing on the ground in-game, type the following at the command prompt:
 
-    /js if ( self.flying ) { echo('Hey, You are flying!'); }
+    /js if ( self.onGround ) { echo('You are not flying!'); }
 
-... No message should appear on screen. That is - `Hey, You are
-flying!` should *not* appear on screen.  Now double-tap the `space`
-bar to start flying in-game (tap the space bar twice in rapid
+the following message should have appeared on your screen:
+
+    You are not flying!
+
+Now double-tap the `space` bar to start flying in-game (tap the space bar twice in rapid
 succession), then press and hold space to rise above the ground. Now
 enter the same statement again (If you don't want to type the same
 statement again, just press `/` then press the `UP` cursor key on your
 keyboard, the statement you entered previously should reappear.
 
-    /js if ( self.flying ) { echo('Hey, You are flying!'); }
+    /js if ( self.onGround ) { echo('You are not flying!'); }
 
-... this time the following message should have appeared on your screen...
-
-    Hey, You are flying!
+This time no message should appear on your screen.
 
 The `if` statement tests to see if something is `true` or `false` and
 if `true` then the block of code between the curly braces ( `{` and
 `}` ) is executed - but only if the condition is true.  The condition
-in the above example is `self.flying` which will be `true` if you are
-currently flying or `false` if you aren't.
+in the above example is `!self.onGround` (self is not on ground) which
+will be `true` if you are currently flying or `false` if you aren't.
 
 What if you wanted to display a message only if a condition is *not*
-true ? For example to only display a message if the player is *not*
-flying...
+true ? For example to only display a message if the player is *not* on the ground:
 
-    /js if ( ! self.flying ) { echo ('You are not flying.'); }
+    /js if ( !self.onGround ) { echo ('You are flying!'); }
 
-... This code differs in that now there's a `!` (the exclamation mark)
-before `self.flying`. The `!` symbol negates (returns the opposite of)
+This code differs in that now there's a `!` (the exclamation mark)
+before `self.onGround`. The `!` symbol negates (returns the opposite of)
 whatever follows it.
 
 What if you want to display a message in both cases - whether you're
@@ -1015,15 +1055,15 @@ in your scriptcraft/plugins directory...
 
 ```javascript
 exports.flightStatus = function( player ) {
-    if ( player.flying ) { 
-         player.sendMessage( 'Hey, You are flying!' );
-    } else {
-         player.sendMessage( 'You are not flying.' );
-    }
+  if ( player.onGround ) { 
+    echo(player, 'You are not flying!' );
+  } else {
+    echo(player, 'Hey, You are flying!' );
+  }
 }
 ```
 
-... now type `/reload` at the in-game prompt then type `/js
+... now type `/js refresh()` at the in-game prompt then type `/js
 flightStatus(self)` and an appropriate message will appear based on
 whether or not you're currently flying. Type the `/js flightStatus()`
 command while on the ground and while flying. The message displayed in
@@ -1052,51 +1092,29 @@ following code sends a message to any player who breaks a block in the
 game...
 
 ```javascript
-events.on('block.BlockBreakEvent', function ( event ) { 
-    var breaker = event.player;
-    breaker.sendMessage('You broke a block');    
-} );
+function myBlockDestroyHook( event ){
+  var breaker = event.player;
+  echo( breaker, 'You broke a block');
+}
+events.blockDestroy( myBlockDestroyHook );
 ```
 
-The `events.on()` function is how you *register* a function which you
-want to be called whenever a particular type of event occurs. In the
-above code the first parameter `'block.BlockBreakEvent'` is the type
-of event I want to listen for and the second parameter is the function
+The `events.blockDestroy()` function is just one of the many `events` functions which can be used to *register* a function to be called whenever a particular type of event occurs. In the
+above code the blockDestroy function takes as a parameter a function
 I want to be called when that event occurs. The function I want called
 in turn takes 1 parameter. The `event` object has all the information
 about the event which just occurred. I can tell who broke the block
 and send a message to the player. The important thing to note is that
-the function defined above will not be called until a player breaks a
+the `myBlockDestroyHook` function defined above will not be called until a player breaks a
 block. Try it - save the above code in a new file in the
 `scriptcraft/plugins` directory then type `/js refresh()` to reload
 scriptcraft. Then break a block in the game and you should see the
 message 'You broke a block'.
 
 There are many types of events you can listen for in Minecraft. You can
-browse [all possible Bukkit events][bkevts] (click the 'Next
-Package' and 'Previous Package' links to browse). 
+browse [all possible event registration functions][cmevts2] in the API Reference. 
 
-It's important to note that when browsing the Bukkit API's
-[org.bukkit.event][bkevts] package, if you see a class called
-'org.bukkit.events.entity.EntityShootBowEvent', then when calling
-`events.on()` you can listen to such an event using either the fully
-qualified Class name...
-
-    events.on(org.bukkit.events.entity.EntityShootBowEvent, function( event ) { 
-       ...
-    });
-
-or an abbreviated name in string form...
-
-    events.on('entity.EntityShootBowEvent', function( event ) { 
-       ...
-    });
-
-If the `events.on()` function gets a String (text) as its first
-parameter it automatically converts it to the appropriate Class by
-prepending the 'org.bukkit.events' package.
-
-For custom events (events which aren't in the org.bukkit.event tree)
+For custom events (events which aren't in the net.canarymod.hook tree)
 just specify the fully qualified class name instead. E.g. ...
 
     events.on ( net.yourdomain.events.YourEvent, function( event ) {
@@ -1108,11 +1126,12 @@ just specify the fully qualified class name instead. E.g. ...
 If you want an event handler to only execute once, you can remove the handler like this...
 
 ```javascript
-events.on('block.BlockBreakEvent', function( evt ) { 
-    var breaker = evt.player;
-    breaker.sendMessage('You broke a block');
-    this.unregister();
-} );
+function myBlockDestroyHook( evt ) { 
+  var breaker = evt.player;
+  echo( breaker, 'You broke a block');
+  this.unregister();
+} 
+events.blockDestroy( myBlockDestroyHook );
 ```
 
 The `this.unregister();` statement will remove this function from the
@@ -1124,12 +1143,14 @@ to stop listening for events.
 To unregister a listener *outside* of the listener function...
 
 ```javascript    
-var myBlockBreakListener = events.on( 'block.BlockBreakEvent', function( evt ) { ... } );
+function myBlockDestroyHook( evt ){
+  var breaker = evt.player;
+  echo( breaker, 'You broke a block');
+}
+var myBlockBreakListener = events.blockDestroy( myBlockDestroyHook );
 ...
 myBlockBreakListener.unregister();
 ```
-
-
 ## Keeping Score - Lookup tables in Javascript
 
 In the *Event-Driven Programming* section, I defined a function which
@@ -1181,10 +1202,10 @@ like this...
 
 ```javascript
 var scoreboard = {
-    walter: 5,
-    tom:    6,
-    jane:   8,
-    bart:   7
+  walter: 5,
+  tom:    6,
+  jane:   8,
+  bart:   7
 };
 ```
 
@@ -1193,7 +1214,7 @@ parameter and returned their score, I'd do it like this...
 
 ```javascript
 function getScore(player){
-    return scoreboard[ player ];
+  return scoreboard[ player ];
 }
 ```
 
@@ -1211,21 +1232,22 @@ var utils = require('utils');
 var scores = {};
 
 exports.initialise = function(names){
-    scores = {};
-    utils.foreach(names, function(name){ 
-        scores[name] = 0;
-    });
+  scores = {};
+  utils.foreach(names, function(name){ 
+    scores[name] = 0;
+  });
 };
 
-/* changes score by diff e.g. to add 6 to the player's current score
-   updateScore('walter',6); // walter's new score = 5 + 6 = 11.
+/* 
+  changes score by diff e.g. to add 6 to the player's current score
+  updateScore('walter',6); // walter's new score = 5 + 6 = 11.
 */
 exports.updateScore = function(name, diff){
-    scores[name] += diff; 
+  scores[name] += diff; 
 };
 
 exports.getScore = function(name){
-    return scores[name];
+  return scores[name];
 };
 ```
 
@@ -1238,18 +1260,24 @@ keep a count of how many blocks each player has broken ...
 
 ```javascript
 var breaks = {};
-// every time a player joins the game reset their block-break-count to 0
-events.on('player.PlayerJoinEvent', function( event ) {
-    breaks[event.player] = 0;
-});
-events.on('block.BlockBreakEvent', function( event ) {
-    var breaker = event.player;
-    var breakCount = breaks[breaker.name];
-    breakCount++; // increment the count.
-    breaks[breaker.name] = breakCount;
-     
-    breaker.sendMessage('You broke ' + breakCount + ' blocks');
-});
+
+/*
+  every time a player joins the game reset their block-break-count to 0
+*/
+function initializeBreakCount( event ){
+  breaks[event.player.name] = 0;	 
+}
+events.connection( initializeBreakCount );
+
+/* 
+  every time a player breaks a block increase their block-break-count
+*/
+function incrementBreakCount( event ){
+  breaks[event.player.name] += 1; // add 1
+  var breakCount = breaks[event.player.name];
+  echo( event.player, 'You broke ' + breakCount + ' blocks');
+}
+events.blockDestroy( incrementBreakCount );
 ```
 
 With a little more work, you could turn this into a game where players
@@ -1288,6 +1316,8 @@ different objects and methods available for use by ScriptCraft.
 [api]: API-Reference.md
 [twl]: http://www.barebones.com/products/textwrangler/
 [bkevts]: http://jd.bukkit.org/dev/apidocs/org/bukkit/event/package-summary.html
+[cmevts]: https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/package-summary.html
+[cmevts2]: API-Reference.md#events-helper-module-canary-version
 [img_echo_date]: img/ypgpm_echo_date.png
 [img_3d_shapes]: img/ypgpm_3dshapes.jpg
 [img_whd]: img/ypgpm_whd.jpg

@@ -1,3 +1,4 @@
+/*global require, __plugin, org, exports, server, setTimeout, Packages, setInterval, addUnloadHandler, clearInterval, events*/
 'use strict';
 var File = java.io.File;
 
@@ -18,9 +19,9 @@ miscellaneous utility functions and classes to help with programming.
 
 ### utils.player() function
 
-The utils.player() function will return a [bukkit Player][bkpl] object
+The utils.player() function will return a [Player][cmpl] object
 with the given name. This function takes a single parameter
-`playerName` which can be either a String or a [Player][bkpl] object -
+`playerName` which can be either a String or a [Player][cmpl] object -
 if it's a Player object, then the same object is returned. If it's a
 String, then it tries to find the player with that name.
 
@@ -37,17 +38,19 @@ var utils = require('utils');
 var name = 'walterh';
 var player = utils.player(name);
 if ( player ) {
-    echo(player, 'Got ' + name);
+  echo(player, 'Got ' + name);
 } else {
-    console.log('No player named ' + name);
+  console.log('No player named ' + name);
 }
 ```
 
 [bkpl]: http://jd.bukkit.org/dev/apidocs/org/bukkit/entity/Player.html
+[cmpl]: https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/api/entity/living/humanoid/Player.html
+[cmloc]: https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/api/world/position/Location.html 
 [bkloc]: http://jd.bukkit.org/dev/apidocs/org/bukkit/Location.html
 
 ***/
-var _player = function ( playerName ) {
+function _player( playerName ) {
   if ( typeof playerName == 'undefined' ) {
     if ( typeof self == 'undefined' ) {
       return null;
@@ -66,9 +69,46 @@ var _player = function ( playerName ) {
   }
 };
 /*************************************************************************
+### utils.world( worldName ) function
+
+Returns a World object matching the given name
+
+***/
+function _world( worldName ){
+  if (__plugin.canary){
+    try { 
+      return Canary.server.worldManager.getWorld( worldName, true );
+    } catch (error) {
+      console.error( 'utils.world() failed to load ' + worldName + ',Error:' + error );
+    }
+  }
+  if (__plugin.bukkit){
+    return bkBukkit.getWorld( worldName );
+  }
+  return null;
+}
+exports.world = _world;
+
+/*************************************************************************
+### utils.blockAt( Location ) function
+
+Returns the Block at the given location.
+
+***/
+function _blockAt( location ){
+  if (__plugin.canary){
+    return location.world.getBlockAt(location);
+  }
+  if (__plugin.bukkit){
+    return location.block;
+  }
+  return null;
+}
+exports.blockAt = _blockAt;
+/*************************************************************************
 ### utils.locationToJSON() function
 
-utils.locationToJSON() returns a [org.bukkit.Location][bkloc] object in JSON form...
+utils.locationToJSON() returns a [Location][cmloc] object in JSON form...
 
     { world: 'world5',
       x: 56.9324,
@@ -82,7 +122,7 @@ This can be useful if you write a plugin that needs to store location data since
 
 #### Parameters
  
- * location: An object of type [org.bukkit.Location][bkloc]
+ * location: An object of type [Location][cmloc]
 
 #### Returns
 
@@ -90,12 +130,13 @@ A JSON object in the above form.
  
 ***/
 var _locationToJSON = function( location ) {
+  var yaw = __plugin.bukkit ? location.yaw : (__plugin.canary ? location.rotation : 0);
   return { 
     world: ''+location.world.name, 
     x: location.x, 
     y: location.y, 
     z: location.z, 
-    yaw: location.yaw,
+    yaw: yaw,
     pitch: location.pitch
   };
 };
@@ -103,7 +144,7 @@ var _locationToJSON = function( location ) {
 ### utils.locationToString() function
 
 The utils.locationToString() function returns a
-[org.bukkit.Location][bkloc] object in string form...
+[Location][cmloc] object in string form...
 
     '{"world":"world5",x:56.9324,y:103.9954,z:43.1323,yaw:0.0,pitch:0.0}'
 
@@ -128,7 +169,7 @@ exports.locationToJSON = _locationToJSON;
 /*************************************************************************
 ### utils.locationFromJSON() function
 
-This function reconstructs an [org.bukkit.Location][bkloc] object from
+This function reconstructs an [Location][cmloc] object from
 a JSON representation. This is the counterpart to the
 `locationToJSON()` function. It takes a JSON object of the form
 returned by locationToJSON() and reconstructs and returns a bukkit
@@ -139,16 +180,16 @@ exports.locationFromJSON = function( json ) {
   var world;
   if ( json.constuctor == Array ) { 
     // for support of legacy format
-    world = bkBukkit.getWorld( json[0] );
+    world = _world( json[0] );
     return new bkLocation( world, json[1], json[2] , json[3] );
   } else {
     if (__plugin.canary){
-      world = Canary.server.getWorld( json.world );
+      world = _world( json.world );
       var cmLocation = Packages.net.canarymod.api.world.position.Location;
-      return new cmLocation(world, json.x, json.y, json.z, json.pitch, json.yaw);
+      return new cmLocation(world, json.x, json.y, json.z, json.pitch?json.pitch:0, json.yaw?json.yaw:0);
     } else {
-      world = bkBukkit.getWorld( json.world );
-      return new bkLocation( world, json.x, json.y , json.z, json.yaw, json.pitch );
+      world = _world( json.world );
+      return new bkLocation( world, json.x, json.y , json.z, json.yaw?json.yaw:0, json.pitch?json.pitch:0 );
     }
   }
 };
@@ -162,10 +203,9 @@ exports.getPlayerObject = function( player ) {
 /*************************************************************************
 ### utils.getPlayerPos() function
 
-This function returns the player's [Location][bkloc] (x, y, z, pitch
+This function returns the player's [Location][cmloc] (x, y, z, pitch
 and yaw) for a named player.  If the "player" is in fact a
-[org.bukkit.command.BlockCommandSender][bkbcs] then the attached
-Block's location is returned.
+[BlockCommand][bkbcs] then the attached Block's location is returned.
 
 #### Parameters
 
@@ -173,25 +213,34 @@ Block's location is returned.
 
 #### Returns
 
-An [org.bukkit.Location][bkloc] object.
+A [Location][cmloc] object.
 
 [bkbcs]: http://jd.bukkit.org/dev/apidocs/org/bukkit/command/BlockCommandSender.html
 [bksndr]: http://jd.bukkit.org/dev/apidocs/index.html?org/bukkit/command/CommandSender.html
 ***/
-exports.getPlayerPos = function( player ) {
+function getPlayerPos( player ){
   player = _player( player );
   if ( player ) {
-    if ( player instanceof bkBlockCommandSender )
-      return player.block.location;
-    else
-      return player.location;
+    if (__plugin.bukkit){
+      if ( player instanceof bkBlockCommandSender )
+	return player.block.location;
+      else
+	return player.location;
+    }
+    if (__plugin.canary){
+      if ( player instanceof Packages.net.canarymod.api.world.blocks.CommandBlock)
+	return player.block.location;
+      else
+	return player.location;
+    }
   } 
   return null;
-};
+}
+exports.getPlayerPos = getPlayerPos;
 /************************************************************************
 ### utils.getMousePos() function
 
-This function returns a [org.bukkit.Location][bkloc] object (the
+This function returns a [Location][cmloc] object (the
 x,y,z) of the current block being targeted by the named player. This
 is the location of the block the player is looking at (targeting).
 
@@ -208,7 +257,12 @@ var utils = require('utils');
 var playerName = 'walterh';
 var targetPos = utils.getMousePos(playerName);
 if (targetPos){
-   targetPos.world.strikeLightning(targetPos);
+  if (__plugin.canary){
+    targetPos.world.makeLightningBolt(targetPos);
+  }  
+  if (__plugin.bukkit){ 
+    targetPos.world.strikeLightning(targetPos);
+  }
 }
 ```
 
@@ -243,14 +297,15 @@ exports.getMousePos = function( player ) {
 ### utils.foreach() function
 
 The utils.foreach() function is a utility function for iterating over
-an array of objects (or a java.util.Collection of objects) and processing each object in turn. Where
-utils.foreach() differs from other similar functions found in
-javascript libraries, is that utils.foreach can process the array
-immediately or can process it *nicely* by processing one item at a
-time then delaying processing of the next item for a given number of
-server ticks (there are 20 ticks per second on the minecraft main
-thread).  This method relies on Bukkit's [org.bukkit.scheduler][sched]
-package for scheduling processing of arrays.
+an array of objects (or a java.util.Collection of objects) and
+processing each object in turn. Where utils.foreach() differs from
+other similar functions found in javascript libraries, is that
+utils.foreach can process the array immediately or can process it
+*nicely* by processing one item at a time then delaying processing of
+the next item for a given number of server ticks (there are 20 ticks
+per second on the minecraft main thread).  This method relies on
+Bukkit's [org.bukkit.scheduler][sched] package for scheduling
+processing of arrays.
 
 [sched]: http://jd.bukkit.org/beta/apidocs/org/bukkit/scheduler/package-summary.html
 
@@ -268,11 +323,9 @@ package for scheduling processing of arrays.
    - array : The entire array.
 
  * context (optional) : An object which may be used by the callback.
- * delay (optional, numeric) : If a delay is specified (in ticks - 20
-   ticks = 1 second), then the processing will be scheduled so that
+ * delayInMilliseconds (optional, numeric) : If a delay is specified then the processing will be scheduled so that
    each item will be processed in turn with a delay between the completion of each
-   item and the start of the next. This is recommended for big builds (say 200 x 200 x 200
-   blocks) or any CPU-intensive process.
+   item and the start of the next. This is recommended for any CPU-intensive process.
  * onDone (optional, function) : A function to be executed when all processing 
    is complete. This parameter is only used when the processing is delayed. (It's optional even if a 
    delay parameter is supplied).
@@ -289,47 +342,15 @@ The following example illustrates how to use foreach for immediate processing of
 
 ```javascript
 var utils = require('utils');
-var players = ['moe', 'larry', 'curly'];
-utils.foreach (players, function(item){ 
-    echo( server.getPlayer(item), 'Hi ' + item);
+var players = utils.players();
+utils.foreach (players, function( player ) { 
+  echo( player , 'Hi ' + player);
 });
 ```
 
-... The `utils.foreach()` function can work with Arrays or any Java-style collection. This is important
-because many objects in the Bukkit API use Java-style collections...
-
-```javascript
-utils.foreach( server.onlinePlayers, function(player){
-    player.chat('Hello!');
-}); 
-```
-
-... the above code sends a 'Hello!' to every online player.
-
-The following example is a more complex use case - The need to build an enormous structure
-without hogging CPU usage...
-
-```javascript
-// build a structure 200 wide x 200 tall x 200 long
-// (That's 8 Million Blocks - enough to tax any machine!)
-var utils = require('utils');
-
-var a = []; 
-a.length = 200; 
-var drone = new Drone();
-var processItem = function(item, index, object, array){
-    // build a box 200 wide by 200 long then move up
-    drone.box(blocks.wood, 200, 1, 200).up();
-};
-// by the time the job's done 'self' might be someone else 
-// assume this code is within a function/closure
-var player = self;
-var onDone = function(){ 
-    echo( player, 'Job Done!');
-};
-utils.foreach (a, processItem, null, 10, onDone);
-```
-    
+... The `utils.foreach()` function can work with Arrays or any
+Java-style collection. This is important because many objects in the
+CanaryMod and Bukkit APIs use Java-style collections.
 ***/
 var _foreach = function( array, callback, context, delay, onCompletion ) {
   if ( array instanceof java.util.Collection ) {
@@ -356,8 +377,7 @@ exports.foreach = _foreach;
 /************************************************************************
 ### utils.nicely() function
 
-The utils.nicely() function is for performing processing using the
-[org.bukkit.scheduler][sched] package/API. utils.nicely() lets you
+The utils.nicely() function is for performing background processing. utils.nicely() lets you
 process with a specified delay between the completion of each `next()`
 function and the start of the next `next()` function.
 `utils.nicely()` is a recursive function - that is - it calls itself
@@ -371,7 +391,7 @@ function and the start of the next `next()` function.
    true if the `next` function should be called (processing is not
    complete), false otherwise.
  * onDone : A function which is to be called when all processing is complete (hasNext returned false).
- * delay : The delay (in server ticks - 20 per second) between each call.
+ * delayInMilliseconds : The delay between each call.
 
 #### Example
 
@@ -381,7 +401,7 @@ See the source code to utils.foreach for an example of how utils.nicely is used.
 var _nicely = function( next, hasNext, onDone, delay ) {
   if ( hasNext() ){
     next();
-    server.scheduler.runTaskLater( __plugin, function() {
+    setTimeout( function() {
       _nicely( next, hasNext, onDone, delay );
     }, delay );
   }else{
@@ -391,58 +411,52 @@ var _nicely = function( next, hasNext, onDone, delay ) {
   }
 };
 exports.nicely = _nicely;
-/************************************************************************
-### utils.at() function
 
-The utils.at() function will perform a given task at a given time every 
-(minecraft) day.
-
-#### Parameters
-
- * time24hr : The time in 24hr form - e.g. 9:30 in the morning is '09:30' while
-   9:30 pm is '21:30', midnight is '00:00' and midday is '12:00'
- * callback : A javascript function which will be invoked at the given time.
- * worlds : (optional) An array of worlds. Each world has its own clock. If no array of worlds is specified, all the server's worlds are used.
-
-#### Example
-
-To warn players when night is approaching...
-
-```javascript
-var utils = require('utils');
-
-utils.at( '19:00', function() {
-
-    utils.foreach( server.onlinePlayers, function( player ) {
-        player.chat( 'The night is dark and full of terrors!' );
-    });
-
-});
-```
-  
-***/
-exports.at = function( time24hr, callback, worlds ) {
-  var forever = function(){ return true; };
-  var timeParts = time24hr.split( ':' );
-  var hrs = ( (timeParts[0] * 1000) + 18000 ) % 24000;
-  var mins;
-  if ( timeParts.length > 1 ) {
-    mins = ( timeParts[1] / 60 ) * 1000;
-  }
-  var timeMc = hrs + mins;
-  if ( typeof worlds == 'undefined' ) {
-    worlds = server.worlds;
-  }
-  _nicely( function() {
-    _foreach( worlds, function ( world ) {
-      var time = world.getTime();
-      var diff = timeMc - time;
-      if ( diff > 0 && diff < 100 ) {
-        callback();
-      }
-    });
-  }, forever, null, 100 );
+exports.at = function( time24hr, callback, pWorlds, repeat ) {
+  console.warn("utils.at() is deprecated, use require('at') instead");
+  var at = require('at');
+  return at( time24hr, callback, pWorlds, repeat);
 };
+/*************************************************************************
+### utils.time( world ) function
+
+Returns the timeofday (in minecraft ticks) for the given world. This function is necessary because
+canarymod and bukkit differ in how the timeofday is calculated. 
+
+See http://minecraft.gamepedia.com/Day-night_cycle#Conversions
+
+***/
+function getTime(world){
+  if (__plugin.bukkit){
+    return world.time;
+  }
+  if (__plugin.canary){
+    // there's a bug in canary where if you call world.setTime() the world.totalTime 
+    // becomes huge.
+    if (world.totalTime < world.rawTime){
+      return world.totalTime;
+    } else { 
+      return ((world.totalTime % world.rawTime) + world.relativeTime) % 24000;
+    }
+  }
+  return 0;
+}
+exports.time = getTime;
+
+/*************************************************************************
+### utils.time24( world ) function
+
+Returns the timeofday for the given world using 24 hour notation. (number of minutes)
+
+See http://minecraft.gamepedia.com/Day-night_cycle#Conversions
+
+***/
+function getTime24(world){
+  var mcTime = getTime(world);
+  var mins = Math.floor( ( (mcTime + 6000) % 24000) / 16.6667 );
+  return mins;
+}
+exports.time24 = getTime24;
 
 /************************************************************************
 ### utils.find() function
@@ -478,7 +492,7 @@ exports.find = function( dir , filter ) {
       files = dirfile.list(filter);
     }
     _foreach( files, function( file ) {
-      file = new java.io.File( dir + '/' + file );
+      file = new File( dir + '/' + file );
       if ( file.isDirectory() ) {
         recurse( file.canonicalPath, store );
       } else {
@@ -521,197 +535,6 @@ exports.serverAddress = function() {
   }  
   return null;
 };
-/************************************************************************
-### utils.watchFile() function
-
-Watches for changes to the given file or directory and calls the function provided
-when the file changes.
-
-#### Parameters
- 
- * File - the file to watch (can be a file or directory)
- * Callback - The callback to invoke when the file has changed. The callback takes the 
-   changed file as a parameter.
-
-#### Example
-
-```javascript
-var utils = require('utils');
-utils.watchFile( 'test.txt', function( file ) { 
-   console.log( file + ' has changed');
-});
-```
-***/
-var filesWatched = {};
-var dirsWatched = {};
-
-exports.watchFile = function( file, callback ) {
-  if ( typeof file == 'string' ) { 
-    file = new File(file);
-  }
-  //console.log("Watching file " + file);
-  filesWatched[file.canonicalPath] = {
-    callback: callback,
-    lastModified: file.lastModified()
-  };
-};
-
-/************************************************************************
-### utils.watchDir() function
-
-Watches for changes to the given directory and calls the function provided
-when the directory changes. It works by calling watchFile/watchDir for each
-file/subdirectory.
-
-#### Parameters
- 
- * Dir - the file to watch (can be a file or directory)
- * Callback - The callback to invoke when the directory has changed. 
-              The callback takes the changed file as a parameter. 
-              For each change inside the directory the callback will also 
-              be called.
-
-#### Example
-
-```javascript
-var utils = require('utils');
-utils.watchDir( 'players/_ial', function( dir ) { 
-   console.log( dir + ' has changed');
-});
-```
-***/
-
-exports.watchDir = function( dir, callback ) {
-  if ( typeof dir == 'string' ) { 
-    dir = new File(dir);
-  }
-  //console.log("Watching dir " + dir);
-  dirsWatched[dir.canonicalPath] = {
-    callback: callback,
-    lastModified: dir.lastModified()
-  };
-  
-  var files = dir.listFiles(),file;
-  if ( !files ) {
-    return;
-  }
-  for ( var i = 0; i < files.length; i++ ) {
-    file = files[i];
-    if (file.isDirectory( )) {
-      exports.watchDir(file,callback);
-    }else{
-      exports.watchFile(file,callback);
-    }
-  }
-};
-/************************************************************************
-### utils.unwatchFile() function
-
-Removes a file from the watch list.
-
-#### Example
-```javascript
-var utils = require('utils');
-utils.unwatchFile( 'test.txt');
-```
-
-***/
-exports.unwatchFile = function( file, callback ) {
-  if ( typeof file == 'string' ) { 
-    file = new File(file);
-  }
-  //console.log("Unwatching file " + file);
-  delete filesWatched[file.canonicalPath];  
-};
-
-/************************************************************************
-### utils.unwatchDir() function
-
-Removes a directory from the watch list and all files inside the directory
-are also "unwatched"
-
-#### Example
-```javascript
-var utils = require('utils');
-utils.unwatchDir ('players/_ial');
-```
-Would cause also 
-```javascript
-utils.unwatchFile (file);
-```
-for each file inside directory (and unwatchDir for each directory inside it)
-
-***/
-exports.unwatchDir = function( dir, callback ) {
-  if ( typeof dir == 'string' ) { 
-    dir = new File(dir);
-  }
-  //console.log("Unwatching dir " + dir);
-  delete dirsWatched[dir.canonicalPath];  
-  
-  var files = dir.listFiles(),file;
-  if ( !files ) {
-    return;
-  }
-  for ( var i = 0; i < files.length; i++ ) {
-    file = files[i];
-    if (file.isDirectory( )) {
-      exports.unwatchDir(file,callback);
-    }else{
-      exports.unwatchFile(file,callback);
-    }
-  }
-};
-
-function fileWatcher(calledCallbacks) {
-  for (var file in filesWatched) {
-    var fileObject = new File(file);
-    var lm = fileObject.lastModified();
-    if ( lm != filesWatched[file].lastModified ) {
-      //console.log("Change found in " + file);
-      filesWatched[file].lastModified = lm;
-      filesWatched[file].callback(fileObject);
-      if (!fileObject.exists()) {
-        //console.log("File " + file + " was removed.");
-        exports.unwatchFile(file,filesWatched[file].callback);
-      }
-    }
-  }
-};
-
-
-//monitors directories for time change
-//when a change is detected watchFiles are invoked for each of the files in directory
-//and callback is called
-function dirWatcher(calledCallbacks) {
-  for (var dir in dirsWatched) {
-    var dirObject = new File(dir);
-    var lm = dirObject.lastModified();
-    var dw = dirsWatched[dir];
-    if ( lm != dirsWatched[dir].lastModified ) {
-      //console.log("Change found in " + dir);
-      dirsWatched[dir].lastModified = lm;
-      dirsWatched[dir].callback(dirObject);
-      
-      exports.unwatchDir(dir, dw.callback);
-      //causes all files to be rewatched
-      if (dirObject.exists()) {
-        exports.watchDir(dir, dw.callback);
-      } else {
-        //console.log("Directory " + dir + " was removed.");
-      }
-    }
-  }
-};
-
-//guarantees that a callback is only called once for each change 
-function monitorDirAndFiles() {
-  fileWatcher ();
-  dirWatcher ();
-  setTimeout( monitorDirAndFiles, 3000 );
-};
-
-setTimeout( monitorDirAndFiles, 3000 );
 /**************************************************************************
 ### utils.array() function
 
@@ -748,18 +571,29 @@ function toArray( ){
 }
 exports.array = toArray;
 
-function canaryWorlds(){
-  return toArray( server.worldManager.allWorlds );
+function worlds(){
+  if (__plugin.canary){
+    return toArray(server.worldManager.allWorlds);
+  }
+  if (__plugin.bukkit){
+    return toArray(server.worlds);
+  }
 }
-function bukkitWorlds(){
-  return toArray( server.worlds );
-}
-exports.worlds = __plugin.canary ? canaryWorlds : bukkitWorlds;
+exports.worlds = worlds;
 
 /*************************************************************************
 ### utils.players() function
 
-This function returns a javascript array of all online players on the server.
+This function returns a javascript array of all online players on the
+server.  You can optionally provide a function which will be invoked
+with each player as a parameter.  For example, to give each player the
+ability to shoot arrows which launch fireworks:
+
+```javascript
+require('utils').players( arrows.firework )
+```
+
+Any players with a bow will be able to launch fireworks by shooting.
 
 ### utils.playerNames() function
 
@@ -828,7 +662,13 @@ if (__plugin.canary){
 function getPlayerNames(){
   return getPlayers().map(function(p){ return p.name; });
 }
-exports.players = getPlayers;
+exports.players = function(fn){
+  var result = getPlayers();
+  if (fn){
+    result.forEach(fn);
+  }
+  return result;
+};
 exports.playerNames = getPlayerNames;
 
 /*************************************************************************
@@ -891,3 +731,4 @@ This function also contains values for each possible stat so you can get at stat
     var jumpCount = player.getStat ( JUMPSTAT ); // canary-specific code
 ***/
 exports.stat = __plugin.canary ? getStatCanary: getStatBukkit;
+

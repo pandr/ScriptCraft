@@ -1,33 +1,94 @@
-var Drone = require('../drone').Drone;
+'use strict';
+/*global require */
+var Drone = require('drone'),
+    blocks = require('blocks');
+/************************************************************************
+### Drone.cottage() method
 
-//
-// usage: 
-// [1] to build a cottage at the player's current location or the cross-hairs location...
-//
-// /js cottage();
-// 
-// [2] to build a cottage using an existing drone...
-// 
-// /js drone.cottage();
-//
+Creates a simple but cosy dwelling.
+
+#### Example
+
+At the in-game prompt you can create a cottage by looking at a block and typing:
+
+```javascript
+/js cottage()
+```
+
+Alternatively you can create a new Drone object from a Player or Location object and call the cottage() method.
+
+```javascript
+var d = new Drone(player);
+d.cottage();
+```
+![cottage example](img/cottageex1.png)
+
+***/
 function cottage( ) {
-  this.chkpt('cottage')
-    .box0(48,7,2,6)  // 4 walls
+  this
+    .chkpt('cottage')
+    .down()
+    .box(blocks.birch, 7, 1, 6) // birch wood floor
+    .up()
+    .box(blocks.air, 7, 5, 6) // clear area first
+    .box0( blocks.moss_stone, 7, 2, 6)  // 4 walls
     .right(3)
     .door() // door front and center
     .up(1)
     .left(2)
-    .box(102) // windows to left and right
+    .box( blocks.glass_pane ) // windows to left and right
     .right(4)
-    .box(102)
+    .box( blocks.glass_pane )
     .left(5)
     .up()
-    .prism0(53,7,6)
+    .prism0( blocks.stairs.oak, 7, 6) // add a roof
     .down()
     .right(4)
-    .sign(['Home','Sweet','Home'],68)
-    .move('cottage');
+    .back()
+    .wallsign(['Home','Sweet','Home'])
+    .fwd()
+    .move('cottage')
+    .right(3)
+    .fwd(4)
+    .up()
+    .hangtorch()     // place a torch on wall
+    .move('cottage')
+    .right()
+    .fwd(3)
+    .bed()           // place a bed against left wall
+    .fwd()
+    .right(4)
+    .box(blocks.furnace) // place a furnace against right wall
+    .move('cottage')
+  ;
 }
+/************************************************************************
+### Drone.cottage_road() method
+
+Creates a tree-lined avenue with cottages on both sides.
+
+#### Parameters
+ 
+ * numberOfCottages: The number of cottages to build in total (optional: default 6)
+
+#### Example
+
+At the in-game prompt you can create a cottage road by looking at a block and typing:
+
+```javascript
+/js cottage_road()
+```
+
+Alternatively you can create a new Drone object from a Player or Location object and call the cottage_road() method.
+
+```javascript
+var d = new Drone(player);
+d.cottage_road();
+```
+![cottage_road example](img/cottageroadex1.png)
+
+***/
+
 //
 // a more complex script that builds an tree-lined avenue with
 // cottages on both sides.
@@ -42,11 +103,15 @@ function cottage_road( numberCottages ) {
   //
   var cottagesPerSide = Math.floor(numberCottages/2);
   this
-    .chkpt('cottage_road') // make sure the drone's state is saved.
-    .box( 43, 3, 1, cottagesPerSide * ( distanceBetweenTrees + 1 ) ) // build the road
+    // make sure the drone's state is saved.
+    .chkpt('cottage_road') 
+    // build the road
+    .box( blocks.double_slab.stone, 3, 1, cottagesPerSide * ( distanceBetweenTrees + 1 ) ) 
     .up()
-    .right() // now centered in middle of road
-    .chkpt('cr'); // will be returning to this position later
+    // now centered in middle of road
+    .right() 
+    // will be returning to this position later
+    .chkpt('cottage_road_cr'); 
 
   //
   // step 2 line the road with trees
@@ -61,14 +126,14 @@ function cottage_road( numberCottages ) {
       .fwd( distanceBetweenTrees + 1 ); // move forward.
   }
   this
-    .move('cr')
+    .move('cottage_road_cr')
     .back(6); // move back 1/2 the distance between trees
 
   // this function builds a path leading to a cottage.
   function pathAndCottage( drone ) {
     drone
       .down()
-      .box(43,1,1,5)
+      .box(blocks.double_slab.stone, 1, 1, 5)
       .fwd(5)
       .left(3)
       .up()
@@ -88,7 +153,7 @@ function cottage_road( numberCottages ) {
     pathAndCottage( this.turn() ).move( 'r' + i );
   }
   // return drone to where it was at start of function
-  return this.move('cottage_road'); 
+  this.move('cottage_road'); 
 }
 Drone.extend(cottage_road);
 Drone.extend(cottage);

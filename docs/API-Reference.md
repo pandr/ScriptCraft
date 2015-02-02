@@ -1,3 +1,9 @@
+<!-- 
+IMPORTANT NOTE FOR CONTRIBUTORS
+-------------------------------
+Contributors: This file is generated from comments in javascript source files src/main/js/*
+If you would like to make changes, change the comments in the src/main/js/* files instead.
+-->
 # ScriptCraft API Reference
 
 Walter Higgins
@@ -44,22 +50,136 @@ Walter Higgins
    * [module name resolution](#module-name-resolution)
  * [events Module](#events-module)
    * [events.on() static method](#eventson-static-method)
-   * [bukkit](#bukkit)
- * [console global variable](#console-global-variable)
-   * [Example](#example)
-   * [Using string substitutions](#using-string-substitutions)
- * [Events Helper Module (bukkit version)](#events-helper-module-bukkit-version)
+ * [Events Helper Module (canary version)](#events-helper-module-canary-version)
    * [Usage](#usage)
-   * [events.weatherChange()](#eventsweatherchange)
-   * [events.lightningStrike()](#eventslightningstrike)
-   * [events.thunderChange()](#eventsthunderchange)
-   * [events.vehicleMove()](#eventsvehiclemove)
+   * [events.minecartActivate()](#eventsminecartactivate)
+   * [events.villagerTradeUnlock()](#eventsvillagertradeunlock)
+   * [events.mobTarget()](#eventsmobtarget)
+   * [events.chickenLayEgg()](#eventschickenlayegg)
+   * [events.potionEffectFinish()](#eventspotioneffectfinish)
+   * [events.entityMove()](#eventsentitymove)
+   * [events.hangingEntityDestroy()](#eventshangingentitydestroy)
+   * [events.vehicleCollision()](#eventsvehiclecollision)
+   * [events.potionEffectApplied()](#eventspotioneffectapplied)
    * [events.vehicleDestroy()](#eventsvehicledestroy)
+   * [events.vehicleEnter()](#eventsvehicleenter)
+   * [events.damage()](#eventsdamage)
+   * [events.entityMount()](#eventsentitymount)
+   * [events.slimeSplit()](#eventsslimesplit)
+   * [events.endermanDropBlock()](#eventsendermandropblock)
+   * [events.itemTouchGround()](#eventsitemtouchground)
+   * [events.entitySpawn()](#eventsentityspawn)
+   * [events.endermanPickupBlock()](#eventsendermanpickupblock)
+   * [events.vehicleDamage()](#eventsvehicledamage)
+   * [events.entityLightningStruck()](#eventsentitylightningstruck)
+   * [events.entityDespawn()](#eventsentitydespawn)
+   * [events.vehicleMove()](#eventsvehiclemove)
+   * [events.projectileHit()](#eventsprojectilehit)
+   * [events.entityDeath()](#eventsentitydeath)
+   * [events.entityTame()](#eventsentitytame)
    * [events.vehicleExit()](#eventsvehicleexit)
+   * [events.dimensionSwitch()](#eventsdimensionswitch)
+   * [events.foodLevel()](#eventsfoodlevel)
+   * [events.bookEdit()](#eventsbookedit)
+   * [events.playerListEntry()](#eventsplayerlistentry)
+   * [events.eat()](#eventseat)
+   * [events.playerList()](#eventsplayerlist)
+   * [events.playerIdle()](#eventsplayeridle)
+   * [events.enchant()](#eventsenchant)
+   * [events.playerArmSwing()](#eventsplayerarmswing)
+   * [events.teleport()](#eventsteleport)
+   * [events.anvilUse()](#eventsanviluse)
+   * [events.portalUse()](#eventsportaluse)
+   * [events.foodSaturation()](#eventsfoodsaturation)
+   * [events.connection()](#eventsconnection)
+   * [events.playerRespawned()](#eventsplayerrespawned)
+   * [events.armorBroken()](#eventsarmorbroken)
+   * [events.levelUp()](#eventslevelup)
+   * [events.blockRightClick()](#eventsblockrightclick)
+   * [events.itemDrop()](#eventsitemdrop)
+   * [events.playerRespawning()](#eventsplayerrespawning)
+   * [events.craft()](#eventscraft)
+   * [events.experience()](#eventsexperience)
+   * [events.signChange()](#eventssignchange)
+   * [events.healthChange()](#eventshealthchange)
+   * [events.disconnection()](#eventsdisconnection)
+   * [events.gameModeChange()](#eventsgamemodechange)
+   * [events.preConnection()](#eventspreconnection)
+   * [events.villagerTrade()](#eventsvillagertrade)
+   * [events.returnFromIdle()](#eventsreturnfromidle)
+   * [events.slotClick()](#eventsslotclick)
+   * [events.entityRightClick()](#eventsentityrightclick)
+   * [events.foodExhaustion()](#eventsfoodexhaustion)
+   * [events.chat()](#eventschat)
+   * [events.itemPickup()](#eventsitempickup)
+   * [events.bedExit()](#eventsbedexit)
+   * [events.blockPlace()](#eventsblockplace)
+   * [events.toolBroken()](#eventstoolbroken)
+   * [events.kick()](#eventskick)
+   * [events.playerDeath()](#eventsplayerdeath)
+   * [events.blockLeftClick()](#eventsblockleftclick)
+   * [events.blockDestroy()](#eventsblockdestroy)
+   * [events.bedEnter()](#eventsbedenter)
+   * [events.signShow()](#eventssignshow)
+   * [events.inventory()](#eventsinventory)
+   * [events.playerMove()](#eventsplayermove)
+   * [events.itemUse()](#eventsitemuse)
+   * [events.ban()](#eventsban)
+   * [events.statGained()](#eventsstatgained)
+   * [events.smeltBegin()](#eventssmeltbegin)
+   * [events.treeGrow()](#eventstreegrow)
+   * [events.chunkCreated()](#eventschunkcreated)
+   * [events.liquidDestroy()](#eventsliquiddestroy)
+   * [events.chunkLoaded()](#eventschunkloaded)
+   * [events.pistonRetract()](#eventspistonretract)
+   * [events.smelt()](#eventssmelt)
+   * [events.blockUpdate()](#eventsblockupdate)
+   * [events.portalDestroy()](#eventsportaldestroy)
+   * [events.ignition()](#eventsignition)
+   * [events.redstoneChange()](#eventsredstonechange)
+   * [events.weatherChange()](#eventsweatherchange)
+   * [events.chunkCreation()](#eventschunkcreation)
+   * [events.hopperTransfer()](#eventshoppertransfer)
+   * [events.chunkUnload()](#eventschunkunload)
+   * [events.blockGrow()](#eventsblockgrow)
+   * [events.dispense()](#eventsdispense)
+   * [events.blockDropXp()](#eventsblockdropxp)
+   * [events.fireworkExplode()](#eventsfireworkexplode)
+   * [events.leafDecay()](#eventsleafdecay)
+   * [events.pistonExtend()](#eventspistonextend)
+   * [events.noteBlockPlay()](#eventsnoteblockplay)
+   * [events.lightningStrike()](#eventslightningstrike)
+   * [events.decorate()](#eventsdecorate)
+   * [events.explosion()](#eventsexplosion)
+   * [events.tNTActivate()](#eventstntactivate)
+   * [events.timeChange()](#eventstimechange)
+   * [events.flow()](#eventsflow)
+   * [events.portalCreate()](#eventsportalcreate)
+   * [events.blockPhysics()](#eventsblockphysics)
+   * [events.playerCommand()](#eventsplayercommand)
+   * [events.consoleCommand()](#eventsconsolecommand)
+   * [events.commandBlockCommand()](#eventscommandblockcommand)
+   * [events.loadWorld()](#eventsloadworld)
+   * [events.permissionCheck()](#eventspermissioncheck)
+   * [events.serverGuiStart()](#eventsserverguistart)
+   * [events.unloadWorld()](#eventsunloadworld)
+   * [events.pluginDisable()](#eventsplugindisable)
+   * [events.pluginEnable()](#eventspluginenable)
+   * [events.serverTick()](#eventsservertick)
+   * [events.serverListPing()](#eventsserverlistping)
+   * [events.serverShutdown()](#eventsservershutdown)
+ * [Events Helper Module (bukkit version)](#events-helper-module-bukkit-version)
+   * [Usage](#usage-1)
+   * [events.weatherChange()](#eventsweatherchange-1)
+   * [events.lightningStrike()](#eventslightningstrike-1)
+   * [events.thunderChange()](#eventsthunderchange)
+   * [events.vehicleMove()](#eventsvehiclemove-1)
+   * [events.vehicleDestroy()](#eventsvehicledestroy-1)
+   * [events.vehicleExit()](#eventsvehicleexit-1)
    * [events.vehicleEntityCollision()](#eventsvehicleentitycollision)
    * [events.vehicleBlockCollision()](#eventsvehicleblockcollision)
-   * [events.vehicleEnter()](#eventsvehicleenter)
-   * [events.vehicleDamage()](#eventsvehicledamage)
+   * [events.vehicleEnter()](#eventsvehicleenter-1)
+   * [events.vehicleDamage()](#eventsvehicledamage-1)
    * [events.vehicleUpdate()](#eventsvehicleupdate)
    * [events.vehicleCreate()](#eventsvehiclecreate)
    * [events.paintingBreak()](#eventspaintingbreak)
@@ -82,7 +202,7 @@ Walter Higgins
    * [events.asyncPlayerChat()](#eventsasyncplayerchat)
    * [events.playerDropItem()](#eventsplayerdropitem)
    * [events.playerRegisterChannel()](#eventsplayerregisterchannel)
-   * [events.playerMove()](#eventsplayermove)
+   * [events.playerMove()](#eventsplayermove-1)
    * [events.playerItemBreak()](#eventsplayeritembreak)
    * [events.playerBucketEmpty()](#eventsplayerbucketempty)
    * [events.playerStatisticIncrement()](#eventsplayerstatisticincrement)
@@ -121,34 +241,34 @@ Walter Higgins
    * [events.inventoryClick()](#eventsinventoryclick)
    * [events.inventoryClose()](#eventsinventoryclose)
    * [events.inventoryCreative()](#eventsinventorycreative)
-   * [events.inventory()](#eventsinventory)
+   * [events.inventory()](#eventsinventory-1)
    * [events.prepareItemCraft()](#eventsprepareitemcraft)
    * [events.furnaceExtract()](#eventsfurnaceextract)
    * [events.brew()](#eventsbrew)
    * [events.serverCommand()](#eventsservercommand)
-   * [events.serverListPing()](#eventsserverlistping)
+   * [events.serverListPing()](#eventsserverlistping-1)
    * [events.serviceRegister()](#eventsserviceregister)
-   * [events.pluginDisable()](#eventsplugindisable)
+   * [events.pluginDisable()](#eventsplugindisable-1)
    * [events.remoteServerCommand()](#eventsremoteservercommand)
    * [events.mapInitialize()](#eventsmapinitialize)
    * [events.serviceUnregister()](#eventsserviceunregister)
-   * [events.pluginEnable()](#eventspluginenable)
-   * [events.playerDeath()](#eventsplayerdeath)
+   * [events.pluginEnable()](#eventspluginenable-1)
+   * [events.playerDeath()](#eventsplayerdeath-1)
    * [events.entityCreatePortal()](#eventsentitycreateportal)
    * [events.entityCombust()](#eventsentitycombust)
    * [events.sheepDyeWool()](#eventssheepdyewool)
    * [events.expBottle()](#eventsexpbottle)
-   * [events.entityTame()](#eventsentitytame)
+   * [events.entityTame()](#eventsentitytame-1)
    * [events.projectileLaunch()](#eventsprojectilelaunch)
    * [events.entityDamage()](#eventsentitydamage)
    * [events.itemSpawn()](#eventsitemspawn)
-   * [events.projectileHit()](#eventsprojectilehit)
+   * [events.projectileHit()](#eventsprojectilehit-1)
    * [events.foodLevelChange()](#eventsfoodlevelchange)
    * [events.itemDespawn()](#eventsitemdespawn)
    * [events.entityPortalEnter()](#eventsentityportalenter)
    * [events.entityPortal()](#eventsentityportal)
    * [events.entityTarget()](#eventsentitytarget)
-   * [events.entityDeath()](#eventsentitydeath)
+   * [events.entityDeath()](#eventsentitydeath-1)
    * [events.sheepRegrowWool()](#eventssheepregrowwool)
    * [events.entityShootBow()](#eventsentityshootbow)
    * [events.creeperPower()](#eventscreeperpower)
@@ -166,7 +286,7 @@ Walter Higgins
    * [events.entityTargetLivingEntity()](#eventsentitytargetlivingentity)
    * [events.entityTeleport()](#eventsentityteleport)
    * [events.playerLeashEntity()](#eventsplayerleashentity)
-   * [events.slimeSplit()](#eventsslimesplit)
+   * [events.slimeSplit()](#eventsslimesplit-1)
    * [events.pigZap()](#eventspigzap)
    * [events.potionSplash()](#eventspotionsplash)
    * [events.entityChangeBlock()](#eventsentitychangeblock)
@@ -177,8 +297,8 @@ Walter Higgins
    * [events.blockMultiPlace()](#eventsblockmultiplace)
    * [events.notePlay()](#eventsnoteplay)
    * [events.blockFade()](#eventsblockfade)
-   * [events.blockPlace()](#eventsblockplace)
-   * [events.blockPhysics()](#eventsblockphysics)
+   * [events.blockPlace()](#eventsblockplace-1)
+   * [events.blockPhysics()](#eventsblockphysics-1)
    * [events.blockIgnite()](#eventsblockignite)
    * [events.blockBreak()](#eventsblockbreak)
    * [events.blockBurn()](#eventsblockburn)
@@ -186,10 +306,10 @@ Walter Higgins
    * [events.blockRedstone()](#eventsblockredstone)
    * [events.blockPistonRetract()](#eventsblockpistonretract)
    * [events.blockDispense()](#eventsblockdispense)
-   * [events.signChange()](#eventssignchange)
+   * [events.signChange()](#eventssignchange-1)
    * [events.blockPistonExtend()](#eventsblockpistonextend)
    * [events.blockCanBuild()](#eventsblockcanbuild)
-   * [events.blockGrow()](#eventsblockgrow)
+   * [events.blockGrow()](#eventsblockgrow-1)
    * [events.leavesDecay()](#eventsleavesdecay)
    * [events.blockExp()](#eventsblockexp)
    * [events.blockForm()](#eventsblockform)
@@ -203,131 +323,76 @@ Walter Higgins
    * [events.worldInit()](#eventsworldinit)
    * [events.worldUnload()](#eventsworldunload)
    * [events.worldSave()](#eventsworldsave)
-   * [events.chunkUnload()](#eventschunkunload)
-   * [events.chunkPopulate()](#eventschunkpopulate)
-   * [events.portalCreate()](#eventsportalcreate)
-   * [events.chunkLoad()](#eventschunkload)
- * [Events Helper Module (canary version)](#events-helper-module-canary-version)
-   * [Usage](#usage-1)
-   * [events.minecartActivate()](#eventsminecartactivate)
-   * [events.villagerTradeUnlock()](#eventsvillagertradeunlock)
-   * [events.mobTarget()](#eventsmobtarget)
-   * [events.chickenLayEgg()](#eventschickenlayegg)
-   * [events.potionEffectFinish()](#eventspotioneffectfinish)
-   * [events.entityMove()](#eventsentitymove)
-   * [events.hangingEntityDestroy()](#eventshangingentitydestroy)
-   * [events.vehicleCollision()](#eventsvehiclecollision)
-   * [events.potionEffectApplied()](#eventspotioneffectapplied)
-   * [events.vehicleDestroy()](#eventsvehicledestroy-1)
-   * [events.vehicleEnter()](#eventsvehicleenter-1)
-   * [events.damage()](#eventsdamage)
-   * [events.entityMount()](#eventsentitymount)
-   * [events.slimeSplit()](#eventsslimesplit-1)
-   * [events.endermanDropBlock()](#eventsendermandropblock)
-   * [events.itemTouchGround()](#eventsitemtouchground)
-   * [events.entitySpawn()](#eventsentityspawn)
-   * [events.endermanPickupBlock()](#eventsendermanpickupblock)
-   * [events.vehicleDamage()](#eventsvehicledamage-1)
-   * [events.entityLightningStruck()](#eventsentitylightningstruck)
-   * [events.entityDespawn()](#eventsentitydespawn)
-   * [events.vehicleMove()](#eventsvehiclemove-1)
-   * [events.projectileHit()](#eventsprojectilehit-1)
-   * [events.entityDeath()](#eventsentitydeath-1)
-   * [events.entityTame()](#eventsentitytame-1)
-   * [events.vehicleExit()](#eventsvehicleexit-1)
-   * [events.dimensionSwitch()](#eventsdimensionswitch)
-   * [events.foodLevel()](#eventsfoodlevel)
-   * [events.bookEdit()](#eventsbookedit)
-   * [events.playerListEntry()](#eventsplayerlistentry)
-   * [events.eat()](#eventseat)
-   * [events.playerIdle()](#eventsplayeridle)
-   * [events.enchant()](#eventsenchant)
-   * [events.playerArmSwing()](#eventsplayerarmswing)
-   * [events.teleport()](#eventsteleport)
-   * [events.anvilUse()](#eventsanviluse)
-   * [events.portalUse()](#eventsportaluse)
-   * [events.foodSaturation()](#eventsfoodsaturation)
-   * [events.connection()](#eventsconnection)
-   * [events.playerRespawned()](#eventsplayerrespawned)
-   * [events.armorBroken()](#eventsarmorbroken)
-   * [events.levelUp()](#eventslevelup)
-   * [events.blockRightClick()](#eventsblockrightclick)
-   * [events.itemDrop()](#eventsitemdrop)
-   * [events.playerRespawning()](#eventsplayerrespawning)
-   * [events.craft()](#eventscraft)
-   * [events.experience()](#eventsexperience)
-   * [events.signChange()](#eventssignchange-1)
-   * [events.healthChange()](#eventshealthchange)
-   * [events.disconnection()](#eventsdisconnection)
-   * [events.gameModeChange()](#eventsgamemodechange)
-   * [events.preConnection()](#eventspreconnection)
-   * [events.villagerTrade()](#eventsvillagertrade)
-   * [events.returnFromIdle()](#eventsreturnfromidle)
-   * [events.slotClick()](#eventsslotclick)
-   * [events.entityRightClick()](#eventsentityrightclick)
-   * [events.foodExhaustion()](#eventsfoodexhaustion)
-   * [events.chat()](#eventschat)
-   * [events.itemPickup()](#eventsitempickup)
-   * [events.bedExit()](#eventsbedexit)
-   * [events.blockPlace()](#eventsblockplace-1)
-   * [events.toolBroken()](#eventstoolbroken)
-   * [events.kick()](#eventskick)
-   * [events.playerDeath()](#eventsplayerdeath-1)
-   * [events.blockLeftClick()](#eventsblockleftclick)
-   * [events.blockDestroy()](#eventsblockdestroy)
-   * [events.bedEnter()](#eventsbedenter)
-   * [events.signShow()](#eventssignshow)
-   * [events.inventory()](#eventsinventory-1)
-   * [events.playerMove()](#eventsplayermove-1)
-   * [events.itemUse()](#eventsitemuse)
-   * [events.ban()](#eventsban)
-   * [events.statGained()](#eventsstatgained)
-   * [events.smeltBegin()](#eventssmeltbegin)
-   * [events.treeGrow()](#eventstreegrow)
-   * [events.chunkCreated()](#eventschunkcreated)
-   * [events.liquidDestroy()](#eventsliquiddestroy)
-   * [events.chunkLoaded()](#eventschunkloaded)
-   * [events.pistonRetract()](#eventspistonretract)
-   * [events.smelt()](#eventssmelt)
-   * [events.blockUpdate()](#eventsblockupdate)
-   * [events.portalDestroy()](#eventsportaldestroy)
-   * [events.ignition()](#eventsignition)
-   * [events.redstoneChange()](#eventsredstonechange)
-   * [events.weatherChange()](#eventsweatherchange-1)
-   * [events.chunkCreation()](#eventschunkcreation)
-   * [events.hopperTransfer()](#eventshoppertransfer)
    * [events.chunkUnload()](#eventschunkunload-1)
-   * [events.blockGrow()](#eventsblockgrow-1)
-   * [events.dispense()](#eventsdispense)
-   * [events.blockDropXp()](#eventsblockdropxp)
-   * [events.fireworkExplode()](#eventsfireworkexplode)
-   * [events.leafDecay()](#eventsleafdecay)
-   * [events.pistonExtend()](#eventspistonextend)
-   * [events.noteBlockPlay()](#eventsnoteblockplay)
-   * [events.lightningStrike()](#eventslightningstrike-1)
-   * [events.decorate()](#eventsdecorate)
-   * [events.explosion()](#eventsexplosion)
-   * [events.tNTActivate()](#eventstntactivate)
-   * [events.timeChange()](#eventstimechange)
-   * [events.flow()](#eventsflow)
+   * [events.chunkPopulate()](#eventschunkpopulate)
    * [events.portalCreate()](#eventsportalcreate-1)
-   * [events.blockPhysics()](#eventsblockphysics-1)
-   * [events.playerCommand()](#eventsplayercommand)
-   * [events.consoleCommand()](#eventsconsolecommand)
-   * [events.commandBlockCommand()](#eventscommandblockcommand)
-   * [events.loadWorld()](#eventsloadworld)
-   * [events.permissionCheck()](#eventspermissioncheck)
-   * [events.serverGuiStart()](#eventsserverguistart)
-   * [events.unloadWorld()](#eventsunloadworld)
-   * [events.pluginDisable()](#eventsplugindisable-1)
-   * [events.pluginEnable()](#eventspluginenable-1)
-   * [events.serverTick()](#eventsservertick)
-   * [events.serverListPing()](#eventsserverlistping-1)
-   * [events.serverShutdown()](#eventsservershutdown)
+   * [events.chunkLoad()](#eventschunkload)
+ * [console global variable](#console-global-variable)
+   * [Example](#example)
+   * [Using string substitutions](#using-string-substitutions)
+ * [Drone Plugin](#drone-plugin)
+   * [Constructing a Drone Object](#constructing-a-drone-object)
+   * [Drone.box() method](#dronebox-method)
+   * [Drone.box0() method](#dronebox0-method)
+   * [Drone.boxa() method](#droneboxa-method)
+   * [Chaining](#chaining)
+   * [Drone Properties](#drone-properties)
+   * [Extending Drone](#extending-drone)
+   * [Drone.extend() static method](#droneextend-static-method)
+   * [Drone Constants](#drone-constants)
+   * [Drone.times() Method](#dronetimes-method)
+   * [Drone.arc() method](#dronearc-method)
+   * [Drone.bed() method](#dronebed-method)
+   * [Drone.blocktype() method](#droneblocktype-method)
+   * [Copy & Paste using Drone](#copy--paste-using-drone)
+   * [Drone.copy() method](#dronecopy-method)
+   * [Drone.paste() method](#dronepaste-method)
+   * [Drone.cylinder() method](#dronecylinder-method)
+   * [Drone.cylinder0() method](#dronecylinder0-method)
+   * [Drone.door() method](#dronedoor-method)
+   * [Drone.door_iron() method](#dronedoor_iron-method)
+   * [Drone.door2() method](#dronedoor2-method)
+   * [Drone.door2_iron() method](#dronedoor2_iron-method)
+   * [Drone.firework() method](#dronefirework-method)
+   * [Drone.garden() method](#dronegarden-method)
+   * [Drone.ladder() method](#droneladder-method)
+   * [Drone Movement](#drone-movement)
+   * [Drone Positional Info](#drone-positional-info)
+   * [Drone Markers](#drone-markers)
+   * [Drone.prism() method](#droneprism-method)
+   * [Drone.prism0() method](#droneprism0-method)
+   * [Drone.rand() method](#dronerand-method)
+   * [Drone.wallsign() method](#dronewallsign-method)
+   * [Drone.signpost() method](#dronesignpost-method)
+   * [Drone.sign() method](#dronesign-method)
+   * [Drone.sphere() method](#dronesphere-method)
+   * [Drone.sphere0() method](#dronesphere0-method)
+   * [Drone.hemisphere() method](#dronehemisphere-method)
+   * [Drone.hemisphere0() method](#dronehemisphere0-method)
+   * [Drone.stairs() function](#dronestairs-function)
+   * [Drone Trees methods](#drone-trees-methods)
+   * [Drone.castle() method](#dronecastle-method)
+   * [Drone.chessboard() method](#dronechessboard-method)
+   * [Drone.cottage() method](#dronecottage-method)
+   * [Drone.cottage_road() method](#dronecottage_road-method)
+   * [Drone.dancefloor() method](#dronedancefloor-method)
+   * [Drone.fort() method](#dronefort-method)
+   * [Drone.hangtorch() method](#dronehangtorch-method)
+   * [Drone.lcdclock() method.](#dronelcdclock-method)
+   * [Drone.logojs() method](#dronelogojs-method)
+   * [Drone.maze() method](#dronemaze-method)
+   * [Drone.rainbow() method](#dronerainbow-method)
+   * [Drone.spiral_stairs() method](#dronespiral_stairs-method)
+   * [Drone.temple() method](#dronetemple-method)
+ * [The at Module](#the-at-module)
+   * [at() function](#at-function)
  * [Blocks Module](#blocks-module)
    * [Examples](#examples)
  * [Fireworks Module](#fireworks-module)
    * [Examples](#examples-1)
+ * [Classroom Plugin](#classroom-plugin)
+   * [jsp classroom command](#jsp-classroom-command)
+   * [classroom.allowScripting() function](#classroomallowscripting-function)
  * [Asynchronous Input Module](#asynchronous-input-module)
  * [The recipes module](#the-recipes-module)
    * [Example](#example-1)
@@ -338,10 +403,17 @@ Walter Higgins
  * [Signs Module](#signs-module)
    * [signs.menu() function](#signsmenu-function)
    * [signs.getTargetedBy() function](#signsgettargetedby-function)
+ * [The slash Module](#the-slash-module)
+   * [The slash() function](#the-slash-function)
  * [Sounds Module](#sounds-module)
    * [Usage (Bukkit) :](#usage-bukkit-)
+ * [Teleport Module](#teleport-module)
+   * [Parameters](#parameters)
+   * [Example](#example-2)
  * [Utilities Module](#utilities-module)
    * [utils.player() function](#utilsplayer-function)
+   * [utils.world( worldName ) function](#utilsworld-worldname--function)
+   * [utils.blockAt( Location ) function](#utilsblockat-location--function)
    * [utils.locationToJSON() function](#utilslocationtojson-function)
    * [utils.locationToString() function](#utilslocationtostring-function)
    * [utils.locationFromJSON() function](#utilslocationfromjson-function)
@@ -349,54 +421,19 @@ Walter Higgins
    * [utils.getMousePos() function](#utilsgetmousepos-function)
    * [utils.foreach() function](#utilsforeach-function)
    * [utils.nicely() function](#utilsnicely-function)
-   * [utils.at() function](#utilsat-function)
+   * [utils.time( world ) function](#utilstime-world--function)
+   * [utils.time24( world ) function](#utilstime24-world--function)
    * [utils.find() function](#utilsfind-function)
    * [utils.serverAddress() function](#utilsserveraddress-function)
-   * [utils.watchFile() function](#utilswatchfile-function)
-   * [utils.watchDir() function](#utilswatchdir-function)
-   * [utils.unwatchFile() function](#utilsunwatchfile-function)
-   * [utils.unwatchDir() function](#utilsunwatchdir-function)
    * [utils.array() function](#utilsarray-function)
    * [utils.players() function](#utilsplayers-function)
    * [utils.playerNames() function](#utilsplayernames-function)
    * [utils.stat() function](#utilsstat-function)
- * [Drone Plugin](#drone-plugin)
-   * [Constructing a Drone Object](#constructing-a-drone-object)
-   * [Drone.box() method](#dronebox-method)
-   * [Drone.box0() method](#dronebox0-method)
-   * [Drone.boxa() method](#droneboxa-method)
-   * [Drone Movement](#drone-movement)
-   * [Drone Positional Info](#drone-positional-info)
-   * [Drone Markers](#drone-markers)
-   * [Drone.prism() method](#droneprism-method)
-   * [Drone.prism0() method](#droneprism0-method)
-   * [Drone.cylinder() method](#dronecylinder-method)
-   * [Drone.cylinder0() method](#dronecylinder0-method)
-   * [Drone.arc() method](#dronearc-method)
-   * [Drone.door() method](#dronedoor-method)
-   * [Drone.door_iron() method](#dronedoor_iron-method)
-   * [Drone.door2() method](#dronedoor2-method)
-   * [Drone.door2_iron() method](#dronedoor2_iron-method)
-   * [Drone.sign() method](#dronesign-method)
-   * [Drone Trees methods](#drone-trees-methods)
-   * [Drone.garden() method](#dronegarden-method)
-   * [Drone.rand() method](#dronerand-method)
-   * [Copy & Paste using Drone](#copy--paste-using-drone)
-   * [Drone.copy() method](#dronecopy-method)
-   * [Drone.paste() method](#dronepaste-method)
-   * [Chaining](#chaining)
-   * [Drone Properties](#drone-properties)
-   * [Extending Drone](#extending-drone)
-   * [Drone.extend() static method](#droneextend-static-method)
-   * [Drone Constants](#drone-constants)
-   * [Drone.times() Method](#dronetimes-method)
-   * [Drone.blocktype() method](#droneblocktype-method)
-   * [Drone.rainbow() method](#dronerainbow-method)
-   * [Drone.sphere() method](#dronesphere-method)
-   * [Drone.sphere0() method](#dronesphere0-method)
-   * [Drone.hemisphere() method](#dronehemisphere-method)
-   * [Drone.hemisphere0() method](#dronehemisphere0-method)
-   * [Drone.spiral_stairs() method](#dronespiral_stairs-method)
+ * [The watcher Module](#the-watcher-module)
+   * [watcher.watchFile() function](#watcherwatchfile-function)
+   * [watcher.watchDir() function](#watcherwatchdir-function)
+   * [watcher.unwatchFile() function](#watcherunwatchfile-function)
+   * [watcher.unwatchDir() function](#watcherunwatchdir-function)
  * [Example Plugin #1 - A simple extension to Minecraft.](#example-plugin-1---a-simple-extension-to-minecraft)
    * [Usage:](#usage-3)
  * [Example Plugin #2 - Making extensions available for all players.](#example-plugin-2---making-extensions-available-for-all-players)
@@ -416,8 +453,6 @@ Walter Higgins
    * [Usage](#usage-10)
  * [alias Plugin](#alias-plugin)
    * [Examples](#examples-2)
- * [Classroom Plugin](#classroom-plugin)
-   * [classroom.allowScripting() function](#classroomallowscripting-function)
  * [Commando Plugin](#commando-plugin)
    * [Description](#description)
    * [Example hi-command.js](#example-hi-commandjs)
@@ -429,7 +464,7 @@ Walter Higgins
    * [Administration options](#administration-options)
  * [NumberGuess mini-game:](#numberguess-mini-game)
    * [Description](#description-1)
-   * [Example](#example-2)
+   * [Example](#example-3)
  * [Cow Clicker Mini-Game](#cow-clicker-mini-game)
    * [How to Play](#how-to-play)
    * [Rules](#rules)
@@ -482,14 +517,13 @@ module.exports instead of exports.
 ## Module Loading
 
 When the ScriptCraft Java plugin is first installed, a new
-subdirectory is created in the craftbukkit/plugins directory. If your
-craftbukkit directory is called 'craftbukkit' then the new
-subdirectories will be ...
+`scriptcraft` subdirectory is created. If your minecraft server
+directory is called 'mcserver' then the new subdirectories will be ...
 
- * craftbukkit/plugins/scriptcraft/
- * craftbukkit/plugins/scriptcraft/plugins
- * craftbukkit/plugins/scriptcraft/modules
- * craftbukkit/plugins/scriptcraft/lib
+ * mcserver/scriptcraft/
+ * mcserver/scriptcraft/plugins
+ * mcserver/scriptcraft/modules
+ * mcserver/scriptcraft/lib
 
 ... The `plugins`, `modules` and `lib` directories each serve a different purpose.
 
@@ -748,14 +782,14 @@ The `command()` function is used to expose javascript functions for use by non-o
 
 To use a callback for options (TAB-Completion) ...
 
-    
+    var utils = require('utils');
     function boo( params, sender ) {
        var receiver = server.getPlayer( params[0] );
        if ( receiver ){
           echo( receiver, sender.name + ' says boo!');
        }
     }
-    command( boo, bukkit.playerNames );
+    command( boo, utils.playerNames );
 
 See chat/colors.js or alias/alias.js or homes/homes.js for more examples of how to use the `command()` function.
 
@@ -906,27 +940,53 @@ When resolving module names to file paths, ScriptCraft uses the following rules.
 
 ## events Module
 
-The Events module provides a thin wrapper around Bukkit's
-Event-handling API.  Bukkit's Events API makes use of Java Annotations
-which are not available in Javascript, so this module provides a
-simple way to listen to minecraft events in javascript.
+The Events module provides a thin wrapper around CanaryMod's or
+Bukkit's Event-handling API.  The Java-based CanaryMod and Bukkit
+Events APIs make use of Java Annotations which are not available in
+Javascript, so this module provides a simple way to listen to
+minecraft events in javascript.
 
 ### events.on() static method
 
-This method is used to register event listeners. 
+This method is used to register event listeners. This method is called by all of the Event Helper methods. 
+The `events` object has functions for registering listeners for each type of event. For example, you can register a block-break listener using events.on:
+
+```javascript
+events.on( Packages.net.canarymod.hook.player.BlockDestroyHook, function( evt, cancel ) { 
+  echo(evt.player, evt.player.name + ' broke a block!');
+} );
+```
+
+or you can (and probably should) use the more succinct:
+
+```javascript
+events.blockDestroy( function( evt, cancel ) { 
+  echo(evt.player, evt.player.name + ' broke a block!');
+} );
+```
+
+The events.on method can be used to register standard CanaryMod/Bukkit
+events and can also be used to register non-standard events - that is
+- events provided by plugins.
 
 #### Parameters
 
- * eventName - A Java class. See [Bukkit API][buk] for details of the many bukkit event types.  
+ * eventType - A Java class. See the [CanaryMod Hook API][cmEvtApi] or [Bukkit Event API][buk] for details of the many event types.  
 
  * callback - A function which will be called whenever the event
-   fires. The callback should take a single parameter, event (the event fired).
+   fires. The callback in turn takes 2 parameters: 
+   
+   - event : the event  fired
+   - cancel : a function which if invoked will cancel the  event - not all event types are cancelable; this function only cancels cancelable events).
 
- * priority (optional - default: "HIGHEST") - The priority the
-   listener/callback takes over other listeners to the same
-   event. Possible values are "HIGH", "HIGHEST", "LOW", "LOWEST",
-   "NORMAL", "MONITOR". For an explanation of what the different
-   priorities mean refer to bukkit's [Event API Reference][buk2].
+ * priority (optional - default: "CRITICAL" for CanaryMod or "HIGHEST" for Bukkit) - 
+   The priority the listener/callback takes over other listeners to the same event. 
+   Possible values for CanaryMod are "CRITICAL", "HIGH", "LOW", "NORMAL" and "PASSIVE".
+   For an explanation of what the different CanaryMod Hook priorities 
+   mean, refer to CanaryMod's [Hook Priority class][cmPriority]. 
+   Possible values for Bukkit are "HIGH", "HIGHEST", "LOW", "LOWEST", "NORMAL", "MONITOR". 
+   For an explanation of what the different Bukkit Event priorities 
+   mean, refer to bukkit's [Event API Reference][buk2]. 
 
 #### Returns
 
@@ -937,17 +997,17 @@ An object which can be used to unregister the listener.
 The following code will print a message on screen every time a block is broken in the game
 
 ```javascript
-events.on( org.bukkit.block.BlockBreakEvent, function( evt ) { 
-    echo(evt.player, evt.player.name + ' broke a block!');
+events.on( Packages.net.canarymod.hook.player.BlockDestroyHook, function( evt, cancel ) { 
+  echo(evt.player, evt.player.name + ' broke a block!');
 } );
 ```
 
 To handle an event only once and unregister from further events...
 
 ```javascript    
-events.on( org.bukkit.block.BlockBreakEvent, function( evt ) { 
-    echo( evt.player, evt.player.name + ' broke a block!');
-    this.unregister();
+events.on( Packages.net.canarymod.hook.player.BlockDestroyHook, function( evt, cancel ) { 
+  echo( evt.player, evt.player.name + ' broke a block!');
+  this.unregister();
 } );
 ```
 
@@ -959,106 +1019,958 @@ object which is returned by the `events.on()` function.
 To unregister a listener *outside* of the listener function...
 
 ```javascript    
-var myBlockBreakListener = events.on( org.bukkit.block.BlockBreakEvent, function( evt ) { ... } );
+var myBlockBreakListener = events.on( Packages.net.canarymod.hook.player.BlockDestroyHook, function( evt ) { ... } );
 ...
 myBlockBreakListener.unregister();
 ```
 
 [buk2]: http://wiki.bukkit.org/Event_API_Reference
 [buk]: http://jd.bukkit.org/dev/apidocs/index.html?org/bukkit/event/Event.html
+[cmEvtApi]: https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/Hook.html
+[cmPriority]: https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/plugin/Priority.html
 
+## Events Helper Module (canary version)
+The Events helper module provides a suite of functions - one for each possible event.
+For example, the events.blockDestroy() function is just a wrapper function which calls events.on(net.canarymod.hook.player.BlockDestroyHook, callback, priority)
+This module is a convenience wrapper for easily adding new event handling functions in Javascript. 
+At the in-game or server-console prompt, players/admins can type `events.` and use TAB completion 
+to choose from any of the approx. 160 different event types to listen to.
 
-### bukkit
+### Usage
 
-The bukkit global variable provides short names for commonly used Bukkit
-Java classes and Enums. It also provides some helper functions for getting
-players, player names and worlds.
+    events.blockDestroy( function( event ) { 
+      echo( event.player, 'You broke a block!'); 
+    });
 
-#### bukkit.stat and bukkit.stats
+The crucial difference is that the events module now has functions for each of the built-in events. The functions are accessible via TAB-completion so will help beginning programmers to explore the events at the server console window.
 
-This is a short name for the [org.bukkit.Statistic](http://jd.bukkit.org/rb/apidocs/org/bukkit/Statistic.html) Enum. 
+### events.minecartActivate()
 
-##### Usage
+#### Parameters 
 
-    var jumpStat = bukkit.stat.JUMP; // var jumpStat = org.bukkit.Statistic.JUMP
+ * callback - A function which is called whenever the [entity.MinecartActivateHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/MinecartActivateHook.html) is fired
 
-#### bukkit.material
+ * priority - optional - see events.on() for more information.
 
-This is a short name for the [org.bukkit.Material](http://jd.bukkit.org/rb/apidocs/org/bukkit/Material.html) Enum. 
+### events.villagerTradeUnlock()
 
-##### Usage
-    
-    var apple = bukkit.material.APPLE;
+#### Parameters 
 
-#### bukkit.art
+ * callback - A function which is called whenever the [entity.VillagerTradeUnlockHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/VillagerTradeUnlockHook.html) is fired
 
-This is a short name for the [org.bukkit.Art](http://jd.bukkit.org/rb/apidocs/org/bukkit/Art.html) Enum. 
+ * priority - optional - see events.on() for more information.
 
-##### Usage
-    
-    var sunsetArt = bukkit.art.SUNSET;
+### events.mobTarget()
 
-#### bukkit.mode
+#### Parameters 
 
-This is a short name for the [org.bukkit.GameMode](http://jd.bukkit.org/rb/apidocs/org/bukkit/GameMode.html) Enum. 
+ * callback - A function which is called whenever the [entity.MobTargetHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/MobTargetHook.html) is fired
 
-##### Usage
-    
-    var creative = bukkit.mode.CREATIVE;
+ * priority - optional - see events.on() for more information.
 
-#### bukkit.sound
+### events.chickenLayEgg()
 
-This is a short name for the [org.bukkit.Sound](http://jd.bukkit.org/rb/apidocs/org/bukkit/Sound.html) Enum. 
+#### Parameters 
 
-##### Usage
-    
-    var oink = bukkit.sound.PIG_IDLE;
+ * callback - A function which is called whenever the [entity.ChickenLayEggHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/ChickenLayEggHook.html) is fired
 
-#### bukkit.players() function
+ * priority - optional - see events.on() for more information.
 
-This function returns a javascript array of all online players on the server.
+### events.potionEffectFinish()
 
-#### bukkit.playerNames() function
+#### Parameters 
 
-This function returns a javascript array of player names (as javascript strings)
+ * callback - A function which is called whenever the [entity.PotionEffectFinishHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/PotionEffectFinishHook.html) is fired
 
-#### bukkit.worlds() function
+ * priority - optional - see events.on() for more information.
 
-This function returns a javascript array of all worlds on the server.
+### events.entityMove()
 
-## console global variable
+#### Parameters 
 
-ScriptCraft provides a `console` global variable with the followng methods...
+ * callback - A function which is called whenever the [entity.EntityMoveHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EntityMoveHook.html) is fired
 
- * log()  
- * info() 
- * warn()
- * error()
+ * priority - optional - see events.on() for more information.
 
-The ScriptCraft console methods work like the [Web API implementation][webcons].
+### events.hangingEntityDestroy()
 
-### Example 
+#### Parameters 
 
-    console.log('Hello %s', 'world');
+ * callback - A function which is called whenever the [entity.HangingEntityDestroyHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/HangingEntityDestroyHook.html) is fired
 
-Basic variable substitution is supported (ScriptCraft's implementation
-of console uses the Bukkit Plugin [Logger][lgr] under the hood and
-uses [java.lang.String.format()][strfmt] for variable
-substitution. All output will be sent to the server console (not
-in-game).
+ * priority - optional - see events.on() for more information.
 
-### Using string substitutions
+### events.vehicleCollision()
 
-ScriptCraft uses Java's [String.format()][strfmt] so any string substitution identifiers supported by 
-`java.lang.String.format()` are supported (e.g. %s , %d etc).
+#### Parameters 
 
-    for (var i=0; i<5; i++) {
-      console.log("Hello, %s. You've called me %d times.", "Bob", i+1);
-    }
+ * callback - A function which is called whenever the [entity.VehicleCollisionHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/VehicleCollisionHook.html) is fired
 
-[lgr]: http://jd.bukkit.org/beta/apidocs/org/bukkit/plugin/PluginLogger.html
-[strfmt]: http://docs.oracle.com/javase/6/docs/api/java/lang/String.html#format(java.lang.String, java.lang.Object...)
-[webcons]: https://developer.mozilla.org/en-US/docs/Web/API/console
+ * priority - optional - see events.on() for more information.
+
+### events.potionEffectApplied()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.PotionEffectAppliedHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/PotionEffectAppliedHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.vehicleDestroy()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.VehicleDestroyHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/VehicleDestroyHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.vehicleEnter()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.VehicleEnterHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/VehicleEnterHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.damage()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.DamageHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/DamageHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.entityMount()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.EntityMountHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EntityMountHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.slimeSplit()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.SlimeSplitHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/SlimeSplitHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.endermanDropBlock()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.EndermanDropBlockHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EndermanDropBlockHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.itemTouchGround()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.ItemTouchGroundHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/ItemTouchGroundHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.entitySpawn()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.EntitySpawnHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EntitySpawnHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.endermanPickupBlock()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.EndermanPickupBlockHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EndermanPickupBlockHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.vehicleDamage()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.VehicleDamageHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/VehicleDamageHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.entityLightningStruck()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.EntityLightningStruckHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EntityLightningStruckHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.entityDespawn()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.EntityDespawnHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EntityDespawnHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.vehicleMove()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.VehicleMoveHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/VehicleMoveHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.projectileHit()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.ProjectileHitHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/ProjectileHitHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.entityDeath()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.EntityDeathHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EntityDeathHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.entityTame()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.EntityTameHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EntityTameHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.vehicleExit()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.VehicleExitHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/VehicleExitHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.dimensionSwitch()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [entity.DimensionSwitchHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/DimensionSwitchHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.foodLevel()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.FoodLevelHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/FoodLevelHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.bookEdit()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.BookEditHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BookEditHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.playerListEntry()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.PlayerListEntryHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerListEntryHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.eat()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.EatHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/EatHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.playerList()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.PlayerListHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerListHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.playerIdle()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.PlayerIdleHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerIdleHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.enchant()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.EnchantHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/EnchantHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.playerArmSwing()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.PlayerArmSwingHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerArmSwingHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.teleport()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.TeleportHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/TeleportHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.anvilUse()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.AnvilUseHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/AnvilUseHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.portalUse()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.PortalUseHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PortalUseHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.foodSaturation()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.FoodSaturationHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/FoodSaturationHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.connection()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.ConnectionHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ConnectionHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.playerRespawned()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.PlayerRespawnedHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerRespawnedHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.armorBroken()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.ArmorBrokenHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ArmorBrokenHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.levelUp()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.LevelUpHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/LevelUpHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.blockRightClick()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.BlockRightClickHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BlockRightClickHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.itemDrop()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.ItemDropHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ItemDropHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.playerRespawning()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.PlayerRespawningHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerRespawningHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.craft()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.CraftHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/CraftHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.experience()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.ExperienceHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ExperienceHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.signChange()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.SignChangeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/SignChangeHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.healthChange()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.HealthChangeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/HealthChangeHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.disconnection()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.DisconnectionHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/DisconnectionHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.gameModeChange()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.GameModeChangeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/GameModeChangeHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.preConnection()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.PreConnectionHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PreConnectionHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.villagerTrade()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.VillagerTradeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/VillagerTradeHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.returnFromIdle()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.ReturnFromIdleHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ReturnFromIdleHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.slotClick()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.SlotClickHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/SlotClickHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.entityRightClick()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.EntityRightClickHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/EntityRightClickHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.foodExhaustion()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.FoodExhaustionHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/FoodExhaustionHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.chat()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.ChatHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ChatHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.itemPickup()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.ItemPickupHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ItemPickupHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.bedExit()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.BedExitHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BedExitHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.blockPlace()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.BlockPlaceHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BlockPlaceHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.toolBroken()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.ToolBrokenHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ToolBrokenHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.kick()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.KickHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/KickHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.playerDeath()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.PlayerDeathHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerDeathHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.blockLeftClick()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.BlockLeftClickHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BlockLeftClickHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.blockDestroy()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.BlockDestroyHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BlockDestroyHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.bedEnter()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.BedEnterHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BedEnterHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.signShow()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.SignShowHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/SignShowHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.inventory()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.InventoryHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/InventoryHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.playerMove()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.PlayerMoveHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerMoveHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.itemUse()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.ItemUseHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ItemUseHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.ban()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.BanHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BanHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.statGained()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [player.StatGainedHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/StatGainedHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.smeltBegin()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.SmeltBeginHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/SmeltBeginHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.treeGrow()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.TreeGrowHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/TreeGrowHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.chunkCreated()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.ChunkCreatedHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/ChunkCreatedHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.liquidDestroy()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.LiquidDestroyHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/LiquidDestroyHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.chunkLoaded()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.ChunkLoadedHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/ChunkLoadedHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.pistonRetract()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.PistonRetractHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/PistonRetractHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.smelt()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.SmeltHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/SmeltHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.blockUpdate()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.BlockUpdateHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/BlockUpdateHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.portalDestroy()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.PortalDestroyHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/PortalDestroyHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.ignition()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.IgnitionHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/IgnitionHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.redstoneChange()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.RedstoneChangeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/RedstoneChangeHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.weatherChange()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.WeatherChangeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/WeatherChangeHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.chunkCreation()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.ChunkCreationHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/ChunkCreationHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.hopperTransfer()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.HopperTransferHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/HopperTransferHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.chunkUnload()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.ChunkUnloadHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/ChunkUnloadHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.blockGrow()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.BlockGrowHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/BlockGrowHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.dispense()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.DispenseHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/DispenseHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.blockDropXp()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.BlockDropXpHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/BlockDropXpHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.fireworkExplode()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.FireworkExplodeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/FireworkExplodeHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.leafDecay()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.LeafDecayHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/LeafDecayHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.pistonExtend()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.PistonExtendHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/PistonExtendHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.noteBlockPlay()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.NoteBlockPlayHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/NoteBlockPlayHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.lightningStrike()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.LightningStrikeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/LightningStrikeHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.decorate()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.DecorateHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/DecorateHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.explosion()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.ExplosionHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/ExplosionHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.tNTActivate()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.TNTActivateHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/TNTActivateHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.timeChange()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.TimeChangeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/TimeChangeHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.flow()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.FlowHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/FlowHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.portalCreate()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.PortalCreateHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/PortalCreateHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.blockPhysics()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [world.BlockPhysicsHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/BlockPhysicsHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.playerCommand()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [command.PlayerCommandHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/command/PlayerCommandHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.consoleCommand()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [command.ConsoleCommandHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/command/ConsoleCommandHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.commandBlockCommand()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [command.CommandBlockCommandHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/command/CommandBlockCommandHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.loadWorld()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [system.LoadWorldHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/LoadWorldHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.permissionCheck()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [system.PermissionCheckHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/PermissionCheckHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.serverGuiStart()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [system.ServerGuiStartHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/ServerGuiStartHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.unloadWorld()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [system.UnloadWorldHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/UnloadWorldHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.pluginDisable()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [system.PluginDisableHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/PluginDisableHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.pluginEnable()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [system.PluginEnableHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/PluginEnableHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.serverTick()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [system.ServerTickHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/ServerTickHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.serverListPing()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [system.ServerListPingHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/ServerListPingHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
+
+### events.serverShutdown()
+
+#### Parameters 
+
+ * callback - A function which is called whenever the [system.ServerShutdownHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/ServerShutdownHook.html) is fired
+
+ * priority - optional - see events.on() for more information.
 
 ## Events Helper Module (bukkit version)
 The Events helper module provides a suite of functions - one for each possible event.
@@ -2331,940 +3243,1264 @@ The crucial difference is that the events module now has functions for each of t
 
  * priority - optional - see events.on() for more information.
 
-## Events Helper Module (canary version)
-The Events helper module provides a suite of functions - one for each possible event.
-For example, the events.blockDestroy() function is just a wrapper function which calls events.on(net.canarymod.hook.player.BlockDestroyHook, callback, priority)
-This module is a convenience wrapper for easily adding new event handling functions in Javascript. 
-At the in-game or server-console prompt, players/admins can type `events.` and use TAB completion 
-to choose from any of the approx. 160 different event types to listen to.
+## console global variable
 
-### Usage
+ScriptCraft provides a `console` global variable with the followng methods...
 
-    events.blockDestroy( function( event ) { 
-      echo( event.player, 'You broke a block!'); 
+ * log()  
+ * info() 
+ * warn()
+ * error()
+
+The ScriptCraft console methods work like the [Web API implementation][webcons].
+
+### Example 
+
+    console.log('Hello %s', 'world');
+
+Basic variable substitution is supported (ScriptCraft's implementation
+of console uses the Bukkit Plugin [Logger][lgr] or Canary Plugin [Logman][cmlgr] under the hood and
+uses [java.lang.String.format()][strfmt] for variable
+substitution. All output will be sent to the server console (not
+in-game).
+
+### Using string substitutions
+
+ScriptCraft uses Java's [String.format()][strfmt] so any string substitution identifiers supported by 
+`java.lang.String.format()` are supported (e.g. %s , %d etc).
+
+    for (var i=0; i<5; i++) {
+      console.log("Hello, %s. You've called me %d times.", "Bob", i+1);
+    }
+
+[lgr]: http://jd.bukkit.org/beta/apidocs/org/bukkit/plugin/PluginLogger.html
+[cmlgr]: https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/logger/Logman.html
+[strfmt]: http://docs.oracle.com/javase/6/docs/api/java/lang/String.html#format(java.lang.String, java.lang.Object...)
+[webcons]: https://developer.mozilla.org/en-US/docs/Web/API/console
+
+## Drone Plugin
+
+The Drone is a convenience class for building. It can be used for...
+
+ 1. Building
+ 2. Copying and Pasting
+
+It uses a fluent interface which means all of the Drone's methods return `this` and can be chained together like so...
+
+    var theDrone = new Drone(self);
+    theDrone.up().left().box(blocks.oak).down().fwd(3).cylinder0(blocks.lava,8); 
+
+### Constructing a Drone Object
+
+Drones can be created in any of the following ways...
+    
+ 1. Calling any one of the methods listed below will return a Drone object. For example...
+         
+        var d = box( blocks.oak )
+
+   ... creates a 1x1x1 wooden block at the cross-hairs or player's location and returns a Drone object. This might look odd (if you're familiar with Java's Object-dot-method syntax) but all of the Drone class's methods are also global functions that return new Drone objects. This is short-hand for creating drones and is useful for playing around with Drones at the in-game command prompt. It's shorter than typing ...
+    
+        var d = new Drone(self).box( blocks.oak ) 
+        
+   ... All of the Drone's methods return `this` so you can chain operations together like this...
+        
+        var d = box( blocks.oak )
+                  .up()
+                  .box( blocks.oak ,3,1,3)
+                  .down()
+                  .fwd(2)
+                  .box( blocks.oak )
+                  .turn()
+                  .fwd(2)
+                  .box( blocks.oak )
+                  .turn()
+                  .fwd(2)
+                  .box( blocks.oak );
+    
+ 2. Using the following form...
+
+        d = new Drone(self)
+    
+    ...will create a new Drone taking the current player as the parameter. If the player's cross-hairs are pointing at a block at the time then, that block's location becomes the drone's starting point.  If the cross-hairs are _not_ pointing at a block, then the drone's starting location will be 2 blocks directly in front of the player.  TIP: Building always happens right and front of the drone's position...
+    
+    Plan View:
+
+        ^
+        |
+        |
+        D---->
+      
+    For convenience you can use a _corner stone_ to begin building. The corner stone should be located just above ground level. If the cross-hair is point at or into ground level when you create a new Drone() with either a player or location given as a parameter, then building begins at the location the player was looking at or at the location. You can get around this by pointing at a 'corner stone' just above ground level or alternatively use the following statement...
+    
+        d = new Drone(self).up();
+          
+    ... which will move the drone up one block as soon as it's created.
+
+    ![corner stone](img/cornerstone1.png)
+
+ 3. Or by using the following form...
+    
+        d = new Drone(x,y,z,direction,world);
+
+    This will create a new Drone at the location you specified using x, y, z In minecraft, the X axis runs west to east and the Z axis runs north to south.  The direction parameter says what direction you want the drone to face: 0 = east, 1 = south, 2 = west, 3 = north.  If the direction parameter is omitted, the player's direction is used instead. Both the `direction` and `world` parameters are optional.
+
+ 4. Create a new Drone based on a Location object...
+
+        d = new Drone(location);
+
+    This is useful when you want to create a drone at a given `org.bukkit.Location` . The `Location` class is used throughout the bukkit API. For example, if you want to create a drone when a block is broken at the block's location you would do so like this...
+
+        events.blockBreak( function( event ) { 
+            var location = event.block.location;
+            var drone = new Drone(location);
+            // do more stuff with the drone here...
+        });
+
+#### Parameters
+
+ * Player : If a player reference is given as the sole parameter then the block the player was looking at will be used as the starting point for the drone. If the player was not looking at a block then the player's location will be used as the starting point. If a `Player` object is provided as a paramter then it should be the only parameter.
+ * location  : *NB* If a `Location` object is provided as a parameter, then it should be the only parameter.
+ * x : The x coordinate of the Drone (x,y,z,direction and world are not needed if either a player or location parameter is provided)
+ * y : The y coordinate of the Drone 
+ * z : The z coordinate of the Drone 
+ * direction : The direction in which the Drone is facing. Possible values are 0 (east), 1 (south), 2 (west) or 3 (north) 
+ * world : The world in which the drone is created. 
+  
+### Drone.box() method
+
+the box() method is a convenience method for building things. (For the more performance-oriented method - see cuboid)
+
+#### parameters
+
+ * b - the block id - e.g. 6 for an oak sapling or '6:2' for a birch sapling. Alternatively you can use any one of the `blocks` values e.g. `blocks.sapling.birch`
+ * w (optional - default 1) - the width of the structure 
+ * h (optional - default 1) - the height of the structure 
+ * d (optional - default 1) - the depth of the structure - NB this is not how deep underground the structure lies - this is how far away (depth of field) from the drone the structure will extend.
+
+#### Example
+
+To create a black structure 4 blocks wide, 9 blocks tall and 1 block long...
+    
+    box(blocks.wool.black, 4, 9, 1);
+
+... or the following code does the same but creates a variable that can be used for further methods...
+
+    var drone = new Drone(self);
+    drone.box(blocks.wool.black, 4, 9, 1);
+
+![box example 1](img/boxex1.png)
+    
+### Drone.box0() method
+
+Another convenience method - this one creates 4 walls with no floor or ceiling.
+
+#### Parameters
+
+ * block - the block id - e.g. 6 for an oak sapling or '6:2' for a birch sapling. Alternatively you can use any one of the `blocks` values e.g. `blocks.sapling.birch`
+ * width (optional - default 1) - the width of the structure 
+ * height (optional - default 1) - the height of the structure 
+ * length (optional - default 1) - the length of the structure - how far
+   away (depth of field) from the drone the structure will extend.
+
+#### Example
+
+To create a stone building with the insided hollowed out 7 wide by 3 tall by 6 long...
+
+    box0( blocks.stone, 7, 3, 6);
+
+![example box0](img/box0ex1.png)
+   
+### Drone.boxa() method
+
+Construct a cuboid using an array of blocks. As the drone moves first along the width axis, then the height (y axis) then the length, each block is picked from the array and placed.
+
+#### Parameters
+
+ * blocks - An array of blocks - each block in the array will be placed in turn.
+ * width
+ * height
+ * length
+
+#### Example
+
+Construct a rainbow-colored road 100 blocks long...
+
+    var rainbowColors = [blocks.wool.red, blocks.wool.orange, blocks.wool.yellow, blocks.wool.lime,
+                         blocks.wool.lightblue, blocks.wool.blue, blocks.wool.purple];
+    
+    boxa(rainbowColors,7,1,30);
+
+![boxa example](img/boxaex1.png)
+
+### Chaining
+
+All of the Drone methods return a Drone object, which means methods can be 'chained' together so instead of writing this...
+
+    drone = new Drone( self ); 
+    drone.fwd( 3 );
+    drone.left( 2 );
+    drone.box( blocks.grass ); // create a grass block 
+    drone.up();
+    drone.box( blocks.grass ); // create another grass block
+    drone.down();
+
+...you could simply write ...
+    
+    var drone = new Drone(self).fwd(3).left(2).box(blocks.grass).up().box(blocks.grass).down();
+
+... since each Drone method is also a global function that constructs a drone if none is supplied, you can shorten even further to just...
+    
+    fwd(3).left(2).box(blocks.grass).up().box(blocks.grass).down()
+
+The Drone object uses a [Fluent Interface][fl] to make ScriptCraft scripts more concise and easier to write and read.  Minecraft's in-game command prompt is limited to about 80 characters so chaining drone commands together means more can be done before hitting the command prompt limit. For complex building you should save your commands in a new script file and load it using /js load()
+
+[fl]: http://en.wikipedia.org/wiki/Fluent_interface
+
+### Drone Properties
+
+ * x - The Drone's position along the west-east axis (x increases as you move east)
+ * y - The Drone's position along the vertical axis (y increses as you move up)
+ * z - The Drone's position along the north-south axis (z increases as you move south)
+ * dir - The Drone's direction 0 is east, 1 is south , 2 is west and 3 is north.
+
+### Extending Drone
+
+The Drone object can be easily extended - new buidling recipes/blueprints can be added and can become part of a Drone's chain using the *static* method `Drone.extend`. 
+
+### Drone.extend() static method
+
+Use this method to add new methods (which also become chainable global functions) to the Drone object.
+
+#### Parameters
+
+ * name - The name of the new method e.g. 'pyramid'. 
+ * function - The method body.
+
+Alternatively if you provide just a function as a parameter, then the function name will be used as the new method name. For example the following two approaches are both valid.
+
+#### Example 1 Using name and function as parameters
+
+    // submitted by [edonaldson][edonaldson]
+    var Drone = require('drone'); 
+    Drone.extend('pyramid', function( block,height) { 
+        this.chkpt('pyramid');
+        for ( var i = height; i > 0; i -= 2) {
+            this.box(block, i, 1, i).up().right().fwd();
+        }
+        return this.move('pyramid');      
     });
 
-The crucial difference is that the events module now has functions for each of the built-in events. The functions are accessible via TAB-completion so will help beginning programmers to explore the events at the server console window.
+#### Example 2 Using just a named function as a parameter
 
-### events.minecartActivate()
+    var Drone = require('drone'); 
+    function pyramid( block,height) { 
+        this.chkpt('pyramid');
+        for ( var i = height; i > 0; i -= 2) {
+            this.box(block, i, 1, i).up().right().fwd();
+        }
+        return this.move('pyramid');      
+    }
+    Drone.extend( pyramid );
 
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.MinecartActivateHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/MinecartActivateHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.villagerTradeUnlock()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.VillagerTradeUnlockHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/VillagerTradeUnlockHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.mobTarget()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.MobTargetHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/MobTargetHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.chickenLayEgg()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.ChickenLayEggHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/ChickenLayEggHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.potionEffectFinish()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.PotionEffectFinishHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/PotionEffectFinishHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.entityMove()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.EntityMoveHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EntityMoveHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.hangingEntityDestroy()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.HangingEntityDestroyHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/HangingEntityDestroyHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.vehicleCollision()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.VehicleCollisionHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/VehicleCollisionHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.potionEffectApplied()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.PotionEffectAppliedHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/PotionEffectAppliedHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.vehicleDestroy()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.VehicleDestroyHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/VehicleDestroyHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.vehicleEnter()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.VehicleEnterHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/VehicleEnterHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.damage()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.DamageHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/DamageHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.entityMount()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.EntityMountHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EntityMountHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.slimeSplit()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.SlimeSplitHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/SlimeSplitHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.endermanDropBlock()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.EndermanDropBlockHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EndermanDropBlockHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.itemTouchGround()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.ItemTouchGroundHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/ItemTouchGroundHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.entitySpawn()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.EntitySpawnHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EntitySpawnHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.endermanPickupBlock()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.EndermanPickupBlockHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EndermanPickupBlockHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.vehicleDamage()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.VehicleDamageHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/VehicleDamageHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.entityLightningStruck()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.EntityLightningStruckHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EntityLightningStruckHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.entityDespawn()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.EntityDespawnHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EntityDespawnHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.vehicleMove()
-
-#### Parameters 
+Once the method is defined (it can be defined in a new pyramid.js file) it can be used like so...
 
- * callback - A function which is called whenever the [entity.VehicleMoveHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/VehicleMoveHook.html) is fired
+    var d = new Drone(self);
+    d.pyramid(blocks.brick.stone, 12);
 
- * priority - optional - see events.on() for more information.
+... or simply ...
 
-### events.projectileHit()
+    pyramid(blocks.brick.stone, 12);
 
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.ProjectileHitHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/ProjectileHitHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.entityDeath()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.EntityDeathHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EntityDeathHook.html) is fired
-
- * priority - optional - see events.on() for more information.
-
-### events.entityTame()
-
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.EntityTameHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/EntityTameHook.html) is fired
-
- * priority - optional - see events.on() for more information.
+[edonaldson]: https://github.com/edonaldson
 
-### events.vehicleExit()
+### Drone Constants
 
-#### Parameters 
-
- * callback - A function which is called whenever the [entity.VehicleExitHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/VehicleExitHook.html) is fired
-
- * priority - optional - see events.on() for more information.
+#### Drone.PLAYER_STAIRS_FACING
 
-### events.dimensionSwitch()
+An array which can be used when constructing stairs facing in the Drone's direction...
 
-#### Parameters 
+    var d = new Drone(self);
+    d.box(blocks.stairs.oak + ':' + Drone.PLAYER_STAIRS_FACING[d.dir]);
 
- * callback - A function which is called whenever the [entity.DimensionSwitchHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/entity/DimensionSwitchHook.html) is fired
+... will construct a single oak stair block facing the drone.
 
- * priority - optional - see events.on() for more information.
+#### Drone.PLAYER_SIGN_FACING
 
-### events.foodLevel()
-
-#### Parameters 
+An array which can be used when placing signs so they face in a given direction. This is used internally by the Drone.sign() method. It should also be used for placing any of the following blocks...
 
- * callback - A function which is called whenever the [player.FoodLevelHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/FoodLevelHook.html) is fired
+ * chest 
+ * ladder
+ * furnace
+ * dispenser
 
- * priority - optional - see events.on() for more information.
+By default, chests, dispensers, signs, ladders and furnaces are placed facing towards the drone so to place a chest facing the Drone just use:
 
-### events.bookEdit()
+    drone.box( blocks.chest );
 
-#### Parameters 
+To place a chest facing _away_ from the Drone:
 
- * callback - A function which is called whenever the [player.BookEditHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BookEditHook.html) is fired
+    drone.box( blocks.chest + ':' + Drone.PLAYER_SIGN_FACING[(drone.dir + 2) % 4]);
 
- * priority - optional - see events.on() for more information.
+#### Drone.PLAYER_TORCH_FACING
 
-### events.playerListEntry()
+Used when placing torches. By default torches will be placed facing up. If you want to place a torch so that it faces towards the drone:
 
-#### Parameters 
+    drone.box( blocks.torch + ':' + Drone.PLAYER_TORCH_FACING[drone.dir]);
 
- * callback - A function which is called whenever the [player.PlayerListEntryHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerListEntryHook.html) is fired
+If you want to place a torch so it faces _away_ from the drone:
 
- * priority - optional - see events.on() for more information.
+    drone.box( blocks.torch + ':' + Drone.PLAYER_TORCH_FACING[(drone.dir + 2) % 4]);
 
-### events.eat()
+### Drone.times() Method
 
-#### Parameters 
+The times() method makes building multiple copies of buildings
+easy. It's possible to create rows or grids of buildings without
+resorting to `for` or `while` loops.
 
- * callback - A function which is called whenever the [player.EatHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/EatHook.html) is fired
+#### Parameters
 
- * priority - optional - see events.on() for more information.
+ * numTimes (optional - default 2) : The number of times you want to repeat the preceding statements.
 
-### events.playerIdle()
+#### Example
 
-#### Parameters 
+Say you want to do the same thing over and over. You have a couple of options...
 
- * callback - A function which is called whenever the [player.PlayerIdleHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerIdleHook.html) is fired
+ * You can use a for loop...
 
- * priority - optional - see events.on() for more information.
+    d = new Drone(); for ( var i =0;i < 4; i++) {  d.cottage().right(8); }
 
-### events.enchant()
+While this will fit on the in-game prompt, it's awkward. You need to
+declare a new Drone object first, then write a for loop to create the
+4 cottages. It's also error prone, even the `for` loop is too much
+syntax for what should really be simple.
 
-#### Parameters 
+ * You can use a while loop...
+   
+    d = new Drone(); var i=4; while (i--) {  d.cottage().right(8); }
 
- * callback - A function which is called whenever the [player.EnchantHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/EnchantHook.html) is fired
+... which is slightly shorter but still too much syntax. Each of the
+above statements is fine for creating a 1-dimensional array of
+structures. But what if you want to create a 2-dimensional or
+3-dimensional array of structures? Enter the `times()` method.
 
- * priority - optional - see events.on() for more information.
+The `times()` method lets you repeat commands in a chain any number of
+times. So to create 4 cottages in a row you would use the following
+statement...
 
-### events.playerArmSwing()
+    cottage().right(8).times(4);
 
-#### Parameters 
+...which will build a cottage, then move right 8 blocks, then do it
+again 4 times over so that at the end you will have 4 cottages in a
+row. What's more the `times()` method can be called more than once in
+a chain. So if you wanted to create a *grid* of 20 houses ( 4 x 5 ),
+you would do so using the following statement...
 
- * callback - A function which is called whenever the [player.PlayerArmSwingHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerArmSwingHook.html) is fired
+    cottage().right(8).times(4).fwd(8).left(32).times(5);
 
- * priority - optional - see events.on() for more information.
+... breaking it down...
 
-### events.teleport()
+ 1. The first 3 calls in the chain ( `cottage()`, `right(8)`, `times(4)` ) build a single row of 4 cottages.
 
-#### Parameters 
+ 2. The last 3 calls in the chain ( `fwd(8)`, `left(32)`, `times(5)` ) move the drone forward 8 then left 32 blocks (4 x 8) to return to the original x coordinate, then everything in the chain is repeated again 5 times so that in the end, we have a grid of 20 cottages, 4 x 5.  Normally this would require a nested loop but the `times()` method does away with the need for loops when repeating builds.
 
- * callback - A function which is called whenever the [player.TeleportHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/TeleportHook.html) is fired
+Another example: This statement creates a row of trees 2 by 3 ...
 
- * priority - optional - see events.on() for more information.
+    oak().right(10).times(2).left(20).fwd(10).times(3)
 
-### events.anvilUse()
+... You can see the results below.
 
-#### Parameters 
+![times example 1](img/times-trees.png)
 
- * callback - A function which is called whenever the [player.AnvilUseHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/AnvilUseHook.html) is fired
+### Drone.arc() method
 
- * priority - optional - see events.on() for more information.
+The arc() method can be used to create 1 or more 90 degree arcs in the
+horizontal or vertical planes. This method is called by cylinder() and
+cylinder0() and the sphere() and sphere0() methods.
 
-### events.portalUse()
+#### Parameters
 
-#### Parameters 
+arc() takes a single parameter - an object with the following named properties...
 
- * callback - A function which is called whenever the [player.PortalUseHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PortalUseHook.html) is fired
+ * radius - The radius of the arc.
+ * blockType - The type of block to use - this is the block Id only (no meta). See [Data Values][dv].
+ * meta - The metadata value. See [Data Values][dv].
+ * orientation (default: 'horizontal' ) - the orientation of the arc - can be 'vertical' or 'horizontal'.
+ * stack (default: 1 ) - the height or length of the arc (depending on the orientation - if orientation is horizontal then this parameter refers to the height, if vertical then it refers to the length ).
+ * strokeWidth (default: 1 ) - the width of the stroke (how many blocks) - if drawing nested arcs it's usually a good idea to set strokeWidth to at least 2 so that there are no gaps between each arc. The arc method uses a [bresenham algorithm][bres] to plot points along the circumference.
+ * fill - If true (or present) then the arc will be filled in.
+ * quadrants (default: `{topleft:true,topright:true,bottomleft:true,bottomright:true}` - An object with 4 properties indicating which of the 4 quadrants of a circle to draw. If the quadrants property is absent then all 4 quadrants are drawn.
 
- * priority - optional - see events.on() for more information.
+#### Examples
 
-### events.foodSaturation()
+To draw a 1/4 circle (top right quadrant only) with a radius of 10 and
+stroke width of 2 blocks ...
 
-#### Parameters 
+    arc({blockType: blocks.iron, 
+         meta: 0, 
+         radius: 10,
+         strokeWidth: 2,
+         quadrants: { topright: true },
+         orientation: 'vertical', 
+         stack: 1,
+         fill: false
+         } );
 
- * callback - A function which is called whenever the [player.FoodSaturationHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/FoodSaturationHook.html) is fired
+![arc example 1](img/arcex1.png)
 
- * priority - optional - see events.on() for more information.
+[bres]: http://en.wikipedia.org/wiki/Midpoint_circle_algorithm
+[dv]: http://www.minecraftwiki.net/wiki/Data_values
 
-### events.connection()
+### Drone.bed() method
 
-#### Parameters 
+Creates a bed. The foot of the bed will be at the drone's location and
+the head of the bed will extend away from the drone.
 
- * callback - A function which is called whenever the [player.ConnectionHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ConnectionHook.html) is fired
+#### Example
+To create a bed at the in-game prompt, look at a block then type:
 
- * priority - optional - see events.on() for more information.
+```javascript
+/js bed()
+```
 
-### events.playerRespawned()
+Like most Drone methods, this returns the drone so it can be chained like so:
 
-#### Parameters 
+```javascript
+this
+  .fwd(3)
+  .bed()
+  .back(3)
+```     
+### Drone.blocktype() method
 
- * callback - A function which is called whenever the [player.PlayerRespawnedHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerRespawnedHook.html) is fired
+Creates the text out of blocks. Useful for large-scale in-game signs.
 
- * priority - optional - see events.on() for more information.
+#### Parameters
+ 
+ * message - The message to create - (use `\n` for newlines)
+ * foregroundBlock (default: black wool) - The block to use for the foreground
+ * backgroundBlock (default: none) - The block to use for the background
 
-### events.armorBroken()
+#### Example
 
-#### Parameters 
+To create a 2-line high message using glowstone...
 
- * callback - A function which is called whenever the [player.ArmorBrokenHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ArmorBrokenHook.html) is fired
+    blocktype('Hello\nWorld', blocks.glowstone);
 
- * priority - optional - see events.on() for more information.
+![blocktype example][imgbt1]
 
-### events.levelUp()
+[imgbt1]: img/blocktype1.png
 
-#### Parameters 
+### Copy & Paste using Drone
 
- * callback - A function which is called whenever the [player.LevelUpHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/LevelUpHook.html) is fired
+A drone can be used to copy and paste areas of the game world.
 
- * priority - optional - see events.on() for more information.
+#### Deprecated
+As of January 10 2015 the copy-paste functions in Drone are no longer
+supported. Copy/Paste is:
 
-### events.blockRightClick()
+1. Difficult to do correctly in a way which works for both Minecraft 1.7 and 1.8 
+   due to how blocks changed in 1.8
+2. Not aligned with the purpose of ScriptCraft's Drone module which is to provide 
+   a simple set of functions for scripting and in-game building.
 
-#### Parameters 
+### Drone.copy() method
 
- * callback - A function which is called whenever the [player.BlockRightClickHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BlockRightClickHook.html) is fired
+Copies an area so it can be pasted elsewhere. The name can be used for
+pasting the copied area elsewhere...
 
- * priority - optional - see events.on() for more information.
+#### Parameters
 
-### events.itemDrop()
+ * name - the name to be given to the copied area (used by `paste`)
+ * width - the width of the area to copy
+ * height - the height of the area to copy
+ * length - the length of the area (extending away from the drone) to copy
 
-#### Parameters 
+#### Example
 
- * callback - A function which is called whenever the [player.ItemDropHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ItemDropHook.html) is fired
+    drone.copy('somethingCool',10,5,10 ).right(12 ).paste('somethingCool' );
 
- * priority - optional - see events.on() for more information.
+### Drone.paste() method
 
-### events.playerRespawning()
+Pastes a copied area to the current location.
 
-#### Parameters 
+#### Example
 
- * callback - A function which is called whenever the [player.PlayerRespawningHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerRespawningHook.html) is fired
+To copy a 10x5x10 area (using the drone's coordinates as the starting
+point) into memory.  the copied area can be referenced using the name
+'somethingCool'. The drone moves 12 blocks right then pastes the copy.
 
- * priority - optional - see events.on() for more information.
+    drone.copy('somethingCool',10,5,10 )
+         .right(12 )
+         .paste('somethingCool' );
 
-### events.craft()
+### Drone.cylinder() method
 
-#### Parameters 
+A convenience method for building cylinders. Building begins radius blocks to the right and forward.
 
- * callback - A function which is called whenever the [player.CraftHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/CraftHook.html) is fired
+#### Parameters
 
- * priority - optional - see events.on() for more information.
+ * block - the block id - e.g. 6 for an oak sapling or '6:2' for a birch sapling. Alternatively you can use any one of the `blocks` values e.g. `blocks.sapling.birch`
+ * radius 
+ * height
 
-### events.experience()
+#### Example
 
-#### Parameters 
+To create a cylinder of Iron 7 blocks in radius and 1 block high...
 
- * callback - A function which is called whenever the [player.ExperienceHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ExperienceHook.html) is fired
+    cylinder(blocks.iron, 7 , 1);
 
- * priority - optional - see events.on() for more information.
+![cylinder example](img/cylinderex1.png)
 
-### events.signChange()
+### Drone.cylinder0() method
 
-#### Parameters 
+A version of cylinder that hollows out the middle.
 
- * callback - A function which is called whenever the [player.SignChangeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/SignChangeHook.html) is fired
+#### Example
 
- * priority - optional - see events.on() for more information.
+To create a hollow cylinder of Iron 7 blocks in radius and 1 block high...
 
-### events.healthChange()
+    cylinder0(blocks.iron, 7, 1);
 
-#### Parameters 
+![cylinder0 example](img/cylinder0ex1.png)
 
- * callback - A function which is called whenever the [player.HealthChangeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/HealthChangeHook.html) is fired
+### Drone.door() method
 
- * priority - optional - see events.on() for more information.
+create a door - if a parameter is supplied an Iron door is created otherwise a wooden door is created.
 
-### events.disconnection()
+#### Parameters
 
-#### Parameters 
+ * doorType (optional - default wood) - If a parameter is provided then the door is Iron.
 
- * callback - A function which is called whenever the [player.DisconnectionHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/DisconnectionHook.html) is fired
+#### Example
 
- * priority - optional - see events.on() for more information.
+To create a wooden door at the crosshairs/drone's location...
 
-### events.gameModeChange()
+    var drone = new Drone(self);
+    drone.door();
 
-#### Parameters 
+To create an iron door...
 
- * callback - A function which is called whenever the [player.GameModeChangeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/GameModeChangeHook.html) is fired
+    drone.door( blocks.door_iron );
 
- * priority - optional - see events.on() for more information.
+![iron door](img/doorex1.png)
 
-### events.preConnection()
+### Drone.door_iron() method
 
-#### Parameters 
+create an Iron door.
 
- * callback - A function which is called whenever the [player.PreConnectionHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PreConnectionHook.html) is fired
+### Drone.door2() method
 
- * priority - optional - see events.on() for more information.
+Create double doors (left and right side)
 
-### events.villagerTrade()
+#### Parameters
 
-#### Parameters 
+ * doorType (optional - default wood) - If a parameter is provided then the door is Iron.
 
- * callback - A function which is called whenever the [player.VillagerTradeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/VillagerTradeHook.html) is fired
+#### Example
 
- * priority - optional - see events.on() for more information.
+To create double-doors at the cross-hairs/drone's location...
 
-### events.returnFromIdle()
+    drone.door2();
 
-#### Parameters 
+![double doors](img/door2ex1.png)
 
- * callback - A function which is called whenever the [player.ReturnFromIdleHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ReturnFromIdleHook.html) is fired
+### Drone.door2_iron() method
 
- * priority - optional - see events.on() for more information.
+Create double iron doors
 
-### events.slotClick()
+### Drone.firework() method
 
-#### Parameters 
+Launches a firework at the drone's location.
 
- * callback - A function which is called whenever the [player.SlotClickHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/SlotClickHook.html) is fired
+#### Example
 
- * priority - optional - see events.on() for more information.
+To launch a firework:
 
-### events.entityRightClick()
+    var drone = new Drone(self);
+    drone.firework();
 
-#### Parameters 
+### Drone.garden() method
 
- * callback - A function which is called whenever the [player.EntityRightClickHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/EntityRightClickHook.html) is fired
+places random flowers and long grass (similar to the effect of placing bonemeal on grass)
 
- * priority - optional - see events.on() for more information.
+#### Parameters
 
-### events.foodExhaustion()
+ * width - the width of the garden
+ * length - how far from the drone the garden extends
 
-#### Parameters 
+#### Example
 
- * callback - A function which is called whenever the [player.FoodExhaustionHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/FoodExhaustionHook.html) is fired
+To create a garden 10 blocks wide by 5 blocks long...
 
- * priority - optional - see events.on() for more information.
+    garden(10,5);
 
-### events.chat()
+![garden example](img/gardenex1.png)
 
-#### Parameters 
+### Drone.ladder() method
 
- * callback - A function which is called whenever the [player.ChatHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ChatHook.html) is fired
+Creates a ladder extending skyward.
 
- * priority - optional - see events.on() for more information.
+#### Parameters
 
-### events.itemPickup()
+ * height (optional - default 1) 
 
-#### Parameters 
+#### Example
 
- * callback - A function which is called whenever the [player.ItemPickupHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ItemPickupHook.html) is fired
+To create a ladder extending 10 blocks high:
 
- * priority - optional - see events.on() for more information.
+    var drone = new Drone(self);
+    drone.ladder(10)
 
-### events.bedExit()
+At the in-game prompt, look at a block and then type:    
 
-#### Parameters 
+    /js ladder(10)
 
- * callback - A function which is called whenever the [player.BedExitHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BedExitHook.html) is fired
+A ladder 10 blocks high will be created at the point you were looking at.
 
- * priority - optional - see events.on() for more information.
+#### Since 
+##### 3.0.3
+### Drone Movement
 
-### events.blockPlace()
+Drones can move freely in minecraft's 3-D world. You control the
+Drone's movement using any of the following methods..
 
-#### Parameters 
+ * up()
+ * down()
+ * left()
+ * right()
+ * fwd()
+ * back()
+ * turn()
 
- * callback - A function which is called whenever the [player.BlockPlaceHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BlockPlaceHook.html) is fired
+... Each of these methods takes a single optional parameter
+`numBlocks` - the number of blocks to move in the given direction. If
+no parameter is given, the default is 1.
 
- * priority - optional - see events.on() for more information.
+To change direction use the `turn()` method which also takes a single
+optional parameter (numTurns) - the number of 90 degree turns to
+make. Turns are always clock-wise. If the drone is facing north, then
+drone.turn() will make the turn face east. If the drone is facing east
+then drone.turn(2) will make the drone turn twice so that it is facing
+west.
 
-### events.toolBroken()
+### Drone Positional Info
 
-#### Parameters 
+ * getLocation() - Returns a native Java Location object for the drone
 
- * callback - A function which is called whenever the [player.ToolBrokenHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ToolBrokenHook.html) is fired
+### Drone Markers
 
- * priority - optional - see events.on() for more information.
+Markers are useful when your Drone has to do a lot of work. You can
+set a check-point and return to the check-point using the move()
+method.  If your drone is about to undertake a lot of work -
+e.g. building a road, skyscraper or forest you should set a
+check-point before doing so if you want your drone to return to its
+current location.
 
-### events.kick()
+A 'start' checkpoint is automatically created when the Drone is first created.
 
-#### Parameters 
+Markers are created and returned to using the followng two methods...
 
- * callback - A function which is called whenever the [player.KickHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/KickHook.html) is fired
+ * chkpt - Saves the drone's current location so it can be returned to later.
+ * move - moves the drone to a saved location. Alternatively you can provide a Java Location object or x,y,z and direction parameters.
 
- * priority - optional - see events.on() for more information.
+#### Parameters
 
-### events.playerDeath()
+ * name - the name of the checkpoint to save or return to.
 
-#### Parameters 
+#### Example
 
- * callback - A function which is called whenever the [player.PlayerDeathHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerDeathHook.html) is fired
+    drone.chkpt('town-square');
+    //
+    // the drone can now go off on a long excursion
+    //
+    for ( i = 0; i< 100; i++) {  
+        drone.fwd(12).box(6); 
+    }
+    //
+    // return to the point before the excursion
+    //
+    drone.move('town-square');
 
- * priority - optional - see events.on() for more information.
+### Drone.prism() method
 
-### events.blockLeftClick()
+Creates a prism. This is useful for roofs on houses.
 
-#### Parameters 
+#### Parameters
 
- * callback - A function which is called whenever the [player.BlockLeftClickHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BlockLeftClickHook.html) is fired
+ * block - the block id - e.g. 6 for an oak sapling or '6:2' for a birch sapling. 
+   Alternatively you can use any one of the `blocks` values e.g. `blocks.sapling.birch`
+ * width - the width of the prism
+ * length - the length of the prism (will be 2 time its height)
 
- * priority - optional - see events.on() for more information.
+#### Example
 
-### events.blockDestroy()
+    prism(blocks.oak,3,12);
 
-#### Parameters 
+![prism example](img/prismex1.png)
 
- * callback - A function which is called whenever the [player.BlockDestroyHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BlockDestroyHook.html) is fired
+### Drone.prism0() method
 
- * priority - optional - see events.on() for more information.
+A variation on `prism` which hollows out the inside of the prism. It
+uses the same parameters as `prism`.
 
-### events.bedEnter()
+### Drone.rand() method
 
-#### Parameters 
+rand takes either an array (if each blockid has the same chance of occurring) or an object where each property is a blockid and the value is it's weight (an integer)
 
- * callback - A function which is called whenever the [player.BedEnterHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BedEnterHook.html) is fired
+#### Example
 
- * priority - optional - see events.on() for more information.
+place random blocks stone, mossy stone and cracked stone (each block has the same chance of being picked)
 
-### events.signShow()
+    rand( [blocks.brick.stone, blocks.brick.mossy, blocks.brick.cracked ],w,d,h) 
 
-#### Parameters 
+to place random blocks stone has a 50% chance of being picked, 
 
- * callback - A function which is called whenever the [player.SignShowHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/SignShowHook.html) is fired
+    var distribution = {};
+    distribution[ blocks.brick.stone ] = 5;
+    distribution[ blocks.brick.mossy ] = 3;
+    distribution[ blocks.brick.cracked ] = 2;
 
- * priority - optional - see events.on() for more information.
+    rand( distribution, width, height, depth) 
 
-### events.inventory()
+regular stone has a 50% chance, mossy stone has a 30% chance and cracked stone has just a 20% chance of being picked.
 
-#### Parameters 
+### Drone.wallsign() method
 
- * callback - A function which is called whenever the [player.InventoryHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/InventoryHook.html) is fired
+Creates a wall sign (A sign attached to a wall)
 
- * priority - optional - see events.on() for more information.
+#### Parameters
 
-### events.playerMove()
+ * message - can be a string or an array of strings
 
-#### Parameters 
+#### Example
 
- * callback - A function which is called whenever the [player.PlayerMoveHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/PlayerMoveHook.html) is fired
+    drone.wallsign(['Welcome','to','Scriptopia']);
 
- * priority - optional - see events.on() for more information.
+![wall sign](img/signex2.png)
 
-### events.itemUse()
+### Drone.signpost() method
 
-#### Parameters 
+Creates a free-standing signpost 
 
- * callback - A function which is called whenever the [player.ItemUseHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/ItemUseHook.html) is fired
+#### Parameters
 
- * priority - optional - see events.on() for more information.
+ * message - can be a string or an array of strings
 
-### events.ban()
+#### Example
 
-#### Parameters 
+    drone.signpost(['Hello','World']);
 
- * callback - A function which is called whenever the [player.BanHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/BanHook.html) is fired
+![ground sign](img/signex1.png)
 
- * priority - optional - see events.on() for more information.
+### Drone.sign() method
 
-### events.statGained()
+Deprecated: Use signpost() or wallsign() methods instead.
 
-#### Parameters 
+Signs must use block 63 (stand-alone signs) or 68 (signs on walls)
 
- * callback - A function which is called whenever the [player.StatGainedHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/player/StatGainedHook.html) is fired
+#### Parameters
 
- * priority - optional - see events.on() for more information.
+ * message -  can be a string or an array of strings. 
+ * block - can be 63 or 68
 
-### events.smeltBegin()
+#### Example
 
-#### Parameters 
+To create a free-standing sign...
 
- * callback - A function which is called whenever the [world.SmeltBeginHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/SmeltBeginHook.html) is fired
+    drone.sign(["Hello","World"], blocks.sign_post);
 
- * priority - optional - see events.on() for more information.
+![ground sign](img/signex1.png)
 
-### events.treeGrow()
+... to create a wall mounted sign...
 
-#### Parameters 
+    drone.sign(["Welcome","to","Scriptopia"], blocks.sign );
 
- * callback - A function which is called whenever the [world.TreeGrowHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/TreeGrowHook.html) is fired
+![wall sign](img/signex2.png)
 
- * priority - optional - see events.on() for more information.
+### Drone.sphere() method
 
-### events.chunkCreated()
+Creates a sphere.
 
-#### Parameters 
+#### Parameters
+ 
+ * block - The block the sphere will be made of.
+ * radius - The radius of the sphere.
 
- * callback - A function which is called whenever the [world.ChunkCreatedHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/ChunkCreatedHook.html) is fired
+#### Example
 
- * priority - optional - see events.on() for more information.
+To create a sphere of Iron with a radius of 10 blocks...
 
-### events.liquidDestroy()
+    sphere( blocks.iron, 10);
 
-#### Parameters 
+![sphere example](img/sphereex1.png)
 
- * callback - A function which is called whenever the [world.LiquidDestroyHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/LiquidDestroyHook.html) is fired
+Spheres are time-consuming to make. You *can* make large spheres (250 radius) but expect the
+server to be very busy for a couple of minutes while doing so.
 
- * priority - optional - see events.on() for more information.
+### Drone.sphere0() method
 
-### events.chunkLoaded()
+Creates an empty sphere.
 
-#### Parameters 
+#### Parameters
+ 
+ * block - The block the sphere will be made of.
+ * radius - The radius of the sphere.
 
- * callback - A function which is called whenever the [world.ChunkLoadedHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/ChunkLoadedHook.html) is fired
+#### Example
 
- * priority - optional - see events.on() for more information.
+To create a sphere of Iron with a radius of 10 blocks...
 
-### events.pistonRetract()
+    sphere0( blocks.iron, 10);
 
-#### Parameters 
+Spheres are time-consuming to make. You *can* make large spheres (250 radius) but expect the
+server to be very busy for a couple of minutes while doing so.
 
- * callback - A function which is called whenever the [world.PistonRetractHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/PistonRetractHook.html) is fired
+### Drone.hemisphere() method
 
- * priority - optional - see events.on() for more information.
+Creates a hemisphere. Hemispheres can be either north or south.
 
-### events.smelt()
+#### Parameters
 
-#### Parameters 
+ * block - the block the hemisphere will be made of.
+ * radius - the radius of the hemisphere
+ * northSouth - whether the hemisphere is 'north' or 'south'
 
- * callback - A function which is called whenever the [world.SmeltHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/SmeltHook.html) is fired
+#### Example
 
- * priority - optional - see events.on() for more information.
+To create a wood 'north' hemisphere with a radius of 7 blocks...
 
-### events.blockUpdate()
+    hemisphere(blocks.oak, 7, 'north');
 
-#### Parameters 
+![hemisphere example](img/hemisphereex1.png)
 
- * callback - A function which is called whenever the [world.BlockUpdateHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/BlockUpdateHook.html) is fired
+### Drone.hemisphere0() method
 
- * priority - optional - see events.on() for more information.
+Creates a hollow hemisphere. Hemispheres can be either north or south.
 
-### events.portalDestroy()
+#### Parameters
 
-#### Parameters 
+ * block - the block the hemisphere will be made of.
+ * radius - the radius of the hemisphere
+ * northSouth - whether the hemisphere is 'north' or 'south'
 
- * callback - A function which is called whenever the [world.PortalDestroyHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/PortalDestroyHook.html) is fired
+#### Example
 
- * priority - optional - see events.on() for more information.
+To create a glass 'north' hemisphere with a radius of 20 blocks...
 
-### events.ignition()
+    hemisphere0(blocks.glass, 20, 'north');
 
-#### Parameters 
+![hemisphere example](img/hemisphereex2.png)
 
- * callback - A function which is called whenever the [world.IgnitionHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/IgnitionHook.html) is fired
+### Drone.stairs() function
 
- * priority - optional - see events.on() for more information.
+The stairs() function will build a flight of stairs
 
-### events.redstoneChange()
+#### Parameters
 
-#### Parameters 
+ * blockType - should be one of the following: 
 
- * callback - A function which is called whenever the [world.RedstoneChangeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/RedstoneChangeHook.html) is fired
+   * blocks.stairs.oak
+   * blocks.stairs.cobblestone
+   * blocks.stairs.brick
+   * blocks.stairs.stone
+   * blocks.stairs.nether
+   * blocks.stairs.sandstone
+   * blocks.stairs.spruce
+   * blocks.stairs.birch
+   * blocks.stairs.jungle
+   * blocks.stairs.quartz
 
- * priority - optional - see events.on() for more information.
+ * width - The width of the staircase - default is 1
+ * height - The height of the staircase - default is 1
 
-### events.weatherChange()
+#### Example
 
-#### Parameters 
+To build an oak staircase 3 blocks wide and 5 blocks tall:
 
- * callback - A function which is called whenever the [world.WeatherChangeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/WeatherChangeHook.html) is fired
+    /js stairs(blocks.stairs.oak, 3, 5) 
 
- * priority - optional - see events.on() for more information.
+Staircases do not have any blocks beneath them.
 
-### events.chunkCreation()
+### Drone Trees methods
 
-#### Parameters 
+ * oak()
+ * spruce()
+ * birch()
+ * jungle()
 
- * callback - A function which is called whenever the [world.ChunkCreationHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/ChunkCreationHook.html) is fired
+#### Example
 
- * priority - optional - see events.on() for more information.
+To create 4 trees in a row, point the cross-hairs at the ground then type `/js ` and ...
 
-### events.hopperTransfer()
+    up( ).oak( ).right(8 ).spruce( ).right(8 ).birch( ).right(8 ).jungle( );
 
-#### Parameters 
+Trees won't always generate unless the conditions are right. You
+should use the tree methods when the drone is directly above the
+ground. Trees will usually grow if the drone's current location is
+occupied by Air and is directly above an area of grass (That is why
+the `up()` method is called first).
 
- * callback - A function which is called whenever the [world.HopperTransferHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/HopperTransferHook.html) is fired
+![tree example](img/treeex1.png)
 
- * priority - optional - see events.on() for more information.
+None of the tree methods require parameters. Tree methods will only be
+successful if the tree is placed on grass in a setting where trees can
+grow.
 
-### events.chunkUnload()
+### Drone.castle() method
 
-#### Parameters 
+Creates a Castle. A castle is just a big wide fort with 4 taller forts at each corner. 
+See also Drone.fort() method.
 
- * callback - A function which is called whenever the [world.ChunkUnloadHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/ChunkUnloadHook.html) is fired
+#### Parameters
+ 
+ * side - How many blocks wide and long the castle will be (default: 24. Must be greater than 19)
+ * height - How tall the castle will be (default: 10. Must be geater than 7)
 
- * priority - optional - see events.on() for more information.
+#### Example
 
-### events.blockGrow()
+At the in-game prompt you can create a castle by looking at a block and typing:
 
-#### Parameters 
+```javascript
+/js castle()
+```
 
- * callback - A function which is called whenever the [world.BlockGrowHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/BlockGrowHook.html) is fired
+Alternatively you can create a new Drone object from a Player or Location object and call the castle() method.
 
- * priority - optional - see events.on() for more information.
+```javascript
+var d = new Drone(player);
+d.castle();
+```
+![castle example](img/castleex1.png)
 
-### events.dispense()
+### Drone.chessboard() method
 
-#### Parameters 
+Creates a tile pattern of given block types and size
 
- * callback - A function which is called whenever the [world.DispenseHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/DispenseHook.html) is fired
+#### Parameters
 
- * priority - optional - see events.on() for more information.
+ * whiteBlock - (optional: default blocks.wool.white)
+ * blackBlock - (optional: default blocks.wool.black)
+ * width - width of the chessboard
+ * length - length of the chessboard
 
-### events.blockDropXp()
+#### Example
 
-#### Parameters 
+At the in-game prompt you can create a chessboard by looking at a block and typing:
 
- * callback - A function which is called whenever the [world.BlockDropXpHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/BlockDropXpHook.html) is fired
+```javascript
+/js chessboard()
+```
 
- * priority - optional - see events.on() for more information.
+Alternatively you can create a new Drone object from a Player or Location object and call the chessboard() method.
 
-### events.fireworkExplode()
+```javascript
+var d = new Drone(player);
+d.chessboard();
+```
+![chessboard example](img/chessboardex1.png)
 
-#### Parameters 
+### Drone.cottage() method
 
- * callback - A function which is called whenever the [world.FireworkExplodeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/FireworkExplodeHook.html) is fired
+Creates a simple but cosy dwelling.
 
- * priority - optional - see events.on() for more information.
+#### Example
 
-### events.leafDecay()
+At the in-game prompt you can create a cottage by looking at a block and typing:
 
-#### Parameters 
+```javascript
+/js cottage()
+```
 
- * callback - A function which is called whenever the [world.LeafDecayHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/LeafDecayHook.html) is fired
+Alternatively you can create a new Drone object from a Player or Location object and call the cottage() method.
 
- * priority - optional - see events.on() for more information.
+```javascript
+var d = new Drone(player);
+d.cottage();
+```
+![cottage example](img/cottageex1.png)
 
-### events.pistonExtend()
+### Drone.cottage_road() method
 
-#### Parameters 
+Creates a tree-lined avenue with cottages on both sides.
 
- * callback - A function which is called whenever the [world.PistonExtendHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/PistonExtendHook.html) is fired
+#### Parameters
+ 
+ * numberOfCottages: The number of cottages to build in total (optional: default 6)
 
- * priority - optional - see events.on() for more information.
+#### Example
 
-### events.noteBlockPlay()
+At the in-game prompt you can create a cottage road by looking at a block and typing:
 
-#### Parameters 
+```javascript
+/js cottage_road()
+```
 
- * callback - A function which is called whenever the [world.NoteBlockPlayHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/NoteBlockPlayHook.html) is fired
+Alternatively you can create a new Drone object from a Player or Location object and call the cottage_road() method.
 
- * priority - optional - see events.on() for more information.
+```javascript
+var d = new Drone(player);
+d.cottage_road();
+```
+![cottage_road example](img/cottageroadex1.png)
 
-### events.lightningStrike()
+### Drone.dancefloor() method
+Create an animated dance floor of colored tiles some of which emit light.
+The tiles change color every second creating a strobe-lit dance-floor effect.
+See it in action here [http://www.youtube.com/watch?v=UEooBt6NTFo][ytdance]
 
 #### Parameters 
 
- * callback - A function which is called whenever the [world.LightningStrikeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/LightningStrikeHook.html) is fired
+ * width - how wide the dancefloor should be (optional: default 5)
+ * length - how long the dancefloor should be (optional: default 5)
+ * duration - the time duration for which the lights should change (optional: default 30 seconds)
 
- * priority - optional - see events.on() for more information.
+#### Example
 
-### events.decorate()
+At the in-game prompt you can create a dancefloor by looking at a block and typing:
 
-#### Parameters 
-
- * callback - A function which is called whenever the [world.DecorateHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/DecorateHook.html) is fired
-
- * priority - optional - see events.on() for more information.
+```javascript
+/js dancefloor()
+```
 
-### events.explosion()
+Alternatively you can create a new Drone object from a Player or Location object and call the dancefloor() method.
 
-#### Parameters 
+```javascript
+var d = new Drone(player);
+d.dancefloor();
+```
 
- * callback - A function which is called whenever the [world.ExplosionHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/ExplosionHook.html) is fired
+[ytdance]: http://www.youtube.com/watch?v=UEooBt6NTFo
+![dancefloor example](img/dancefloorex1.png)
+### Drone.fort() method
 
- * priority - optional - see events.on() for more information.
+Constructs a medieval fort.
 
-### events.tNTActivate()
+#### Parameters
+ 
+ * side - How many blocks whide and long the fort will be (default: 18 . Must be greater than 9)
+ * height - How tall the fort will be (default: 6 . Must be greater than 3)
 
-#### Parameters 
+#### Example
 
- * callback - A function which is called whenever the [world.TNTActivateHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/TNTActivateHook.html) is fired
+At the in-game prompt you can create a fort by looking at a block and typing:
 
- * priority - optional - see events.on() for more information.
+```javascript
+/js fort()
+```
 
-### events.timeChange()
+Alternatively you can create a new Drone object from a Player or Location object and call the fort() method.
 
-#### Parameters 
+```javascript
+var d = new Drone(player);
+d.fort();
+```
+![fort example](img/fortex1.png)
 
- * callback - A function which is called whenever the [world.TimeChangeHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/TimeChangeHook.html) is fired
+### Drone.hangtorch() method
 
- * priority - optional - see events.on() for more information.
+Adds a hanging torch to a wall. This method will try to hang a torch
+against a wall. It will traverse backwards until it finds a block
+adjacent to air and hang the torch. If it can't find a block next to
+air it will log a message in the server.
 
-### events.flow()
+#### Example
 
-#### Parameters 
+At the in-game prompt you can create a hanging torch by looking at a
+block and typing:
 
- * callback - A function which is called whenever the [world.FlowHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/FlowHook.html) is fired
+```javascript
+/js hangtorch()
+```
 
- * priority - optional - see events.on() for more information.
+Alternatively you can create a new Drone object from a Player or
+Location object and call the hangtorch() method.
 
-### events.portalCreate()
+```javascript
+var d = new Drone(player);
+d.hangtorch();
+```
 
-#### Parameters 
+### Drone.lcdclock() method.
 
- * callback - A function which is called whenever the [world.PortalCreateHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/PortalCreateHook.html) is fired
+Constructs a large LCD Clock. The clock will display the current time of day.
+The clock can be stopped by calling the stopLCD() method of the Drone which created the clock.
 
- * priority - optional - see events.on() for more information.
+#### Parameters
 
-### events.blockPhysics()
+ * foregroundBlock (Optional - default is blocks.glowstone)
+ * backgroundBlock (Optional - default is blocks.wool.black)
+ * borderBlock (Optional - a border around the LCD display - default none)
 
-#### Parameters 
+#### Example
 
- * callback - A function which is called whenever the [world.BlockPhysicsHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/world/BlockPhysicsHook.html) is fired
+At the in-game prompt you can create a LCD clock by looking at a block and typing:
 
- * priority - optional - see events.on() for more information.
+```javascript
+/js var clock = lcdclock()
+/js clock.stopLCD()
+```
 
-### events.playerCommand()
+Alternatively you can create a new Drone object from a Player or Location object and call the lcdclock() method.
 
-#### Parameters 
+```javascript
+var d = new Drone(player);
+d.lcdclock();
+d.stopLCD();
+```
+![lcdclock example](img/lcdclockex1.png)
+### Drone.logojs() method
 
- * callback - A function which is called whenever the [command.PlayerCommandHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/command/PlayerCommandHook.html) is fired
+Constructs a large Javascript Logo (black JS on Yellow background)
+See: https://raw.github.com/voodootikigod/logo.js/master/js.png
 
- * priority - optional - see events.on() for more information.
+#### Parameters
 
-### events.consoleCommand()
+ * foregroundBlock (Optional - default is blocks.wool.gray)
+ * backgroundBlock (Optional - default is blocks.gold)
 
-#### Parameters 
+### Drone.maze() method
 
- * callback - A function which is called whenever the [command.ConsoleCommandHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/command/ConsoleCommandHook.html) is fired
+Maze generation based on http://rosettacode.org/wiki/Maze_generation#JavaScript
 
- * priority - optional - see events.on() for more information.
+#### Parameters
 
-### events.commandBlockCommand()
+ * width (optional - default 10)
+ * length (optional - default 10)
 
-#### Parameters 
+#### Example
 
- * callback - A function which is called whenever the [command.CommandBlockCommandHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/command/CommandBlockCommandHook.html) is fired
+At the in-game prompt you can create a maze by looking at a block and typing:
 
- * priority - optional - see events.on() for more information.
+```javascript
+/js maze()
+```
 
-### events.loadWorld()
+Alternatively you can create a new Drone object from a Player or Location object and call the maze() method.
 
-#### Parameters 
+```javascript
+var d = new Drone(player);
+d.maze();
+```
+![maze example](img/mazeex1.png)
 
- * callback - A function which is called whenever the [system.LoadWorldHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/LoadWorldHook.html) is fired
+### Drone.rainbow() method
 
- * priority - optional - see events.on() for more information.
+Creates a Rainbow.
 
-### events.permissionCheck()
+#### Parameters
 
-#### Parameters 
+ * radius (optional - default:18) - The radius of the rainbow
 
- * callback - A function which is called whenever the [system.PermissionCheckHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/PermissionCheckHook.html) is fired
+#### Example
 
- * priority - optional - see events.on() for more information.
+At the in-game prompt you can create a rainbow by looking at a block and typing:
+```javascript
+/js rainbow()
+```
 
-### events.serverGuiStart()
+Alternatively you can create a new Drone object from a Player or Location object and call the rainbow() method.
 
-#### Parameters 
+```javascript    
+var d = new Drone(player);
+d.rainbow(30);
+```
 
- * callback - A function which is called whenever the [system.ServerGuiStartHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/ServerGuiStartHook.html) is fired
+![rainbow example](img/rainbowex1.png)
 
- * priority - optional - see events.on() for more information.
+### Drone.spiral_stairs() method
 
-### events.unloadWorld()
+Constructs a spiral staircase with slabs at each corner.
 
-#### Parameters 
+#### Parameters
 
- * callback - A function which is called whenever the [system.UnloadWorldHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/UnloadWorldHook.html) is fired
+ * stairBlock - The block to use for stairs, should be one of the following...
+   - 'oak'
+   - 'spruce'
+   - 'birch'
+   - 'jungle'
+   - 'cobblestone'
+   - 'brick'
+   - 'stone'
+   - 'nether'
+   - 'sandstone'
+   - 'quartz'
+ * flights - The number of flights of stairs to build.
 
- * priority - optional - see events.on() for more information.
+![Spiral Staircase](img/spiralstair1.png)
 
-### events.pluginDisable()
+#### Example
 
-#### Parameters 
+To construct a spiral staircase 5 floors high made of oak...
 
- * callback - A function which is called whenever the [system.PluginDisableHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/PluginDisableHook.html) is fired
+    spiral_stairs('oak', 5);
 
- * priority - optional - see events.on() for more information.
+### Drone.temple() method
 
-### events.pluginEnable()
+Constructs a mayan temple.
 
-#### Parameters 
+#### Parameters
+ 
+ * side - How many blocks wide and long the temple will be (default: 20)
 
- * callback - A function which is called whenever the [system.PluginEnableHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/PluginEnableHook.html) is fired
+#### Example
 
- * priority - optional - see events.on() for more information.
+At the in-game prompt you can create a temple by looking at a block and typing:
 
-### events.serverTick()
+```javascript
+/js temple()
+```
 
-#### Parameters 
+Alternatively you can create a new Drone object from a Player or Location object and call the temple() method.
 
- * callback - A function which is called whenever the [system.ServerTickHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/ServerTickHook.html) is fired
+```javascript
+var d = new Drone(player);
+d.temple();
+```
+![temple example](img/templeex1.png)
 
- * priority - optional - see events.on() for more information.
+## The at Module
 
-### events.serverListPing()
+The at module provides a single function `at()` which can be used to schedule
+repeating (or non-repeating) tasks to be done at a particular time. 
 
-#### Parameters 
+### at() function
 
- * callback - A function which is called whenever the [system.ServerListPingHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/ServerListPingHook.html) is fired
+The utils.at() function will perform a given task at a given time in the 
+(minecraft) day.
 
- * priority - optional - see events.on() for more information.
+#### Parameters
 
-### events.serverShutdown()
+ * time24hr : The time in 24hr form - e.g. 9:30 in the morning is '09:30' while
+   9:30 pm is '21:30', midnight is '00:00' and midday is '12:00'
+ * callback : A javascript function which will be invoked at the given time.
+ * worlds : (optional) An array of worlds. Each world has its own clock. If no array of worlds is specified, all the server's worlds are used.
+ * repeat : (optional) true or false, default is true (repeat the task every day)
 
-#### Parameters 
+#### Example
 
- * callback - A function which is called whenever the [system.ServerShutdownHook event](https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/system/ServerShutdownHook.html) is fired
+To warn players when night is approaching:
 
- * priority - optional - see events.on() for more information.
+```javascript
+var utils = require('utils'),
+    at = require('at');
+function warning(){
+  utils.players(function( player ) {
+    echo( player, 'The night is dark and full of terrors!' );
+  });
+}
+at('19:00', warning);
+```
+To run a task only once at the next given time:
+```javascript
+var utils = require('utils'),
+    at = require('at');
+function wakeup(){
+  utils.players(function( player ) {
+    echo( player, "Wake Up Folks!" );
+  });
+}
+at('06:00', wakeup, null, false);
+```
 
 ## Blocks Module
 
@@ -3317,6 +4553,103 @@ location. For example...
     /js fireworks.firework( self.location );
 
 ![firework example](img/firework.png)
+
+## Classroom Plugin
+
+The `classroom` object contains a couple of utility functions for use
+in a classroom setting. The goal of these functions is to make it
+easier for tutors to facilitate ScriptCraft for use by students in a
+classroom environment. Although granting ScriptCraft access to
+students on a shared server is potentially risky (Students can
+potentially abuse it), it is slighlty less risky than granting
+operator privileges to each student. (Enterprising students will
+quickly realise how to grant themselves and others operator privileges
+once they have access to ScriptCraft).
+
+The goal of this module is not so much to enforce restrictions
+(security or otherwise) but to make it easier for tutors to setup a
+shared server so students can learn Javascript. When scripting is
+turned on, every player who joins the server will have a dedicated
+directory into which they can save scripts. All scripts in such
+directories are automatically watched and loaded into a global
+variable named after the player.
+
+So for example, if player 'walterh' joins the server, a `walterh`
+global variable is created. If a file `greet.js` with the following
+content is dropped into the `scriptcraft/players/walterh`
+directory...
+
+```javascript
+exports.hi = function( player ){
+  echo( player, 'Hi ' + player.name);
+};
+```
+
+... then it can be invoked like this: `/js walterh.hi( self )` . This
+lets every player/student create their own functions without having
+naming collisions.
+
+It's strongly recommended that the
+`scriptcraft/players/` directory is shared so that
+others can connect to it and drop .js files into their student
+directories. On Ubuntu, select the folder in Nautilus (the default
+file browser) then right-click and choose *Sharing Options*, check the
+*Share this folder* checkbox and the *Allow others to create and
+delete files* and *Guest access* checkboxes. Click *Create Share*
+button to close the sharing options dialog. Students can then access
+the shared folder as follows...
+
+ * Windows:   Open Explorer, Go to \\{serverAddress}\players\
+ * Macintosh: Open Finder,   Go to smb://{serverAddress}/players/
+ * Linux:     Open Nautilus, Go to smb://{serverAddress}/players/
+
+... where {serverAddress} is the ip address of the server (this is
+displayed to whoever invokes the classroom.allowScripting() function.)
+
+### jsp classroom command
+The `jsp classroom` command makes it easy for tutors to turn on or off
+classroom mode. This command can only be used by server operators. To
+turn on classroom mode (enable scripting for all players):
+
+    jsp classroom on
+
+To turn off classroom mode (disable scripting for all players):
+
+    jsp classroom off
+
+The `jsp classroom` command is provided as an easier way to turn on or
+off classroom mode. This should be used in preference to the
+classroom.allowScripting() function which is provided only for
+programmatically enabling or disabling classroom mode.
+
+### classroom.allowScripting() function
+
+Allow or disallow anyone who connects to the server (or is already
+connected) to use ScriptCraft. This function is preferable to granting 'ops' privileges 
+to every student in a Minecraft classroom environment.
+
+Whenever any file is added/edited or removed from any of the players/
+directories the contents are automatically reloaded. This is to
+facilitate quick turnaround time for students getting to grips with
+Javascript.
+
+#### Parameters
+
+ * canScript : true or false
+
+#### Example
+
+To allow all players (and any players who connect to the server) to
+use the `js` and `jsp` commands...
+
+    /js classroom.allowScripting( true, self )
+
+To disallow scripting (and prevent players who join the server from using the commands)...
+
+    /js classroom.allowScripting( false, self )
+
+Only ops users can run the classroom.allowScripting() function - this is so that students 
+don't try to bar themselves and each other from scripting.
 
 ## Asynchronous Input Module
 
@@ -3598,6 +4931,39 @@ if ( !sign ) {
 
 [buksign]: http://jd.bukkit.org/dev/apidocs/org/bukkit/block/Sign.html
 
+## The slash Module
+
+This module provides a single function which makes it easy to execute
+minecraft commands via javascript.
+
+### The slash() function
+
+This function makes it easy to execute one or more minecraft commands.
+
+#### Parameters
+
+ * commands : A String or Array of strings - each string is a command to be executed.
+ * sender: The player or server on whose behalf the commands should be executed.
+
+#### Examples
+
+Invoke the `/defaultgamemode creative` command (as server).
+
+```javascript
+var slash = require('slash');
+slash('defaultgamemode creative', server);
+```
+
+Set the time of day to Midday and toggle downfall:
+
+```javascript
+var slash = require('slash');
+slash([
+  'time set 6000',
+  'toggledownfall'
+], server);
+```
+
 ## Sounds Module
 
 This module is a simple wrapper around the Bukkit Sound class and provides
@@ -3664,6 +5030,36 @@ Example
 
 <p style="color:gold;font-weight:bold">Hello World</p>    
 
+## Teleport Module
+
+This module provides a function to teleport entities (Players or NPCs). 
+
+### Parameters
+
+ * entity - The player or NPC to be teleported. If of type String, then a player with that name will be teleported.
+ * destination - The location to which they should be teleported. If not of type Location but is a Player, Block or any
+   object which has a `location` property then that works too. If of type String, then it's assumed that the destination is the player with that name.
+
+### Example 
+
+The following code will teleport each player back to their spawn position.
+
+```javascript
+var teleport = require('teleport'),
+    utils = require('utils'),
+    players = utils.players(), 
+    i = 0;
+for ( ; i < players.length; i++ ) {
+  teleport( players[i], players[i].spawnPosition );
+}
+```
+
+The following code will teleport 'tom' to 'jane's location.
+
+```javascript
+var teleport = require('teleport');
+teleport('tom' , 'jane'); 
+```
 ## Utilities Module
 
 The `utils` module is a storehouse for various useful utility
@@ -3672,9 +5068,9 @@ miscellaneous utility functions and classes to help with programming.
 
 ### utils.player() function
 
-The utils.player() function will return a [bukkit Player][bkpl] object
+The utils.player() function will return a [Player][cmpl] object
 with the given name. This function takes a single parameter
-`playerName` which can be either a String or a [Player][bkpl] object -
+`playerName` which can be either a String or a [Player][cmpl] object -
 if it's a Player object, then the same object is returned. If it's a
 String, then it tries to find the player with that name.
 
@@ -3691,18 +5087,28 @@ var utils = require('utils');
 var name = 'walterh';
 var player = utils.player(name);
 if ( player ) {
-    echo(player, 'Got ' + name);
+  echo(player, 'Got ' + name);
 } else {
-    console.log('No player named ' + name);
+  console.log('No player named ' + name);
 }
 ```
 
 [bkpl]: http://jd.bukkit.org/dev/apidocs/org/bukkit/entity/Player.html
+[cmpl]: https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/api/entity/living/humanoid/Player.html
+[cmloc]: https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/api/world/position/Location.html 
 [bkloc]: http://jd.bukkit.org/dev/apidocs/org/bukkit/Location.html
+
+### utils.world( worldName ) function
+
+Returns a World object matching the given name
+
+### utils.blockAt( Location ) function
+
+Returns the Block at the given location.
 
 ### utils.locationToJSON() function
 
-utils.locationToJSON() returns a [org.bukkit.Location][bkloc] object in JSON form...
+utils.locationToJSON() returns a [Location][cmloc] object in JSON form...
 
     { world: 'world5',
       x: 56.9324,
@@ -3716,7 +5122,7 @@ This can be useful if you write a plugin that needs to store location data since
 
 #### Parameters
  
- * location: An object of type [org.bukkit.Location][bkloc]
+ * location: An object of type [Location][cmloc]
 
 #### Returns
 
@@ -3725,7 +5131,7 @@ A JSON object in the above form.
 ### utils.locationToString() function
 
 The utils.locationToString() function returns a
-[org.bukkit.Location][bkloc] object in string form...
+[Location][cmloc] object in string form...
 
     '{"world":"world5",x:56.9324,y:103.9954,z:43.1323,yaw:0.0,pitch:0.0}'
 
@@ -3743,7 +5149,7 @@ lookupTable[key] = player.name;
 
 ### utils.locationFromJSON() function
 
-This function reconstructs an [org.bukkit.Location][bkloc] object from
+This function reconstructs an [Location][cmloc] object from
 a JSON representation. This is the counterpart to the
 `locationToJSON()` function. It takes a JSON object of the form
 returned by locationToJSON() and reconstructs and returns a bukkit
@@ -3751,10 +5157,9 @@ Location object.
 
 ### utils.getPlayerPos() function
 
-This function returns the player's [Location][bkloc] (x, y, z, pitch
+This function returns the player's [Location][cmloc] (x, y, z, pitch
 and yaw) for a named player.  If the "player" is in fact a
-[org.bukkit.command.BlockCommandSender][bkbcs] then the attached
-Block's location is returned.
+[BlockCommand][bkbcs] then the attached Block's location is returned.
 
 #### Parameters
 
@@ -3762,13 +5167,13 @@ Block's location is returned.
 
 #### Returns
 
-An [org.bukkit.Location][bkloc] object.
+A [Location][cmloc] object.
 
 [bkbcs]: http://jd.bukkit.org/dev/apidocs/org/bukkit/command/BlockCommandSender.html
 [bksndr]: http://jd.bukkit.org/dev/apidocs/index.html?org/bukkit/command/CommandSender.html
 ### utils.getMousePos() function
 
-This function returns a [org.bukkit.Location][bkloc] object (the
+This function returns a [Location][cmloc] object (the
 x,y,z) of the current block being targeted by the named player. This
 is the location of the block the player is looking at (targeting).
 
@@ -3785,21 +5190,27 @@ var utils = require('utils');
 var playerName = 'walterh';
 var targetPos = utils.getMousePos(playerName);
 if (targetPos){
-   targetPos.world.strikeLightning(targetPos);
+  if (__plugin.canary){
+    targetPos.world.makeLightningBolt(targetPos);
+  }  
+  if (__plugin.bukkit){ 
+    targetPos.world.strikeLightning(targetPos);
+  }
 }
 ```
 
 ### utils.foreach() function
 
 The utils.foreach() function is a utility function for iterating over
-an array of objects (or a java.util.Collection of objects) and processing each object in turn. Where
-utils.foreach() differs from other similar functions found in
-javascript libraries, is that utils.foreach can process the array
-immediately or can process it *nicely* by processing one item at a
-time then delaying processing of the next item for a given number of
-server ticks (there are 20 ticks per second on the minecraft main
-thread).  This method relies on Bukkit's [org.bukkit.scheduler][sched]
-package for scheduling processing of arrays.
+an array of objects (or a java.util.Collection of objects) and
+processing each object in turn. Where utils.foreach() differs from
+other similar functions found in javascript libraries, is that
+utils.foreach can process the array immediately or can process it
+*nicely* by processing one item at a time then delaying processing of
+the next item for a given number of server ticks (there are 20 ticks
+per second on the minecraft main thread).  This method relies on
+Bukkit's [org.bukkit.scheduler][sched] package for scheduling
+processing of arrays.
 
 [sched]: http://jd.bukkit.org/beta/apidocs/org/bukkit/scheduler/package-summary.html
 
@@ -3817,11 +5228,9 @@ package for scheduling processing of arrays.
    - array : The entire array.
 
  * context (optional) : An object which may be used by the callback.
- * delay (optional, numeric) : If a delay is specified (in ticks - 20
-   ticks = 1 second), then the processing will be scheduled so that
+ * delayInMilliseconds (optional, numeric) : If a delay is specified then the processing will be scheduled so that
    each item will be processed in turn with a delay between the completion of each
-   item and the start of the next. This is recommended for big builds (say 200 x 200 x 200
-   blocks) or any CPU-intensive process.
+   item and the start of the next. This is recommended for any CPU-intensive process.
  * onDone (optional, function) : A function to be executed when all processing 
    is complete. This parameter is only used when the processing is delayed. (It's optional even if a 
    delay parameter is supplied).
@@ -3838,51 +5247,18 @@ The following example illustrates how to use foreach for immediate processing of
 
 ```javascript
 var utils = require('utils');
-var players = ['moe', 'larry', 'curly'];
-utils.foreach (players, function(item){ 
-    echo( server.getPlayer(item), 'Hi ' + item);
+var players = utils.players();
+utils.foreach (players, function( player ) { 
+  echo( player , 'Hi ' + player);
 });
 ```
 
-... The `utils.foreach()` function can work with Arrays or any Java-style collection. This is important
-because many objects in the Bukkit API use Java-style collections...
-
-```javascript
-utils.foreach( server.onlinePlayers, function(player){
-    player.chat('Hello!');
-}); 
-```
-
-... the above code sends a 'Hello!' to every online player.
-
-The following example is a more complex use case - The need to build an enormous structure
-without hogging CPU usage...
-
-```javascript
-// build a structure 200 wide x 200 tall x 200 long
-// (That's 8 Million Blocks - enough to tax any machine!)
-var utils = require('utils');
-
-var a = []; 
-a.length = 200; 
-var drone = new Drone();
-var processItem = function(item, index, object, array){
-    // build a box 200 wide by 200 long then move up
-    drone.box(blocks.wood, 200, 1, 200).up();
-};
-// by the time the job's done 'self' might be someone else 
-// assume this code is within a function/closure
-var player = self;
-var onDone = function(){ 
-    echo( player, 'Job Done!');
-};
-utils.foreach (a, processItem, null, 10, onDone);
-```
-    
+... The `utils.foreach()` function can work with Arrays or any
+Java-style collection. This is important because many objects in the
+CanaryMod and Bukkit APIs use Java-style collections.
 ### utils.nicely() function
 
-The utils.nicely() function is for performing processing using the
-[org.bukkit.scheduler][sched] package/API. utils.nicely() lets you
+The utils.nicely() function is for performing background processing. utils.nicely() lets you
 process with a specified delay between the completion of each `next()`
 function and the start of the next `next()` function.
 `utils.nicely()` is a recursive function - that is - it calls itself
@@ -3896,40 +5272,25 @@ function and the start of the next `next()` function.
    true if the `next` function should be called (processing is not
    complete), false otherwise.
  * onDone : A function which is to be called when all processing is complete (hasNext returned false).
- * delay : The delay (in server ticks - 20 per second) between each call.
+ * delayInMilliseconds : The delay between each call.
 
 #### Example
 
 See the source code to utils.foreach for an example of how utils.nicely is used.
 
-### utils.at() function
+### utils.time( world ) function
 
-The utils.at() function will perform a given task at a given time every 
-(minecraft) day.
+Returns the timeofday (in minecraft ticks) for the given world. This function is necessary because
+canarymod and bukkit differ in how the timeofday is calculated. 
 
-#### Parameters
+See http://minecraft.gamepedia.com/Day-night_cycle#Conversions
 
- * time24hr : The time in 24hr form - e.g. 9:30 in the morning is '09:30' while
-   9:30 pm is '21:30', midnight is '00:00' and midday is '12:00'
- * callback : A javascript function which will be invoked at the given time.
- * worlds : (optional) An array of worlds. Each world has its own clock. If no array of worlds is specified, all the server's worlds are used.
+### utils.time24( world ) function
 
-#### Example
+Returns the timeofday for the given world using 24 hour notation. (number of minutes)
 
-To warn players when night is approaching...
+See http://minecraft.gamepedia.com/Day-night_cycle#Conversions
 
-```javascript
-var utils = require('utils');
-
-utils.at( '19:00', function() {
-
-    utils.foreach( server.onlinePlayers, function( player ) {
-        player.chat( 'The night is dark and full of terrors!' );
-    });
-
-});
-```
-  
 ### utils.find() function
 
 The utils.find() function will return a list of all files starting at
@@ -3960,73 +5321,6 @@ var utils = require('utils');
 var serverAddress = utils.serverAddress();
 console.log(serverAddress);
 ```
-### utils.watchFile() function
-
-Watches for changes to the given file or directory and calls the function provided
-when the file changes.
-
-#### Parameters
- 
- * File - the file to watch (can be a file or directory)
- * Callback - The callback to invoke when the file has changed. The callback takes the 
-   changed file as a parameter.
-
-#### Example
-
-```javascript
-var utils = require('utils');
-utils.watchFile( 'test.txt', function( file ) { 
-   console.log( file + ' has changed');
-});
-```
-### utils.watchDir() function
-
-Watches for changes to the given directory and calls the function provided
-when the directory changes. It works by calling watchFile/watchDir for each
-file/subdirectory.
-
-#### Parameters
- 
- * Dir - the file to watch (can be a file or directory)
- * Callback - The callback to invoke when the directory has changed. 
-              The callback takes the changed file as a parameter. 
-              For each change inside the directory the callback will also 
-              be called.
-
-#### Example
-
-```javascript
-var utils = require('utils');
-utils.watchDir( 'players/_ial', function( dir ) { 
-   console.log( dir + ' has changed');
-});
-```
-### utils.unwatchFile() function
-
-Removes a file from the watch list.
-
-#### Example
-```javascript
-var utils = require('utils');
-utils.unwatchFile( 'test.txt');
-```
-
-### utils.unwatchDir() function
-
-Removes a directory from the watch list and all files inside the directory
-are also "unwatched"
-
-#### Example
-```javascript
-var utils = require('utils');
-utils.unwatchDir ('players/_ial');
-```
-Would cause also 
-```javascript
-utils.unwatchFile (file);
-```
-for each file inside directory (and unwatchDir for each directory inside it)
-
 ### utils.array() function
 
 Converts Java collection objects to type Javascript array so they can avail of
@@ -4039,7 +5333,16 @@ all of Javascript's Array goodness.
     
 ### utils.players() function
 
-This function returns a javascript array of all online players on the server.
+This function returns a javascript array of all online players on the
+server.  You can optionally provide a function which will be invoked
+with each player as a parameter.  For example, to give each player the
+ability to shoot arrows which launch fireworks:
+
+```javascript
+require('utils').players( arrows.firework )
+```
+
+Any players with a bow will be able to launch fireworks by shooting.
 
 ### utils.playerNames() function
 
@@ -4102,742 +5405,76 @@ This function also contains values for each possible stat so you can get at stat
     var utils = require('utils');
     var JUMPSTAT = utils.stat.JUMP; // Accessing the value
     var jumpCount = player.getStat ( JUMPSTAT ); // canary-specific code
-## Drone Plugin
+## The watcher Module
 
-The Drone is a convenience class for building. It can be used for...
+This module exposes functions for watching for changes to files or directories.
 
- 1. Building
- 2. Copying and Pasting
+### watcher.watchFile() function
 
-It uses a fluent interface which means all of the Drone's methods return `this` and can be chained together like so...
-
-    var theDrone = new Drone();
-    theDrone.up().left().box(blocks.oak).down().fwd(3).cylinder0(blocks.lava,8); 
-
-### Constructing a Drone Object
-
-Drones can be created in any of the following ways...
-    
- 1. Calling any one of the methods listed below will return a Drone object. For example...
-         
-        var d = box( blocks.oak )
-
-   ... creates a 1x1x1 wooden block at the cross-hairs or player's location and returns a Drone object. This might look odd (if you're familiar with Java's Object-dot-method syntax) but all of the Drone class's methods are also global functions that return new Drone objects. This is short-hand for creating drones and is useful for playing around with Drones at the in-game command prompt. It's shorter than typing ...
-    
-        var d = new Drone().box( blocks.oak ) 
-        
-   ... All of the Drone's methods return `this` so you can chain operations together like this...
-        
-        var d = box( blocks.oak )
-                  .up()
-                  .box( blocks.oak ,3,1,3)
-                  .down()
-                  .fwd(2)
-                  .box( blocks.oak )
-                  .turn()
-                  .fwd(2)
-                  .box( blocks.oak )
-                  .turn()
-                  .fwd(2)
-                  .box( blocks.oak );
-    
- 2. Using the following form...
-
-        d = new Drone()
-    
-    ...will create a new Drone. If the cross-hairs are pointing at a block at the time then, that block's location becomes the drone's starting point.  If the cross-hairs are _not_ pointing at a block, then the drone's starting location will be 2 blocks directly in front of the player.  TIP: Building always happens right and front of the drone's position...
-    
-    Plan View:
-
-        ^
-        |
-        |
-        D---->
-      
-    For convenience you can use a _corner stone_ to begin building. The corner stone should be located just above ground level. If the cross-hair is point at or into ground level when you create a new Drone(), then building begins at that point. You can get around this by pointing at a 'corner stone' just above ground level or alternatively use the following statement...
-    
-        d = new Drone().up();
-          
-    ... which will move the drone up one block as soon as it's created.
-
-    ![corner stone](img/cornerstone1.png)
-
- 3. Or by using the following form...
-    
-        d = new Drone(x,y,z,direction,world);
-
-    This will create a new Drone at the location you specified using x, y, z In minecraft, the X axis runs west to east and the Z axis runs north to south.  The direction parameter says what direction you want the drone to face: 0 = east, 1 = south, 2 = west, 3 = north.  If the direction parameter is omitted, the player's direction is used instead. Both the `direction` and `world` parameters are optional.
-
- 4. Create a new Drone based on a Bukkit Location object...
-
-        d = new Drone(location);
-
-    This is useful when you want to create a drone at a given `org.bukkit.Location` . The `Location` class is used throughout the bukkit API. For example, if you want to create a drone when a block is broken at the block's location you would do so like this...
-
-        events.blockBreak( function( event ) { 
-            var location = event.block.location;
-            var drone = new Drone(location);
-            // do more stuff with the drone here...
-        });
-
-#### Parameters
-
- * location (optional) : *NB* If an `org.bukkit.Location` object is provided as a parameter, then it should be the only parameter.
- * x (optional) : The x coordinate of the Drone
- * y (optional) : The y coordinate of the Drone
- * z (optional) : The z coordinate of the Drone
- * direction (optional) : The direction in which the Drone is
-   facing. Possible values are 0 (east), 1 (south), 2 (west) or 3 (north)
- * world (optional) : The world in which the drone is created.
-  
-### Drone.box() method
-
-the box() method is a convenience method for building things. (For the more performance-oriented method - see cuboid)
-
-#### parameters
-
- * b - the block id - e.g. 6 for an oak sapling or '6:2' for a birch sapling. Alternatively you can use any one of the `blocks` values e.g. `blocks.sapling.birch`
- * w (optional - default 1) - the width of the structure 
- * h (optional - default 1) - the height of the structure 
- * d (optional - default 1) - the depth of the structure - NB this is not how deep underground the structure lies - this is how far away (depth of field) from the drone the structure will extend.
-
-#### Example
-
-To create a black structure 4 blocks wide, 9 blocks tall and 1 block long...
-    
-    box(blocks.wool.black, 4, 9, 1);
-
-... or the following code does the same but creates a variable that can be used for further methods...
-
-    var drone = new Drone();
-    drone.box(blocks.wool.black, 4, 9, 1);
-
-![box example 1](img/boxex1.png)
-    
-### Drone.box0() method
-
-Another convenience method - this one creates 4 walls with no floor or ceiling.
-
-#### Parameters
-
- * block - the block id - e.g. 6 for an oak sapling or '6:2' for a birch sapling. Alternatively you can use any one of the `blocks` values e.g. `blocks.sapling.birch`
- * width (optional - default 1) - the width of the structure 
- * height (optional - default 1) - the height of the structure 
- * length (optional - default 1) - the length of the structure - how far
-   away (depth of field) from the drone the structure will extend.
-
-#### Example
-
-To create a stone building with the insided hollowed out 7 wide by 3 tall by 6 long...
-
-    box0( blocks.stone, 7, 3, 6);
-
-![example box0](img/box0ex1.png)
-   
-### Drone.boxa() method
-
-Construct a cuboid using an array of blocks. As the drone moves first along the width axis, then the height (y axis) then the length, each block is picked from the array and placed.
-
-#### Parameters
-
- * blocks - An array of blocks - each block in the array will be placed in turn.
- * width
- * height
- * length
-
-#### Example
-
-Construct a rainbow-colored road 100 blocks long...
-
-    var rainbowColors = [blocks.wool.red, blocks.wool.orange, blocks.wool.yellow, blocks.wool.lime,
-                         blocks.wool.lightblue, blocks.wool.blue, blocks.wool.purple];
-    
-    boxa(rainbowColors,7,1,30);
-
-![boxa example](img/boxaex1.png)
-
-### Drone Movement
-
-Drones can move freely in minecraft's 3-D world. You control the Drone's movement using any of the following methods..
-
- * up()
- * down()
- * left()
- * right()
- * fwd()
- * back()
- * turn()
-
-... Each of these methods takes a single optional parameter `numBlocks` - the number of blocks to move in the given direction. If no parameter is given, the default is 1.
-
-To change direction use the `turn()` method which also takes a single optional parameter (numTurns) - the number of 90 degree turns to make. Turns are always clock-wise. If the drone is facing north, then drone.turn() will make the turn face east. If the drone is facing east then drone.turn(2) will make the drone turn twice so that it is facing west.
-
-### Drone Positional Info
-
- * getLocation() - Returns a Bukkit Location object for the drone
-
-### Drone Markers
-
-Markers are useful when your Drone has to do a lot of work. You can set a check-point and return to the check-point using the move() method.  If your drone is about to undertake a lot of work - e.g. building a road, skyscraper or forest you should set a check-point before doing so if you want your drone to return to its current location.  
-
-A 'start' checkpoint is automatically created when the Drone is first created.
-
-Markers are created and returned to using the followng two methods...
-
- * chkpt - Saves the drone's current location so it can be returned to later.
- * move - moves the drone to a saved location. Alternatively you can provide an org.bukkit.Location object or x,y,z and direction parameters.
-
-#### Parameters
-
- * name - the name of the checkpoint to save or return to.
-
-#### Example
-
-    drone.chkpt('town-square');
-    //
-    // the drone can now go off on a long excursion
-    //
-    for ( i = 0; i< 100; i++) {  
-        drone.fwd(12).box(6); 
-    }
-    //
-    // return to the point before the excursion
-    //
-    drone.move('town-square');
-
-### Drone.prism() method
-
-Creates a prism. This is useful for roofs on houses.
-
-#### Parameters
-
- * block - the block id - e.g. 6 for an oak sapling or '6:2' for a birch sapling. Alternatively you can use any one of the `blocks` values e.g. `blocks.sapling.birch`
- * width - the width of the prism
- * length - the length of the prism (will be 2 time its height)
-
-#### Example
-
-    prism(blocks.oak,3,12);
-
-![prism example](img/prismex1.png)
-
-### Drone.prism0() method
-
-A variation on `prism` which hollows out the inside of the prism. It uses the same parameters as `prism`.
-
-### Drone.cylinder() method
-
-A convenience method for building cylinders. Building begins radius blocks to the right and forward.
-
-#### Parameters
-
- * block - the block id - e.g. 6 for an oak sapling or '6:2' for a birch sapling. Alternatively you can use any one of the `blocks` values e.g. `blocks.sapling.birch`
- * radius 
- * height
-
-#### Example
-
-To create a cylinder of Iron 7 blocks in radius and 1 block high...
-
-    cylinder(blocks.iron, 7 , 1);
-
-![cylinder example](img/cylinderex1.png)
-
-### Drone.cylinder0() method
-
-A version of cylinder that hollows out the middle.
-
-#### Example
-
-To create a hollow cylinder of Iron 7 blocks in radius and 1 block high...
-
-    cylinder0(blocks.iron, 7, 1);
-
-![cylinder0 example](img/cylinder0ex1.png)
-
-### Drone.arc() method
-
-The arc() method can be used to create 1 or more 90 degree arcs in the horizontal or vertical planes. This method is called by cylinder() and cylinder0() and the sphere() and sphere0() methods.
-
-#### Parameters
-
-arc() takes a single parameter - an object with the following named properties...
-
- * radius - The radius of the arc.
- * blockType - The type of block to use - this is the block Id only (no meta). See [Data Values][dv].
- * meta - The metadata value. See [Data Values][dv].
- * orientation (default: 'horizontal' ) - the orientation of the arc - can be 'vertical' or 'horizontal'.
- * stack (default: 1 ) - the height or length of the arc (depending on the orientation - if orientation is horizontal then this parameter refers to the height, if vertical then it refers to the length ).
- * strokeWidth (default: 1 ) - the width of the stroke (how many blocks) - if drawing nested arcs it's usually a good idea to set strokeWidth to at least 2 so that there are no gaps between each arc. The arc method uses a [bresenham algorithm][bres] to plot points along the circumference.
- * fill - If true (or present) then the arc will be filled in.
- * quadrants (default: `{topleft:true,topright:true,bottomleft:true,bottomright:true}` - An object with 4 properties indicating which of the 4 quadrants of a circle to draw. If the quadrants property is absent then all 4 quadrants are drawn.
-
-#### Examples
-
-To draw a 1/4 circle (top right quadrant only) with a radius of 10 and stroke width of 2 blocks ...
-
-    arc({blockType: blocks.iron, 
-         meta: 0, 
-         radius: 10,
-         strokeWidth: 2,
-         quadrants: { topright: true },
-         orientation: 'vertical', 
-         stack: 1,
-         fill: false
-         } );
-
-![arc example 1](img/arcex1.png)
-
-[bres]: http://en.wikipedia.org/wiki/Midpoint_circle_algorithm
-[dv]: http://www.minecraftwiki.net/wiki/Data_values
-
-### Drone.door() method
-
-create a door - if a parameter is supplied an Iron door is created otherwise a wooden door is created.
-
-#### Parameters
-
- * doorType (optional - default wood) - If a parameter is provided then the door is Iron.
-
-#### Example
-
-To create a wooden door at the crosshairs/drone's location...
-
-    var drone = new Drone();
-    drone.door();
-
-To create an iron door...
-
-    drone.door( blocks.door_iron );
-
-![iron door](img/doorex1.png)
-
-### Drone.door_iron() method
-
-create an Iron door.
-
-### Drone.door2() method
-
-Create double doors (left and right side)
-
-#### Parameters
-
- * doorType (optional - default wood) - If a parameter is provided then the door is Iron.
-
-#### Example
-
-To create double-doors at the cross-hairs/drone's location...
-
-    drone.door2();
-
-![double doors](img/door2ex1.png)
-
-### Drone.door2_iron() method
-
-Create double iron doors
-    
-
-### Drone.sign() method
-
-Signs must use block 63 (stand-alone signs) or 68 (signs on walls)
-
-#### Parameters
-
- * message -  can be a string or an array of strings. 
- * block - can be 63 or 68
-
-#### Example
-
-To create a free-standing sign...
-
-    drone.sign(["Hello","World"],63);
-
-![ground sign](img/signex1.png)
-
-... to create a wall mounted sign...
-
-    drone.sign(["Welcome","to","Scriptopia"], 68 );
-
-![wall sign](img/signex2.png)
-
-### Drone Trees methods
-
- * oak()
- * spruce()
- * birch()
- * jungle()
-
-#### Example
-
-To create 4 trees in a row, point the cross-hairs at the ground then type `/js ` and ...
-
-    up( ).oak( ).right(8 ).spruce( ).right(8 ).birch( ).right(8 ).jungle( );
-
-Trees won't always generate unless the conditions are right. You should use the tree methods when the drone is directly above the ground. Trees will usually grow if the drone's current location is occupied by Air and is directly above an area of grass (That is why the `up( )` method is called first).
-
-![tree example](img/treeex1.png)
-
-None of the tree methods require parameters. Tree methods will only be successful if the tree is placed on grass in a setting where trees can grow.
-
-### Drone.garden() method
-
-places random flowers and long grass (similar to the effect of placing bonemeal on grass)
-
-#### Parameters
-
- * width - the width of the garden
- * length - how far from the drone the garden extends
-
-#### Example
-
-To create a garden 10 blocks wide by 5 blocks long...
-
-    garden(10,5);
-
-![garden example](img/gardenex1.png)
-
-### Drone.rand() method
-
-rand takes either an array (if each blockid has the same chance of occurring) or an object where each property is a blockid and the value is it's weight (an integer)
-
-#### Example
-
-place random blocks stone, mossy stone and cracked stone (each block has the same chance of being picked)
-
-    rand( [blocks.brick.stone, blocks.brick.mossy, blocks.brick.cracked ],w,d,h) 
-
-to place random blocks stone has a 50% chance of being picked, 
-
-    var distribution = {};
-    distribution[ blocks.brick.stone ] = 5;
-    distribution[ blocks.brick.mossy ] = 3;
-    distribution[ blocks.brick.cracked ] = 2;
-
-    rand( distribution, width, height, depth) 
-
-regular stone has a 50% chance, mossy stone has a 30% chance and cracked stone has just a 20% chance of being picked.
-
-### Copy & Paste using Drone
-
-A drone can be used to copy and paste areas of the game world.
-
-### Drone.copy() method
-
-Copies an area so it can be pasted elsewhere. The name can be used for pasting the copied area elsewhere...
-
-#### Parameters
-
- * name - the name to be given to the copied area (used by `paste`)
- * width - the width of the area to copy
- * height - the height of the area to copy
- * length - the length of the area (extending away from the drone) to copy
-
-#### Example
-
-    drone.copy('somethingCool',10,5,10 ).right(12 ).paste('somethingCool' );
-
-### Drone.paste() method
-
-Pastes a copied area to the current location.
-
-#### Example
-
-To copy a 10x5x10 area (using the drone's coordinates as the starting point) into memory.  the copied area can be referenced using the name 'somethingCool'. The drone moves 12 blocks right then pastes the copy.
-
-    drone.copy('somethingCool',10,5,10 )
-         .right(12 )
-         .paste('somethingCool' );
-
-### Chaining
-
-All of the Drone methods return a Drone object, which means methods can be 'chained' together so instead of writing this...
-
-    drone = new Drone(); 
-    drone.fwd(3);
-    drone.left(2);
-    drone.box(2); // create a grass block 
-    drone.up();
-    drone.box(2); // create another grass block
-    drone.down();
-
-...you could simply write ...
-    
-    var drone = new Drone().fwd(3).left(2).box(2).up().box(2).down();
-
-... since each Drone method is also a global function that constructs a drone if none is supplied, you can shorten even further to just...
-    
-    fwd(3).left(2).box(2).up().box(2).down()
-
-The Drone object uses a [Fluent Interface][fl] to make ScriptCraft scripts more concise and easier to write and read.  Minecraft's in-game command prompt is limited to about 80 characters so chaining drone commands together means more can be done before hitting the command prompt limit. For complex building you should save your commands in a new script file and load it using /js load()
-
-[fl]: http://en.wikipedia.org/wiki/Fluent_interface
-
-### Drone Properties
-
- * x - The Drone's position along the west-east axis (x increases as you move east)
- * y - The Drone's position along the vertical axis (y increses as you move up)
- * z - The Drone's position along the north-south axis (z increases as you move south)
- * dir - The Drone's direction 0 is east, 1 is south , 2 is west and 3 is north.
-
-### Extending Drone
-
-The Drone object can be easily extended - new buidling recipes/blueprints can be added and can become part of a Drone's chain using the *static* method `Drone.extend`. 
-
-### Drone.extend() static method
-
-Use this method to add new methods (which also become chainable global functions) to the Drone object.
-
-#### Parameters
-
- * name - The name of the new method e.g. 'pyramid'. 
- * function - The method body.
-
-Alternatively if you provide just a function as a parameter, then the function name will be used as the new method name. For example the following two approaches are both valid.
-
-#### Example 1 Using name and function as parameters
-
-    // submitted by [edonaldson][edonaldson]
-    Drone.extend('pyramid', function( block,height) { 
-        this.chkpt('pyramid');
-        for ( var i = height; i > 0; i -= 2) {
-            this.box(block, i, 1, i).up().right().fwd();
-        }
-        return this.move('pyramid');      
-    });
-
-#### Example 2 Using just a named function as a parameter
-
-    function pyramid( block,height) { 
-        this.chkpt('pyramid');
-        for ( var i = height; i > 0; i -= 2) {
-            this.box(block, i, 1, i).up().right().fwd();
-        }
-        return this.move('pyramid');      
-    }
-    Drone.extend( pyramid );
-
-Once the method is defined (it can be defined in a new pyramid.js file) it can be used like so...
-
-    var d = new Drone();
-    d.pyramid(blocks.brick.stone, 12);
-
-... or simply ...
-
-    pyramid(blocks.brick.stone, 12);
-
-[edonaldson]: https://github.com/edonaldson
-
-### Drone Constants
-
-#### Drone.PLAYER_STAIRS_FACING
-
-An array which can be used when constructing stairs facing in the Drone's direction...
-
-    var d = new Drone();
-    d.box(blocks.stairs.oak + ':' + Drone.PLAYER_STAIRS_FACING[d.dir]);
-
-... will construct a single oak stair block facing the drone.
-
-#### Drone.PLAYER_SIGN_FACING
-
-An array which can be used when placing signs so they face in a given direction. This is used internally by the Drone.sign() method. It should also be used for placing any of the following blocks...
-
- * chest 
- * ladder
- * furnace
- * dispenser
-
-To place a chest facing the Drone ...
-
-    drone.box( blocks.chest + ':' + Drone.PLAYER_SIGN_FACING[drone.dir]);
-
-#### Drone.PLAYER_TORCH_FACING
-
-Used when placing torches so that they face towards the drone. 
-
-    drone.box( blocks.torch + ':' + Drone.PLAYER_TORCH_FACING[drone.dir]);
-
-### Drone.times() Method
-
-The times() method makes building multiple copies of buildings easy. It's possible to create rows or grids of buildings without resorting to `for` or `while` loops.
-
-#### Parameters
-
- * numTimes (optional - default 2) : The number of times you want to repeat the preceding statements.
-
-#### Example
-
-Say you want to do the same thing over and over. You have a couple of options...
-
- * You can use a for loop...
-
-    d = new Drone(); for ( var i =0;i < 4; i++) {  d.cottage().right(8); }
-
-While this will fit on the in-game prompt, it's awkward. You need to declare a new Drone object first, then write a for loop to create the 4 cottages. It's also error prone, even the `for` loop is too much syntax for what should really be simple.
-
- * You can use a while loop...
-   
-    d = new Drone(); var i=4; while (i--) {  d.cottage().right(8); }
-
-... which is slightly shorter but still too much syntax. Each of the above statements is fine for creating a 1-dimensional array of structures. But what if you want to create a 2-dimensional or 3-dimensional array of structures? Enter the `times()` method.
-
-The `times()` method lets you repeat commands in a chain any number of times. So to create 4 cottages in a row you would use the following statement...
-
-    cottage().right(8).times(4);
-
-...which will build a cottage, then move right 8 blocks, then do it again 4 times over so that at the end you will have 4 cottages in a row. What's more the `times()` method can be called more than once in a chain. So if you wanted to create a *grid* of 20 houses ( 4 x 5 ), you would do so using the following statement...
-
-    cottage().right(8).times(4).fwd(8).left(32).times(5);
-
-... breaking it down...
-
- 1. The first 3 calls in the chain ( `cottage()`, `right(8)`, `times(4)` ) build a single row of 4 cottages.
-
- 2. The last 3 calls in the chain ( `fwd(8)`, `left(32)`, `times(5)` ) move the drone forward 8 then left 32 blocks (4 x 8) to return to the original x coordinate, then everything in the chain is repeated again 5 times so that in the end, we have a grid of 20 cottages, 4 x 5.  Normally this would require a nested loop but the `times()` method does away with the need for loops when repeating builds.
-
-Another example: This statement creates a row of trees 2 by 3 ...
-
-    oak().right(10).times(2).left(20).fwd(10).times(3)
-
-... You can see the results below.
-
-![times example 1](img/times-trees.png)
-
-### Drone.blocktype() method
-
-Creates the text out of blocks. Useful for large-scale in-game signs.
+Watches for changes to the given file or directory and calls the function provided
+when the file changes.
 
 #### Parameters
  
- * message - The message to create - (use `\n` for newlines)
- * foregroundBlock (default: black wool) - The block to use for the foreground
- * backgroundBlock (default: none) - The block to use for the background
+ * File - the file to watch (can be a file or directory)
+ * Callback - The callback to invoke when the file has changed. The callback takes the 
+   changed file as a parameter.
 
 #### Example
 
-To create a 2-line high message using glowstone...
+```javascript
+var watcher = require('watcher');
+watcher.watchFile( 'test.txt', function( file ) { 
+  console.log( file + ' has changed');
+});
+```
+### watcher.watchDir() function
 
-    blocktype("Hello\nWorld",blocks.glowstone);
-
-![blocktype example][imgbt1]
-
-[imgbt1]: img/blocktype1.png
-
-### Drone.rainbow() method
-
-Creates a Rainbow.
-
-#### Parameters
-
- * radius (optional - default:18) - The radius of the rainbow
-
-#### Example
-    
-    var d = new Drone();
-    d.rainbow(30);
-
-![rainbow example](img/rainbowex1.png)
-
-### Drone.sphere() method
-
-Creates a sphere.
+Watches for changes to the given directory and calls the function provided
+when the directory changes. It works by calling watchFile/watchDir for each
+file/subdirectory.
 
 #### Parameters
  
- * block - The block the sphere will be made of.
- * radius - The radius of the sphere.
+ * Dir - the file to watch (can be a file or directory)
+ * Callback - The callback to invoke when the directory has changed. 
+              The callback takes the changed file as a parameter. 
+              For each change inside the directory the callback will also 
+              be called.
 
 #### Example
 
-To create a sphere of Iron with a radius of 10 blocks...
+```javascript
+var watcher = require('watcher');
+watcher.watchDir( 'players/_ial', function( dir ) { 
+  console.log( dir + ' has changed');
+});
+```
+### watcher.unwatchFile() function
 
-    sphere( blocks.iron, 10);
-
-![sphere example](img/sphereex1.png)
-
-Spheres are time-consuming to make. You *can* make large spheres (250 radius) but expect the
-server to be very busy for a couple of minutes while doing so.
-
-### Drone.sphere0() method
-
-Creates an empty sphere.
-
-#### Parameters
- 
- * block - The block the sphere will be made of.
- * radius - The radius of the sphere.
+Removes a file from the watch list.
 
 #### Example
+```javascript
+var watcher = require('watcher');
+watcher.unwatchFile('test.txt');
+```
 
-To create a sphere of Iron with a radius of 10 blocks...
+### watcher.unwatchDir() function
 
-    sphere0( blocks.iron, 10);
-
-Spheres are time-consuming to make. You *can* make large spheres (250 radius) but expect the
-server to be very busy for a couple of minutes while doing so.
-
-### Drone.hemisphere() method
-
-Creates a hemisphere. Hemispheres can be either north or south.
-
-#### Parameters
-
- * block - the block the hemisphere will be made of.
- * radius - the radius of the hemisphere
- * northSouth - whether the hemisphere is 'north' or 'south'
+Removes a directory from the watch list and all files inside the directory
+are also "unwatched"
 
 #### Example
-
-To create a wood 'north' hemisphere with a radius of 7 blocks...
-
-    hemisphere(blocks.oak, 7, 'north');
-
-![hemisphere example](img/hemisphereex1.png)
-
-### Drone.hemisphere0() method
-
-Creates a hollow hemisphere. Hemispheres can be either north or south.
-
-#### Parameters
-
- * block - the block the hemisphere will be made of.
- * radius - the radius of the hemisphere
- * northSouth - whether the hemisphere is 'north' or 'south'
-
-#### Example
-
-To create a glass 'north' hemisphere with a radius of 20 blocks...
-
-    hemisphere0(blocks.glass, 20, 'north');
-
-![hemisphere example](img/hemisphereex2.png)
-
-### Drone.spiral_stairs() method
-
-Constructs a spiral staircase with slabs at each corner.
-
-#### Parameters
-
- * stairBlock - The block to use for stairs, should be one of the following...
-   - 'oak'
-   - 'spruce'
-   - 'birch'
-   - 'jungle'
-   - 'cobblestone'
-   - 'brick'
-   - 'stone'
-   - 'nether'
-   - 'sandstone'
-   - 'quartz'
- * flights - The number of flights of stairs to build.
-
-![Spiral Staircase](img/spiralstair1.png)
-
-#### Example
-
-To construct a spiral staircase 5 floors high made of oak...
-
-    spiral_stairs('oak', 5);
+```javascript
+var watcher = require('watcher');
+watcher.unwatchDir ('players/_ial');
+```
+Would cause also 
+```javascript
+watcher.unwatchFile (file);
+```
+for each file inside directory (and unwatchDir for each directory inside it)
 
 ## Example Plugin #1 - A simple extension to Minecraft.
 
@@ -4913,7 +5550,7 @@ This differs from example 2 in that the function will only print a
 message for operators.
 
     command('op-hello', function (parameters, player) {
-        if (!player.op){
+        if ( !isOp(player) ){
           echo( player, 'Only operators can do this.');
           return;
         }
@@ -5036,84 +5673,46 @@ following reasons...
     `/scriptcraft/plugins` directory, it will be loaded automatically
     when the server starts up.
 
- 2. It uses ScriptCraft's `events.on()` function to add a new *Event
-    Handler*. An *Event Handler* is a just a function which gets
+ 2. It uses ScriptCraft's `events` module to add a new *Event
+    Handler*. An *Event Handler* is a function that gets
     called whenever a particular *event* happens in the game. The
     function defined below will only be executed whenever a player
     joins the game. This style of program is sometimes refered to as
     *Event-Driven Programming*.
 
-Adding new *Event Handlers* in ScriptCraft is relatively easy. Use the
-`events.on()` function to add a new event handler. It takes 2
-parameters...
+Adding new *Event Handlers* in ScriptCraft is relatively easy. Use one
+of the `events` module's functions to add a new event handler. The
+events module has many functions - one for each type of event. Each
+function takes a single parameter:
 
- 1. The Event Name, in this case `'player.PlayerJoinEvent'`. You can
-    browse [all possible Bukkit events][bkevts] (click the 'Next
-    Package' and 'Previous Package' links to browse).
-
- 2. The event handling function (also sometimes refered to as a
-    'callback'). In ScriptCraft, this function takes a single
-    parameter, an event object. All of the information about the event
-    is in the event object.
+ * The event handling function (also sometimes refered to as a
+   'callback'). In ScriptCraft, this function takes a single
+   parameter, an event object. All of the information about the event
+   is in the event object.
 
 In the example below, if a player joins the server and is an operator,
 then the ScriptCraft plugin information will be displayed to that
 player.
 
-What's also notable about this example is how it uses the [Bukkit
-API][bkapi]. The code...
+```javascript
+function onJoin( event ){
+  if ( isOp(event.player) ) {
+    echo( event.player, 'Welcome to ' + __plugin );
+  }
+}
+events.connection( onJoin );
+```
+First the onJoin() function is defined, this is our event handler -
+the function we wish to be called every time some new player joins the
+game. Then we hook up - or register - that function using the
+events.connection() function. The events.connection function is the
+function responsible for adding new *connection* event handlers - that
+is - functions which should be invoked when there's a new *connection*
+event in the game. A new *connection* event is fired whenever a player
+joins the game. There are many other types of events you can handle in
+Minecraft. You can see [a full list of events here][cmEvtList].
 
-    if (event.player.op)
-
-... is a succinct way of accessing object properties which in Java
-would have to be written as ...
-
-    if (event.getPlayer().isOp())
-
-... ScriptCraft uses a special version of JavaScript which comes
-bundled with Java (Minecraft is written in Java) and JavaScript in
-Java can access properties of Java objects more succinctly than in
-Java itself. What this means in practice is that when you're perusing
-the [Bukkit API Reference][bkapi] and come across a method like
-[Player.getAllowFlight()][bkgaf], you can write code like this...
-
-    var allowFlight = player.getAllowFlight(); // java style
-
-... or the more succinct ...
-
-    var allowFlight = player.allowFlight; // javascript style
-
-... Which style you choose is up to you but `player.allowFlight` is
-cleaner and more readable. Similarly where you see a method like
-[Player.setAllowFlight()][bksaf], you can write ...
-
-    player.setAllowFlight(true); // java style
-
-... or the more readable...
-
-    player.allowFlight = true; // javascript style
-
-... Which style you choose is up to you.
-
-[bkevts]: http://jd.bukkit.org/dev/apidocs/org/bukkit/event/package-summary.html
-[bkgaf]: http://jd.bukkit.org/dev/apidocs/org/bukkit/entity/Player.html#getAllowFlight()
-[bksaf]: http://jd.bukkit.org/dev/apidocs/org/bukkit/entity/Player.html#setAllowFlight()
-[bkapi]: http://jd.bukkit.org/dev/apidocs/
-
-    events.on( 'player.PlayerJoinEvent', function( event ) {
-      if ( event.player.op ) {
-        echo( event.player, 'Welcome to ' + __plugin);
-      }
-    });
-
-Update: Since version 2.0.8 the above code can be replaced by the more succinct:
-
-    events.playerJoin( function( event ) {
-      if ( event.player.op ) {
-        echo( event.player, 'Welcome to ' + __plugin);
-      }
-    });
-    
+[cmEvtList]: #events-helper-module-canary-version
 ## Arrows Plugin
 
 The arrows mod adds fancy arrows to the game. Arrows which... 
@@ -5203,87 +5802,6 @@ To get help on the `jsp alias` command:
 Aliases can be used at the in-game prompt by players or in the server
 console.  Aliases will not be able to avail of command autocompletion
 (pressing the TAB key will have no effect).
-
-## Classroom Plugin
-
-The `classroom` object contains a couple of utility functions for use
-in a classroom setting. The goal of these functions is to make it
-easier for tutors to facilitate ScriptCraft for use by students in a
-classroom environment. Although granting ScriptCraft access to
-students on a shared server is potentially risky (Students can
-potentially abuse it), it is slighlty less risky than granting
-operator privileges to each student. (Enterprising students will
-quickly realise how to grant themselves and others operator privileges
-once they have access to ScriptCraft).
-
-The goal of this module is not so much to enforce restrictions
-(security or otherwise) but to make it easier for tutors to setup a
-shared server so students can learn Javascript. When scripting is
-turned on, every player who joins the server will have a dedicated
-directory into which they can save scripts. All scripts in such
-directories are automatically watched and loaded into a global
-variable named after the player.
-
-So for example, if player 'walterh' joins the server, a `walterh`
-global variable is created. If a file `greet.js` with the following
-content is dropped into the `plugins/scriptcraft/players/walterh`
-directory...
-
-```javascript
-exports.hi = function( player ){
-  echo( player, 'Hi ' + player.name);
-};
-```
-
-... then it can be invoked like this: `/js walterh.hi( self )` . This
-lets every player/student create their own functions without having
-naming collisions.
-
-It's strongly recommended that the
-`craftbukkit/plugins/scriptcraft/players/` directory is shared so that
-others can connect to it and drop .js files into their student
-directories. On Ubuntu, select the folder in Nautilus (the default
-file browser) then right-click and choose *Sharing Options*, check the
-*Share this folder* checkbox and the *Allow others to create and
-delete files* and *Guest access* checkboxes. Click *Create Share*
-button to close the sharing options dialog. Students can then access
-the shared folder as follows...
-
- * Windows:   Open Explorer, Go to \\{serverAddress}\players\
- * Macintosh: Open Finder,   Go to smb://{serverAddress}/players/
- * Linux:     Open Nautilus, Go to smb://{serverAddress}/players/
-
-... where {serverAddress} is the ip address of the server (this is
-displayed to whoever invokes the classroom.allowScripting() function.)
-
-### classroom.allowScripting() function
-
-Allow or disallow anyone who connects to the server (or is already
-connected) to use ScriptCraft. This function is preferable to granting 'ops' privileges 
-to every student in a Minecraft classroom environment.
-
-Whenever any file is added/edited or removed from any of the players/
-directories the contents are automatically reloaded. This is to
-facilitate quick turnaround time for students getting to grips with
-Javascript.
-
-#### Parameters
-
- * canScript : true or false
-
-#### Example
-
-To allow all players (and any players who connect to the server) to
-use the `js` and `jsp` commands...
-
-    /js classroom.allowScripting( true, self )
-
-To disallow scripting (and prevent players who join the server from using the commands)...
-
-    /js classroom.allowScripting( false, self )
-
-Only ops users can run the classroom.allowScripting() function - this is so that students 
-don't try to bar themselves and each other from scripting.
 
 ## Commando Plugin
 
@@ -5488,30 +6006,37 @@ See https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/api/in
 
 The following functions are provided:
 
+ * acaciaDoor()
+ * acaciaFence()
+ * acaciaFenceGate()
  * acaciaLeaves()
  * acaciaLog()
  * acaciaSapling()
  * acaciaStairs()
  * acaciaWood()
- * acaciaWoodDoubleStep()
- * acaciaWoodStep()
+ * acaciaWoodSlab()
  * activatorRail()
  * allium()
+ * andesite()
  * anvil()
  * apple()
+ * armorStand()
  * arrow()
  * azureBluet()
  * bakedPotato()
+ * banner()
  * beacon()
  * bed()
  * bedrock()
+ * birchDoor()
+ * birchFence()
+ * birchFenceGate()
  * birchLeaves()
  * birchLog()
  * birchSapling()
  * birchWood()
- * birchWoodDoubleStep()
- * birchWoodStair()
- * birchWoodStep()
+ * birchWoodSlab()
+ * birchWoodStairs()
  * blackCarpet()
  * blackGlass()
  * blackGlassPane()
@@ -5536,7 +6061,8 @@ The following functions are provided:
  * bread()
  * brewingStand()
  * brickBlock()
- * brickStair()
+ * brickSlab()
+ * brickStairs()
  * brownCarpet()
  * brownGlass()
  * brownGlassPane()
@@ -5565,9 +6091,11 @@ The following functions are provided:
  * coal()
  * coalBlock()
  * coalOre()
+ * coarseDirt()
  * cobble()
  * cobbleSilverFishBlock()
- * cobbleStair()
+ * cobbleSlab()
+ * cobbleStairs()
  * cobblestoneWall()
  * cocoaBeans()
  * cocoaPlant()
@@ -5576,7 +6104,9 @@ The following functions are provided:
  * cookedChicken()
  * cookedClownFish()
  * cookedFish()
+ * cookedMutton()
  * cookedPufferFish()
+ * cookedRabbit()
  * cookedSalmon()
  * cookie()
  * crackedSilverFishBlock()
@@ -5588,13 +6118,15 @@ The following functions are provided:
  * cyanGlassPane()
  * cyanStainedClay()
  * dandelionYellow()
+ * darkOakDoor()
+ * darkOakFence()
+ * darkOakFenceGate()
  * darkOakLeaves()
  * darkOakLog()
  * darkOakSapling()
  * darkOakStairs()
  * darkOakWood()
- * darkOakWoodDoubleStep()
- * darkOakWoodStep()
+ * darkOakWoodSlab()
  * daylightSensor()
  * deadBush()
  * detectorRail()
@@ -5611,19 +6143,27 @@ The following functions are provided:
  * diamondPickaxe()
  * diamondSpade()
  * diamondSword()
+ * diorite()
  * dirt()
  * dispenser()
+ * doubleAcaciaWoodSlab()
+ * doubleBirchWoodSlab()
+ * doubleBrickBlockSlab()
+ * doubleCobbleSlab()
+ * doubleDarkOakWoodSlab()
  * doubleGrass()
- * doublestepBrickBlock()
- * doublestepCobble()
- * doublestepNetherBrick()
- * doublestepOrnateStone()
- * doublestepQuartz()
- * doublestepSandStone()
- * doublestepSandStoneTrim()
- * doublestepStone()
- * doublestepStoneBricks()
- * doublestepWood()
+ * doubleJungleWoodSlab()
+ * doubleNetherBrickSlab()
+ * doubleOakWoodSlab()
+ * doubleOrnateStoneSlab()
+ * doubleQuartzSlab()
+ * doubleRedSandstoneSlab()
+ * doubleSandStoneTrimSlab()
+ * doubleSandstoneSlab()
+ * doubleSpruceWoodSlab()
+ * doubleStoneBricksSlab()
+ * doubleStoneSlab()
+ * doubleWoodSlab()
  * dropper()
  * egg()
  * elevenRecord()
@@ -5678,6 +6218,7 @@ The following functions are provided:
  * goldSword()
  * goldenApple()
  * goldenCarrot()
+ * granite()
  * grass()
  * gravel()
  * grayCarpet()
@@ -5719,13 +6260,15 @@ The following functions are provided:
  * itemFrame()
  * jackOLantern()
  * jukebox()
+ * jungleDoor()
+ * jungleFence()
+ * jungleFenceGate()
  * jungleLeaves()
  * jungleLog()
  * jungleSapling()
  * jungleWood()
- * jungleWoodDoubleStep()
- * jungleWoodStair()
- * jungleWoodStep()
+ * jungleWoodSlab()
+ * jungleWoodStairs()
  * ladder()
  * lapisBlock()
  * lapisLazuli()
@@ -5786,8 +6329,9 @@ The following functions are provided:
  * nameTag()
  * netherBrick()
  * netherBrickFence()
- * netherBrickStair()
+ * netherBrickStairs()
  * netherBricks()
+ * netherBricksSlab()
  * netherQuartz()
  * netherQuartzOre()
  * netherStar()
@@ -5798,8 +6342,7 @@ The following functions are provided:
  * oakLog()
  * oakSapling()
  * oakWood()
- * oakWoodDoubleStep()
- * oakWoodStep()
+ * oakWoodSlab()
  * obsidian()
  * orangeCarpet()
  * orangeDye()
@@ -5810,6 +6353,7 @@ The following functions are provided:
  * ornateQuartzBlock()
  * ornateSilverFishBlock()
  * ornateStoneBrick()
+ * ornateStoneSlab()
  * oxeyeDaisy()
  * packedIce()
  * painting()
@@ -5817,7 +6361,7 @@ The following functions are provided:
  * peony()
  * pineLeaves()
  * pineLog()
- * pineWoodStair()
+ * pineWoodStairs()
  * pinkCarpet()
  * pinkDye()
  * pinkGlass()
@@ -5827,6 +6371,9 @@ The following functions are provided:
  * piston()
  * podzol()
  * poisonousPotato()
+ * polishedAndesite()
+ * polishedDiorite()
+ * polishedGranite()
  * poppy()
  * pork()
  * portal()
@@ -5835,6 +6382,8 @@ The following functions are provided:
  * potion()
  * poweredMinecart()
  * poweredRail()
+ * prismarineCrystals()
+ * prismarineShard()
  * pufferFish()
  * pumpkin()
  * pumpkinPie()
@@ -5848,16 +6397,27 @@ The following functions are provided:
  * quartzPillarCap()
  * quartzPillarHorizontal()
  * quartzPillarVertical()
+ * quartzSlab()
  * quartzStairs()
+ * rabbitFoot()
+ * rabbitHide()
+ * rabbitStew()
  * rail()
  * rawBeef()
  * rawChicken()
  * rawFish()
+ * rawMutton()
+ * rawRabbit()
  * rawSalmon()
  * redCarpet()
  * redGlass()
  * redGlassPane()
  * redMushroom()
+ * redSandstone()
+ * redSandstoneBlank()
+ * redSandstoneOrnate()
+ * redSandstoneSlab()
+ * redSandstoneStairs()
  * redStainedClay()
  * redStone()
  * redTulip()
@@ -5873,10 +6433,12 @@ The following functions are provided:
  * rottenFlesh()
  * saddle()
  * sand()
+ * sandStoneTrimSlab()
  * sandstone()
  * sandstoneBlank()
  * sandstoneOrnate()
- * sandstoneStair()
+ * sandstoneSlab()
+ * sandstoneStairs()
  * seeds()
  * shears()
  * shrub()
@@ -5892,34 +6454,28 @@ The following functions are provided:
  * spiderEye()
  * spiderWeb()
  * sponge()
+ * spruceDoor()
+ * spruceFence()
+ * spruceFenceGate()
  * spruceSapling()
  * spruceWood()
- * spruceWoodDoubleStep()
- * spruceWoodStep()
+ * spruceWoodSlab()
  * stalRecord()
  * steak()
- * stepBrickBlock()
- * stepCobble()
- * stepNetherBricks()
- * stepOrnateStone()
- * stepQuartz()
- * stepSandStone()
- * stepSandStoneTrim()
- * stepStone()
- * stepStoneBricks()
- * stepWood()
  * stick()
  * stickyPiston()
  * stone()
  * stoneAxe()
  * stoneBrick()
  * stoneBrickSilverFishBlock()
- * stoneBrickStair()
+ * stoneBrickStairs()
+ * stoneBricksSlab()
  * stoneButton()
  * stoneHoe()
  * stonePickaxe()
  * stonePlate()
  * stoneSilverFishBlock()
+ * stoneSlab()
  * stoneSpade()
  * stoneSword()
  * storageMinecart()
@@ -5953,10 +6509,11 @@ The following functions are provided:
  * woodHoe()
  * woodPickaxe()
  * woodPlate()
+ * woodSlab()
  * woodSpade()
  * woodSword()
  * woodenButton()
- * woodenStair()
+ * woodenStairs()
  * woolBlack()
  * woolBlue()
  * woolBrown()
