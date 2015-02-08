@@ -14,7 +14,7 @@ import net.canarymod.tasks.TaskOwner;
 import net.canarymod.commandsys.CommandListener;
 import net.canarymod.commandsys.Command;
 import net.canarymod.commandsys.CanaryCommand;
-import net.canarymod.commandsys.CommandMeta;
+import net.canarymod.commandsys.DynamicCommandAnnotation;
 import net.canarymod.commandsys.TabComplete;
 import net.canarymod.commandsys.CommandDependencyException;
 import net.canarymod.chat.MessageReceiver;
@@ -164,12 +164,19 @@ public class ScriptCraftPlugin extends Plugin implements PluginListener, Command
 
     public void registerCommand(String[] aliases)
     {
-        CommandMeta meta = new CommandMeta();
-
-        meta.Aliases = aliases;
-        meta.Description = "Description goes here";
-        meta.Permissions = new String[] { "" };
-        meta.ToolTip = "Tip goes here";
+        DynamicCommandAnnotation meta = new DynamicCommandAnnotation(
+            aliases,
+            new String[] {""}, // permissions
+            "Description goes here",
+            "Tip goes here",
+            "", // parent
+            "", // help lookup
+            new String [] {""}, // search terms
+            0, // min
+            -1, // max
+            "", // tabcomplete function
+            1 // version
+            );
 
         CanaryCommand ccmd = new CanaryCommand(meta, this, null, null) {
             @Override

@@ -29,7 +29,9 @@ exports.on = function(
   /* function( registeredListener, event) */ 
   handler,   
   /* (optional) String (HIGH, HIGHEST, LOW, LOWEST, NORMAL, MONITOR), */
-  priority   ) {
+  priority,
+  /* (optional) boolean Default true. Set false if you want cancelled events */
+  ignore_cancelled  ) {
   var handlerList,
     regd,
     eventExecutor;
@@ -38,6 +40,9 @@ exports.on = function(
     priority = bkEventPriority.HIGHEST;
   } else {
     priority = bkEventPriority[priority.toUpperCase().trim()];
+  }
+  if ( typeof ignore_cancelled == 'undefined' ) {
+    ignore_cancelled = true;
   }
   handlerList = getHandlerListForEventType (eventType);
 
@@ -60,7 +65,7 @@ exports.on = function(
    The workaround is to make the ScriptCraftPlugin java class a Listener.
    Should only unregister() registered plugins in ScriptCraft js code.
    */
-  regd = new bkRegisteredListener( __plugin, eventExecutor, priority, __plugin, true );
+  regd = new bkRegisteredListener( __plugin, eventExecutor, priority, __plugin, ignore_cancelled );
   handlerList.register( regd );
   result.unregister = function(){
     handlerList.unregister( regd );
