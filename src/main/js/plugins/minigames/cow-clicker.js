@@ -41,10 +41,13 @@ your own mini-game...
 
 ***/
 
+if (__plugin.canary || __plugin.bukkit){
+  console.warn('cow-clicker minigame is not yet supported in CanaryMod and Craftbukkit');
+  return;
+}
 var store = {},
   bkBukkit = org.bukkit.Bukkit,
   bkCow = org.bukkit.entity.Cow,
-  bkSound = org.bukkit.Sound,
   bkOfflinePlayer = org.bukkit.OfflinePlayer,
   scoreboardConfig = { 
     cowclicker: {
@@ -71,9 +74,9 @@ var _onPlayerInteract = function( event ) {
     scoreboard.update( 'cowclicker', player, store[ player.name ].score );
     
     bkBukkit.dispatchCommand( player, 'me clicked a cow!' );
-    sound( bkSound.CLICK, 1, 1 );
+    sound( bukkit.sound.CLICK, 1, 1 );
     setTimeout( function( ) {
-      sound( bkSound.COW_HURT, 10, 0.85 ) ;
+      sound( bukkit.sound.COW_HURT, 10, 0.85 ) ;
     }, 200 );
   }
 };
@@ -123,7 +126,7 @@ var _addPlayer = function( player, score ) {
   store[ player.name ] = { score: score };
   scoreboard.update( 'cowclicker', player, store[ player.name ].score);
   
-  player.sendMessage( 'Go forth and click some cows!' );
+  echo( player, 'Go forth and click some cows!' );
 };
 
 var _removePlayer = function( player, notify ) {
@@ -145,8 +148,8 @@ var _removePlayer = function( player, notify ) {
 
   delete store[ player.name ];
   if ( notify && player ) {
-    player.sendMessage( 'You clicked ' + playerScore + ' cows! ' + 
-			'You must be tired after all that clicking.' );
+    echo( player, 'You clicked ' + playerScore + ' cows! ' + 
+	  'You must be tired after all that clicking.' );
   }
 };
 

@@ -2,37 +2,53 @@
 /************************************************************************
 ## events Module
 
-The Events module provides a thin wrapper around Bukkit's
-Event-handling API.  Bukkit's Events API makes use of Java Annotations
-which are not available in Javascript, so this module provides a
-simple way to listen to minecraft events in javascript.
+The Events module provides a thin wrapper around CanaryMod's or
+Bukkit's Event-handling API.  The Java-based CanaryMod and Bukkit
+Events APIs make use of Java Annotations which are not available in
+Javascript, so this module provides a simple way to listen to
+minecraft events in javascript.
 
 ### events.on() static method
 
-This method is used to register event listeners. 
+This method is used to register event listeners. This method is called by all of the Event Helper methods. 
+The `events` object has functions for registering listeners for each type of event. For example, you can register a block-break listener using events.on:
+
+```javascript
+events.on( Packages.net.canarymod.hook.player.BlockDestroyHook, function( evt, cancel ) { 
+  echo(evt.player, evt.player.name + ' broke a block!');
+} );
+```
+
+or you can (and probably should) use the more succinct:
+
+```javascript
+events.blockDestroy( function( evt, cancel ) { 
+  echo(evt.player, evt.player.name + ' broke a block!');
+} );
+```
+
+The events.on method can be used to register standard CanaryMod/Bukkit
+events and can also be used to register non-standard events - that is
+- events provided by plugins.
 
 #### Parameters
 
- * eventName - A string or java class. If a string is supplied it must
-   be part of the Bukkit event class name.  See [Bukkit API][buk] for
-   details of the many bukkit event types. When a string is supplied
-   there is no need to provide the full class name - you should omit
-   the 'org.bukkit.event' prefix. e.g. if the string
-   "block.BlockBreakEvent" is supplied then it's converted to the
-   org.bukkit.event.block.BlockBreakEvent class .
- 
-   If a java class is provided (say in the case where you've defined
-   your own custom event) then provide the full class name (without
-   enclosing quotes).
+ * eventType - A Java class. See the [CanaryMod Hook API][cmEvtApi] or [Bukkit Event API][buk] for details of the many event types.  
 
  * callback - A function which will be called whenever the event
-   fires. The callback should take a single parameter, event (the event fired).
+   fires. The callback in turn takes 2 parameters: 
+   
+   - event : the event  fired
+   - cancel : a function which if invoked will cancel the  event - not all event types are cancelable; this function only cancels cancelable events).
 
- * priority (optional - default: "HIGHEST") - The priority the
-   listener/callback takes over other listeners to the same
-   event. Possible values are "HIGH", "HIGHEST", "LOW", "LOWEST",
-   "NORMAL", "MONITOR". For an explanation of what the different
-   priorities mean refer to bukkit's [Event API Reference][buk2].
+ * priority (optional - default: "CRITICAL" for CanaryMod or "HIGHEST" for Bukkit) - 
+   The priority the listener/callback takes over other listeners to the same event. 
+   Possible values for CanaryMod are "CRITICAL", "HIGH", "LOW", "NORMAL" and "PASSIVE".
+   For an explanation of what the different CanaryMod Hook priorities 
+   mean, refer to CanaryMod's [Hook Priority class][cmPriority]. 
+   Possible values for Bukkit are "HIGH", "HIGHEST", "LOW", "LOWEST", "NORMAL", "MONITOR". 
+   For an explanation of what the different Bukkit Event priorities 
+   mean, refer to bukkit's [Event API Reference][buk2]. 
 
 #### Returns
 
@@ -43,17 +59,17 @@ An object which can be used to unregister the listener.
 The following code will print a message on screen every time a block is broken in the game
 
 ```javascript
-events.on( 'block.BlockBreakEvent', function( evt ) { 
-    evt.player.sendMessage( evt.player.name + ' broke a block!');
+events.on( Packages.net.canarymod.hook.player.BlockDestroyHook, function( evt, cancel ) { 
+  echo(evt.player, evt.player.name + ' broke a block!');
 } );
 ```
 
 To handle an event only once and unregister from further events...
 
 ```javascript    
-events.on( 'block.BlockBreakEvent', function( evt ) { 
-    evt.player.sendMessage( evt.player.name + ' broke a block!');
-    this.unregister();
+events.on( Packages.net.canarymod.hook.player.BlockDestroyHook, function( evt, cancel ) { 
+  echo( evt.player, evt.player.name + ' broke a block!');
+  this.unregister();
 } );
 ```
 
@@ -65,99 +81,26 @@ object which is returned by the `events.on()` function.
 To unregister a listener *outside* of the listener function...
 
 ```javascript    
-var myBlockBreakListener = events.on( 'block.BlockBreakEvent', function( evt ) { ... } );
+var myBlockBreakListener = events.on( Packages.net.canarymod.hook.player.BlockDestroyHook, function( evt ) { ... } );
 ...
 myBlockBreakListener.unregister();
 ```
 
-To listen for events using a full class name as the `eventName` parameter...
-
-```javascript    
-events.on( org.bukkit.event.block.BlockBreakEvent, function( evt ) { 
-    evt.player.sendMessage( evt.player.name + ' broke a block!');
-} );
-```
-
 [buk2]: http://wiki.bukkit.org/Event_API_Reference
 [buk]: http://jd.bukkit.org/dev/apidocs/index.html?org/bukkit/event/Event.html
+[cmEvtApi]: https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/hook/Hook.html
+[cmPriority]: https://ci.visualillusionsent.net/job/CanaryLib/javadoc/net/canarymod/plugin/Priority.html
 
 ***/
-var helper = require('events-helper');
-for ( var func in helper ) {
-  exports[func] = helper[func];
-};
-
-var bkEventPriority = org.bukkit.event.EventPriority,
-  bkEventExecutor = org.bukkit.plugin.EventExecutor,
-  bkRegisteredListener = org.bukkit.plugin.RegisteredListener,
-  bkEventPackage = 'org.bukkit.event.';
-
-var nashorn = (typeof Java != 'undefined');
-
-function getHandlerListForEventType( eventType ){
-  var result = null;
-  var clazz = null;
-  if (!(typeof eventType == 'string')){
-    // it's a fully qualified event class 
-    if (nashorn) {
-      
-      //Nashorn doesn't like when getHandlerList is in a superclass of your event
-      //so to avoid this problem, call getHandlerList using java.lang.reflect
-      //methods
-      clazz = eventType['class'];
-      result = clazz.getMethod("getHandlerList").invoke(null);
-      
-    } else { 
-      result = eventType.getHandlerList();
-    }
-  } else { 
-    // it's an event class name partial
-    if (nashorn) { 
-      clazz = java.lang.Class.forName(bkEventPackage + '' + eventType);
-      result = clazz.getMethod("getHandlerList").invoke(null);
-    } else {
-      var eventType2 = eval( bkEventPackage + eventType );
-      result = eventType2.getHandlerList();
-    }
-  }
-  return result;
+var helper;
+/*global __plugin, module, require*/
+if (__plugin.canary){
+  module.exports = require('events-canary');
+  helper = require('events-helper-canary');
+} else {
+  module.exports = require('events-bukkit');
+  helper = require('events-helper-bukkit');
 }
-exports.on = function( 
-  /* String or java Class */
-  eventType, 
-  /* function( registeredListener, event) */ 
-  handler,   
-  /* (optional) String (HIGH, HIGHEST, LOW, LOWEST, NORMAL, MONITOR), */
-  priority   ) {
-  var handlerList,
-    listener = {},
-    eventExecutor;
-
-  if ( typeof priority == 'undefined' ) {
-    priority = bkEventPriority.HIGHEST;
-  } else {
-    priority = bkEventPriority[priority.toUpperCase()];
-  }
-  handlerList = getHandlerListForEventType (eventType);
-
-  var result = { };
-  eventExecutor = new bkEventExecutor( {
-    execute: function( l, evt ) {
-      handler.call( result, evt );
-    } 
-  } );
-  /* 
-   wph 20130222 issue #64 bad interaction with Essentials plugin
-   if another plugin tries to unregister a Listener (not a Plugin or a RegisteredListener)
-   then BOOM! the other plugin will throw an error because Rhino can't coerce an
-   equals() method from an Interface.
-   The workaround is to make the ScriptCraftPlugin java class a Listener.
-   Should only unregister() registered plugins in ScriptCraft js code.
-   */
-  listener.reg = new bkRegisteredListener( __plugin, eventExecutor, priority, __plugin, true );
-  handlerList.register( listener.reg );
-  result.unregister = function(){
-    handlerList.unregister( listener.reg );
-  };
-  return result;
+for ( var func in helper ) {
+  module.exports[func] = helper[func];
 };
