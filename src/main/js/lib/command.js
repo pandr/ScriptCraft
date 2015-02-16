@@ -1,13 +1,9 @@
 'use strict';
 /* 
    command management - allow for non-ops to execute approved javascript code.
-
-   command2 stuff is experimental/proposed replacement for command,
-   eliminating need for jsp stuff.
 */
 var _jspcommands = {},
   _cmdInterceptors = [];
-
 /*
   execute a JSP command.
 */
@@ -42,39 +38,6 @@ var executeJspCmd = function( args, player ) {
   }
   return result;
 };
-
-/* Execute a command */
-
-var isCommand2Known = function (cmdName)
-{
-  var cmd = _commands2[cmdName];
-  if(typeof cmd === 'undefined') {
-    return false;
-  }
-  return true;
-}
-
-var executeCmd2 = function( cmdName, args, player ) {
-  var name,
-    cmd,
-    intercepted,
-    result = null;
-
-  console.info( 'Doing cmd: ' + cmdName + " with " + JSON.stringify( args ) );
-  cmd = _commands2[cmdName];
-  if ( typeof cmd === 'undefined' ) {
-    console.warn( 'Command %s is not recognised', cmdName );
-    return null;
-  }
-  try { 
-    result = cmd.callback( args, player );
-  } catch ( e ) {
-    console.error( 'Error while trying to execute command: ' + JSON.stringify( args ) );
-    throw e;
-  }
-  return result;
-};
-
 /*
   define a new JSP command.
 */
@@ -107,9 +70,9 @@ exports.exec = executeJspCmd;
 
 var  _commands = {};
 
-var registerCommand = function( name, func )
+var registerCommand = function( name, func, options )
 {
-  _commands[name] = { callback: func };
+  _commands[name] = { callback: func, options: options };
   __plugin.registerCommand([name]);
 }
 
@@ -133,5 +96,30 @@ var executeCommand = function(args, player)
   return result;
 }
 
+var tabcompleteCommand = function(cmdname, prefix, result)
+{
+  var cmd = _commands[cmdname];
+  if(typeof cmd === 'undefined')
+    return false;
+
+  var opts = [];
+  if(typeof cmd.options === 'function') {
+    opts = cmd.options();
+  }
+  else if (cmd.options instanceof Array) {
+    opts = cmd.options;
+  }
+
+  for(var i = 0; i < opts.length; i++)
+  {
+    if(opts[i].indexOf(prefix) === 0)
+    {
+      result.add(opts[i]);
+    }
+  }
+  return (result.length > 0);
+}
+
 exports.registerCommand = registerCommand;
 exports.executeCommand = executeCommand;
+exports.tabcompleteCommand = tabcompleteCommand;

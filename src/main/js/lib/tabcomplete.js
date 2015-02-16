@@ -141,44 +141,8 @@ var onTabCompleteJS = function( ) {
     return tabCompleteJSP( result, cmdArgs );
   }
 
-  // Argument hints for command2
-  if ( commandModule.isCommand2Known(pluginCmd.name) )
-  {
-    var cmd = commandModule.commands2[pluginCmd.name];
-
-    var opts;
-
-    if (typeof cmd.options === 'function'){
-      opts = cmd.options();
-    } else {
-      opts = cmd.options;
-    }
-    var len = opts.length;
-    if ( cmdArgs.length > 0 ) {
-      // partial e.g. /mycmd dar<TAB>
-      for ( i = 0; i < len; i++ ) {
-        if ( opts[i].indexOf( cmdArgs[0] ) == 0 ) {
-          result.add( opts[i] );
-        }
-      }
-    }
-    return result;
-  }
-
-  if ( cmdArgs.length == 0 ) {
-    for ( i in commandModule.commands2 ) { 
-      result.add( i );
-    }
-  } else {
-    // partial e.g. /ho
-    // should tabcomplete to home if home is known
-    //
-    for ( i in commandModule.commands2 ) {
-      if ( i.indexOf( cmdArgs[0] ) == 0 ) {
-        result.add( i );
-      }
-    }
-  }
+  if(commandModule.tabcompleteCommand(pluginCmd, cmdArgs[0], result))
+    return;
 
   global.self = cmdSender; // bring in self just for autocomplete
 
