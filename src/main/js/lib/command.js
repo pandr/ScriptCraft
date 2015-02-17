@@ -73,7 +73,7 @@ var  _commands = {};
 var registerCommand = function( name, func, options )
 {
   _commands[name] = { callback: func, options: options };
-  __plugin.registerCommand([name]);
+  __plugin.registerCommand([name], "Description here", "Usage here");
 }
 
 var executeCommand = function(args, player)

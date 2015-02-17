@@ -19,9 +19,9 @@ permission.  By default, all players are granted this permission.
 ***/
 
 function foobar ( parameters, player ) {
-	player.sendMessage( 'Indeed Foobar ' + player.name + ',' + JSON.stringify(parameters));
+	echo(player, 'Indeed Foobar ' + player.name + ',' + JSON.stringify(parameters));
 }
 
-command.registerCommand("foobar",foobar, ['foo','bar','baz']);
+registerCommand("foobar",foobar, ['foo','bar','baz']);
 
 

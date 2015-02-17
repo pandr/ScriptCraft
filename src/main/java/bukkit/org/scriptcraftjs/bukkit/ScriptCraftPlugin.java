@@ -56,9 +56,11 @@ public class ScriptCraftPlugin extends JavaPlugin implements Listener
         }
     }
 
-    public void registerCommand(String... aliases)
+    public void registerCommand(String[] aliases, String description, String usage)
     {
         PluginCommand command = getCommand(aliases[0], this);
+	command.setDescription(description);
+	command.setUsage(usage);
 
         command.setAliases(Arrays.asList(aliases));
         getCommandMap().register(this.getDescription().getName(), command);

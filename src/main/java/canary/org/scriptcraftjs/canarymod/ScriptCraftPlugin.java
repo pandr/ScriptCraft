@@ -162,13 +162,13 @@ public class ScriptCraftPlugin extends Plugin implements PluginListener, Command
         return complete(sender, args, "jsp");
     }
 
-    public void registerCommand(String[] aliases)
+    public void registerCommand(String[] aliases, String description, String usage)
     {
         DynamicCommandAnnotation meta = new DynamicCommandAnnotation(
             aliases,
             new String[] {""}, // permissions
-            "Description goes here",
-            "Tip goes here",
+            description,
+            usage,
             "", // parent
             "", // help lookup
             new String [] {""}, // search terms
